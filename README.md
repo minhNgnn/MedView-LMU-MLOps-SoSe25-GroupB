@@ -1,0 +1,85 @@
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## Codebase Structure
+
+```
+.github/                  # GitHub Actions and Dependabot configurations
+│   ├── dependabot.yaml
+│   └── workflows/
+│       └── tests.yaml        # CI/CD workflows for testing
+configs/                  # Configuration files
+│   ├── data/             # Data-related configurations
+│   └── model/            # Model-related configurations
+data/                     # Data directory
+│   ├── processed/        # Processed and cleaned data
+│   └── raw/              # Raw, uncleaned data
+dockerfiles/              # Dockerfiles for containerizing services
+│   ├── api.Dockerfile    # Dockerfile for the prediction API
+│   └── train.Dockerfile  # Dockerfile for model training
+docs/                     # Project documentation
+│   ├── mkdocs.yml        # MkDocs configuration
+│   └── source/           # Documentation source files
+│       └── index.md
+models/                   # Directory for trained model artifacts
+notebooks/                # Jupyter notebooks for experimentation and analysis
+reports/                  # Generated reports and figures
+│   └── figures/
+src/
+│   ├── frontend/         # Frontend React application code
+│   │   ├── components/   # Reusable UI components
+│   │   ├── hooks/        # Custom React hooks
+│   │   ├── lib/          # Utility functions and shared configurations
+│   │   ├── pages/        # Top-level page components (e.g., Index.tsx)
+│   │   ├── types/        # TypeScript type definitions
+│   │   ├── App.css       # Main application CSS
+│   │   ├── App.tsx       # Main application component
+│   │   ├── index.css     # Global styles
+│   │   ├── main.tsx      # Application entry point
+│   │   └── vite-env.d.ts # Vite environment type definitions
+│   └── ml_backend/       # Machine Learning Backend (Python)
+│       ├── __init__.py   # Makes ml_backend a Python package
+│       ├── api.py        # FastAPI application for model serving
+│       ├── data.py       # Data loading and initial processing scripts
+│       ├── evaluate.py   # Model evaluation scripts
+│       ├── features.py   # Feature engineering scripts
+│       ├── models.py     # Model definition, training, and prediction logic
+│       ├── train.py      # Main script for orchestrating model training
+│       └── visualize.py  # Data and model visualization scripts
+tests/                    # Unit and integration tests
+│   ├── __init__.py
+│   ├── test_api.py
+│   ├── test_data.py
+│   └── test_model.py
+.env                      # Environment variables (ignored by Git)
+.gitignore                # Specifies intentionally untracked files to ignore
+.pre-commit-config.yaml   # Pre-commit hooks configuration
+LICENSE                   # Project licensing information
+pyproject.toml            # Python project metadata and build system
+README.md                 # Project overview and instructions
+requirements.txt          # Python dependencies for the project
+requirements_dev.txt      # Development Python dependencies
+tasks.py                  # Automation scripts (e.g., using Invoke)
+vite.config.ts            # Vite configuration for the frontend
+```
+
+## How to run the web frontend locally
+
+1. **Install dependencies**
+   ```sh
+   npm install
+   ```
+
+2. **Start the development server**
+   ```sh
+   npm run dev
+   ```
+
+3. **Open your browser** and go to the URL shown in the terminal (usually http://localhost:8080 or http://localhost:8081).
+
+The frontend code is located in `src/frontend/`. The entry point is `src/frontend/main.tsx` and the main HTML file is `src/frontend/index.html`.
