@@ -46,13 +46,13 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
         
         # Predict with the model
         best_model = YOLO(best_model_path)
-        results = best_model.predict(source=normalized_image_uint8, imgsz=640, conf=0.5)
+        results = best_model.predict(source=normalized_image_uint8, imgsz=640, conf=0.5,
+                                     project="reports", name="test_prediction", save=True, save_txt=True, save_conf=True, line_width=1)
         
         # Plot image with labels
-        annotated_image = results[0].plot(line_width=1)
-        annotated_image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+        # annotated_image = results[0].plot(line_width=1)
+        # annotated_image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
         # plt.imshow(annotated_image_rgb)
-        cv2.imwrite("reports/test_prediction.jpg", annotated_image_rgb)
 
     # Mock prediction result for API endpoint
     # mock_result = {
@@ -65,7 +65,7 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
     #         "Schedule regular check-ups"
     #     ]
     # }
-    return annotated_image_rgb
+    return results
 
 if __name__ == "__main__":
-    get_prediction(best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/BrainTumorYolov8/test/images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
+    get_prediction(best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
