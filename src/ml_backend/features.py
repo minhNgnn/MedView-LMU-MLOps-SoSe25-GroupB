@@ -11,5 +11,5 @@ def select_features(features: Any) -> Any:
     print("Selecting features...")
     # Placeholder for actual feature selection logic
     features_ = features.drop('Outcome', axis=1)
-    # return f"Mock selected features from {features}" 
+    # return f"Mock selected features from {features}"
     return features_

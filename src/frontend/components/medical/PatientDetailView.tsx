@@ -68,7 +68,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                 <p className="text-sm text-gray-500">ID: {patient.id}</p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <Button
                 variant="outline"
@@ -223,13 +223,13 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-                <img 
-                  src={patient.brainScan.imageUrl} 
-                  alt="Brain Scan" 
+                <img
+                  src={patient.brainScan.imageUrl}
+                  alt="Brain Scan"
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="font-medium">Tumor Detection</span>
@@ -244,12 +244,12 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                     </Badge>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium text-gray-500">Diagnosis</label>
                   <p className="text-sm text-gray-900 mt-1">{patient.brainScan.diagnosis}</p>
                 </div>
-                
+
                 <div className={`${colorClasses.bg} ${colorClasses.border} p-4 rounded-lg border`}>
                   <h4 className={`font-medium ${colorClasses.text} mb-2`}>ML Analysis</h4>
                   <div className="space-y-2">
@@ -260,7 +260,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
+                      <div
                         className={`${colorClasses.bar} h-2 rounded-full`}
                         style={{ width: `${cancerProbability * 100}%` }}
                       ></div>
@@ -270,7 +270,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                     </p>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium text-gray-500">Scan Date</label>
                   <p className="text-sm text-gray-900">{patient.brainScan.scanDate}</p>

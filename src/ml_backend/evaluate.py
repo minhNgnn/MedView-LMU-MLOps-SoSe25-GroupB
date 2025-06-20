@@ -9,4 +9,4 @@ def evaluate_model(model: Any, X_test: Any, y_test: Any) -> Dict:
         "precision": 0.80,
         "recall": 0.90,
         "f1_score": 0.85
-    } 
+    }

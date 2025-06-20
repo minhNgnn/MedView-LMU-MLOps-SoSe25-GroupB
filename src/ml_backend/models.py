@@ -40,4 +40,4 @@ def predict(model: Any, X: Any) -> Dict:
             "Monitor blood sugar levels",
             "Adopt a healthy diet"
         ]
-    } 
+    }

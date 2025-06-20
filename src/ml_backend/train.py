@@ -34,7 +34,7 @@ def run_training_pipeline(model_name: Annotated[str, typer.Option("--model_name"
     print("Training pipeline completed.")
 
 if __name__ == "__main__":
-    # MODEL_NAME = "yolov8n" 
+    # MODEL_NAME = "yolov8n"
     # EPOCH = 5
     # run_training_pipeline(MODEL_NAME, EPOCH)
     app()

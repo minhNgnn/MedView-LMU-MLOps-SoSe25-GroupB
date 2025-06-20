@@ -20,7 +20,7 @@ def save_processed_data(data: Any, file_path: str):
     """Saves processed data to a specified file path."""
     print(f"Saving processed data to: {file_path}")
     # Placeholder for actual data saving logic
-    pass 
+    pass
 
 def split_data(X, y, test_size: float = 0.3, random_state: int = 42) -> Dict[str, Any]:
     X_train , X_test , y_train , y_test = train_test_split(X, y, test_size=test_size , random_state=random_state)

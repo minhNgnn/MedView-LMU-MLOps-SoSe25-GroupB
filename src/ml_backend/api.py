@@ -40,15 +40,15 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
         resized_image = resize_image(image, size=(640, 640))
         # Normalize image
         normalized_image = normalize_image(resized_image)
-        
+
         # Convert the normalized image to uint8 data type
         normalized_image_uint8 = (normalized_image * 255).astype(np.uint8)
-        
+
         # Predict with the model
         best_model = YOLO(best_model_path)
         results = best_model.predict(source=normalized_image_uint8, imgsz=640, conf=0.5,
                                      project="reports", name="test_prediction", save=True, save_txt=True, save_conf=True, line_width=1)
-        
+
         # Plot image with labels
         # annotated_image = results[0].plot(line_width=1)
         # annotated_image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)

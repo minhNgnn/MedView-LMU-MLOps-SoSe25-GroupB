@@ -157,7 +157,7 @@ const PatientListView: React.FC<PatientListViewProps> = ({ onPatientSelect }) =>
                     {patient.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
-                
+
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold text-gray-900">{patient.name}</h3>

@@ -23,9 +23,9 @@ const MedicalDashboard = () => {
         <PatientListView onPatientSelect={handlePatientSelect} />
       ) : (
         selectedPatient && (
-          <PatientDetailView 
-            patient={selectedPatient} 
-            onBack={handleBackToList} 
+          <PatientDetailView
+            patient={selectedPatient}
+            onBack={handleBackToList}
           />
         )
       )}

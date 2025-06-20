@@ -17,7 +17,7 @@ bun.lockb
 
 # Editor directories and files
 .vscode/
-!.vscode/extensions.json 
+!.vscode/extensions.json
 .idea
 .DS_Store # Mac OS-specific storage files
 
@@ -96,7 +96,7 @@ instance/
 
 # Documentation
 docs/_build/
-docs/site/ 
+docs/site/
 
 # PyBuilder
 .pybuilder/
@@ -110,7 +110,7 @@ profile_default/
 ipython_config.py
 
 # Python environment management
-.python-version 
+.python-version
 # Pipfile.lock # pipenv
 # poetry.lock # poetry
 # pdm.lock # pdm
@@ -125,7 +125,7 @@ celerybeat.pid
 *.sage.py
 
 # Python Environments
-.env 
+.env
 .venv
 env/
 venv/
