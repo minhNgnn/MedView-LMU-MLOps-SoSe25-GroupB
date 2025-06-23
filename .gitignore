@@ -144,3 +144,6 @@ dmypy.json
 .pytype/
 cython_debug/
 #.idea/ # Uncomment if you want to ignore the entire PyCharm idea folder
+
+data/
+/data
