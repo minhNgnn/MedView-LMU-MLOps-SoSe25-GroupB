@@ -1,15 +1,19 @@
-from models import train_model, save_model
-from data import load_raw_data, clean_data, split_data
-from features import engineer_features, select_features
 from typing import Annotated
+
 import typer
+from features import engineer_features, select_features
+
+from data import clean_data, load_raw_data, split_data
+from models import save_model, train_model
 
 app = typer.Typer()
 
+
 @app.command()
-def run_training_pipeline(model_name: Annotated[str, typer.Option("--model_name", "-m")] = "yolov8n",
-                          epoch: Annotated[int, typer.Option("--epoch")] = 10,
-                          ):
+def run_training_pipeline(
+    model_name: Annotated[str, typer.Option("--model_name", "-m")] = "yolov8n",
+    epoch: Annotated[int, typer.Option("--epoch")] = 10,
+):
     print("Starting training pipeline...")
 
     # 1. Load Data
@@ -32,6 +36,7 @@ def run_training_pipeline(model_name: Annotated[str, typer.Option("--model_name"
     # save_model(trained_model, model_output_path)
 
     print("Training pipeline completed.")
+
 
 if __name__ == "__main__":
     # MODEL_NAME = "yolov8n"

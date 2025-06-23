@@ -1,16 +1,18 @@
-from typing import Dict, Any
+from typing import Any, Dict
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
 from fastapi import FastAPI
 from pydantic import BaseModel
-import cv2
-import numpy as np
 from ultralytics import YOLO
-import matplotlib.pyplot as plt
 
 # Assuming predict_model and load_model are available in the models module
 # For now, we'll use a placeholder
 # from src.ml_backend.models.predict_model import load_model, predict
 
 app = FastAPI()
+
 
 class PatientData(BaseModel):
     age: int
@@ -20,14 +22,18 @@ class PatientData(BaseModel):
     cholesterol: int
     smoker: bool
 
+
 # Placeholder for loaded model
 # ml_model = load_model("path/to/your/model.pkl")
+
 
 def normalize_image(image):
     return image / 255.0
 
+
 def resize_image(image, size=(640, 640)):
     return cv2.resize(image, size)
+
 
 # @app.post("/predict")
 # async def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
@@ -46,8 +52,17 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
 
         # Predict with the model
         best_model = YOLO(best_model_path)
-        results = best_model.predict(source=normalized_image_uint8, imgsz=640, conf=0.5,
-                                     project="reports", name="test_prediction", save=True, save_txt=True, save_conf=True, line_width=1)
+        results = best_model.predict(
+            source=normalized_image_uint8,
+            imgsz=640,
+            conf=0.5,
+            project="reports",
+            name="test_prediction",
+            save=True,
+            save_txt=True,
+            save_conf=True,
+            line_width=1,
+        )
 
         # Plot image with labels
         # annotated_image = results[0].plot(line_width=1)
@@ -67,5 +82,9 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
     # }
     return results
 
+
 if __name__ == "__main__":
-    get_prediction(best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
+    get_prediction(
+        best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt",
+        test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg",
+    )
