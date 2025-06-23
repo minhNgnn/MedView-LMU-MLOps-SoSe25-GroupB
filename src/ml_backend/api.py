@@ -3,15 +3,26 @@ from typing import Any, Dict
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from ultralytics import YOLO
+import io
 
 # Assuming predict_model and load_model are available in the models module
 # For now, we'll use a placeholder
 # from src.ml_backend.models.predict_model import load_model, predict
 
 app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.post("/api/predict")
+async def predict_tumor(image_file: UploadFile = File(...)):
+    image_bytes = await image_file.read()
+    return StreamingResponse(io.BytesIO(image_bytes), media_type=image_file.content_type)
 
 
 class PatientData(BaseModel):
