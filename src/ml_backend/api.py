@@ -1,13 +1,13 @@
+import io
 from typing import Any, Dict
 
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from ultralytics import YOLO
-import io
 
 # Assuming predict_model and load_model are available in the models module
 # For now, we'll use a placeholder
@@ -15,9 +15,11 @@ import io
 
 app = FastAPI()
 
+
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
 
 @app.post("/api/predict")
 async def predict_tumor(image_file: UploadFile = File(...)):
