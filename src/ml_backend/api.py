@@ -15,9 +15,9 @@ import io
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
 
 @app.post("/api/predict")
 async def predict_tumor(image_file: UploadFile = File(...)):
