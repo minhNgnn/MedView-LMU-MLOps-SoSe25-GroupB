@@ -1,3 +1,7 @@
+#OS stuff
+.DS_Store 
+*Zone.Identifier
+
 # Logs
 logs
 *.log
@@ -19,7 +23,7 @@ bun.lockb
 .vscode/
 !.vscode/extensions.json
 .idea
-.DS_Store # Mac OS-specific storage files
+.dvc
 
 # Vim editor files
 *.swp
