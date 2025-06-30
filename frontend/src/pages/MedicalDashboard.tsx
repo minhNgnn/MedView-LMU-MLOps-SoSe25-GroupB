@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PatientListView from '../components/medical/PatientListView';
-import PatientDetailView from '../components/medical/PatientDetailView';
-import { Patient } from '../types/medical';
+import PatientListView from '@/components/medical/PatientListView';
+import PatientDetailView from '@/components/medical/PatientDetailView';
+import { Patient } from '@/types/medical';
 
 const MedicalDashboard = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);

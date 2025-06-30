@@ -1,6 +1,7 @@
 #OS stuff
 .DS_Store
 *Zone.Identifier
+.vite
 
 # Logs
 logs
