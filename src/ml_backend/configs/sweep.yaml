@@ -1,0 +1,16 @@
+program: src/ml_backend/train.py
+name: BrainTumorDetectionSweep
+project: BrainTumorDetection  # change this
+entity: eunai9  # change this
+method: bayes
+metric:
+    goal: minimize
+    name: validation_loss
+parameters:
+    model_name:
+        values: ["yolov8n", "simple"] # ["yolov9n", "yolov11n"]
+    batch_size:
+        values: [4, 8]
+    epochs:
+        values: [5, 10]
+run_cap: 10
