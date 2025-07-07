@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ArrowLeft, Home, Phone, Mail, MapPin, Heart, Activity, Zap, AlertTriangle, CheckCircle } from 'lucide-react';
 import { Patient } from '@/types/medical';
 import { useNavigate } from 'react-router-dom';
+import ImageUploadAndPredict from './ImageUploadAndPredict';
 
 interface PatientDetailViewProps {
   patient: Patient;
@@ -209,6 +210,19 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                   </Badge>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* Image Upload and Predict Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <div className="w-2 h-6 bg-purple-500 rounded"></div>
+                <span>Image Prediction</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ImageUploadAndPredict />
             </CardContent>
           </Card>
 
