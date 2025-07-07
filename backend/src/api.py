@@ -6,9 +6,8 @@ import numpy as np
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
 
-# Assuming predict_model and load_model are available in the models module
-# For now, we'll use a placeholder
-# from src.ml_backend.models.predict_model import load_model, predict
+# Import ML logic from the ml package
+from ml import models  # adjust as needed
 
 app = FastAPI()
 
@@ -21,7 +20,7 @@ class PatientData(BaseModel):
     smoker: bool
 
 # Placeholder for loaded model
-# ml_model = load_model("path/to/your/model.pkl")
+# ml_model = models.predict_model.load_model("path/to/your/model.pkl")
 
 def normalize_image(image):
     return image / 255.0
@@ -68,4 +67,4 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
     return results
 
 if __name__ == "__main__":
-    get_prediction(best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
+    get_prediction(best_model_path="ml/models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
