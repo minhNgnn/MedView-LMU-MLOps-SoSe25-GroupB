@@ -5,12 +5,28 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import create_engine, text
+from fastapi.responses import JSONResponse
 
 # Assuming predict_model and load_model are available in the models module
 # For now, we'll use a placeholder
 # from src.ml_backend.models.predict_model import load_model, predict
 
 app = FastAPI()
+
+# Add CORS middleware for frontend-backend communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# PostgreSQL connection (adjust user/password/host as needed)
+DATABASE_URL = "postgresql://pc@localhost:5432/postgres"
+engine = create_engine(DATABASE_URL)
 
 class PatientData(BaseModel):
     age: int
@@ -66,6 +82,13 @@ def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
     #     ]
     # }
     return results
+
+@app.get("/patients")
+def get_patients():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT id, first_name, last_name, age, gender, phone_number, email, address, blood_pressure, blood_sugar, cholesterol, smoking_status, alcohol_consumption, exercise_frequency, activity_level FROM patients LIMIT 10"))
+        patients = [dict(row) for row in result]
+    return JSONResponse(content=patients)
 
 if __name__ == "__main__":
     get_prediction(best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
