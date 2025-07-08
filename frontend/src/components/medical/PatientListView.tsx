@@ -27,7 +27,7 @@ interface PatientListViewProps {
   onPatientSelect: (patient: Patient) => void;
 }
 
-const PatientListView: React.FC<PatientListViewProps> = ({ onPatientSelect }) => {
+const PatientListView: React.FC<PatientListViewProps> = () => {
   const navigate = useNavigate();
   const [patients, setPatients] = useState<Patient[]>([]);
 
@@ -66,7 +66,7 @@ const PatientListView: React.FC<PatientListViewProps> = ({ onPatientSelect }) =>
             {patients.map((patient) => (
               <div
                 key={patient.id}
-                onClick={() => onPatientSelect(patient)}
+                onClick={() => navigate(`/patients/${patient.id}`)}
                 className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
               >
                 <Avatar className="h-12 w-12">

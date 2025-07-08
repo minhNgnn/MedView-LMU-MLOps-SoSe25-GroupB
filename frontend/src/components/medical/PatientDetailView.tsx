@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ArrowLeft, Home, Phone, Mail, MapPin, Heart, Activity, Zap } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 interface Patient {
   id: number;
@@ -24,16 +24,36 @@ interface Patient {
   activity_level: string;
 }
 
-interface PatientDetailViewProps {
-  patient: Patient;
-  onBack: () => void;
-}
-
-const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
+const PatientDetailView = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [patient, setPatient] = useState<Patient | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:8000/patients/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          setPatient(data);
+          setLoading(false);
+        });
+    }
+  }, [id]);
+
+  if (loading) {
+    return <div className="p-8 text-center">Loading patient details...</div>;
+  }
+  if (!patient) {
+    return <div className="p-8 text-center text-red-500">Patient not found.</div>;
+  }
 
   const handleGoHome = () => {
     navigate('/');
+  };
+
+  const handleBack = () => {
+    navigate('/patients');
   };
 
   return (
@@ -67,7 +87,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={onBack}
+                onClick={handleBack}
                 className="flex items-center space-x-2"
               >
                 <ArrowLeft className="h-4 w-4" />

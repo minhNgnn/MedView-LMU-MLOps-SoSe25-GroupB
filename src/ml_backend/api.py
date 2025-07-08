@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
 from fastapi.responses import JSONResponse
+from fastapi import HTTPException
 
 # Assuming predict_model and load_model are available in the models module
 # For now, we'll use a placeholder
@@ -89,6 +90,15 @@ def get_patients():
         result = conn.execute(text("SELECT id, first_name, last_name, age, gender, phone_number, email, address, blood_pressure, blood_sugar, cholesterol, smoking_status, alcohol_consumption, exercise_frequency, activity_level FROM patients LIMIT 10"))
         patients = [dict(row) for row in result]
     return JSONResponse(content=patients)
+
+@app.get("/patients/{id}")
+def get_patient(id: int):
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT id, first_name, last_name, age, gender, phone_number, email, address, blood_pressure, blood_sugar, cholesterol, smoking_status, alcohol_consumption, exercise_frequency, activity_level FROM patients WHERE id = :id"), {"id": id})
+        row = result.fetchone()
+        if row is None:
+            raise HTTPException(status_code=404, detail="Patient not found")
+        return dict(row)
 
 if __name__ == "__main__":
     get_prediction(best_model_path="models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
