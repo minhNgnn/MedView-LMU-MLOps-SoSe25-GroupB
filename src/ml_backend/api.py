@@ -9,6 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Assuming predict_model and load_model are available in the models module
 # For now, we'll use a placeholder
@@ -26,7 +29,7 @@ app.add_middleware(
 )
 
 # PostgreSQL connection (adjust user/password/host as needed)
-DATABASE_URL = "postgresql://pc@localhost:5432/postgres"
+DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 
 class PatientData(BaseModel):
