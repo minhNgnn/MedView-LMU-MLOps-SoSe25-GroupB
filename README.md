@@ -83,3 +83,36 @@ vite.config.ts            # Vite configuration for the frontend
 3. **Open your browser** and go to the URL shown in the terminal (usually http://localhost:8080 or http://localhost:8081).
 
 The frontend code is located in `src/frontend/`. The entry point is `src/frontend/main.tsx` and the main HTML file is `src/frontend/index.html`.
+
+## How to run the app with Docker
+
+You can run the full stack application (frontend and backend) using Docker and Docker Compose. This will build and start both the FastAPI backend and the frontend (served with nginx) in separate containers.
+
+### 1. Build and run with Docker Compose
+
+From the project root, run:
+
+```sh
+docker-compose up --build
+```
+
+- This command will build the images for both the API and frontend using the Dockerfiles in `dockerfiles/api.Dockerfile` and `dockerfiles/frontend.Dockerfile`.
+- It will start both services as defined in `docker-compose.yml`.
+
+### 2. Access the app
+
+- **Frontend:** [http://localhost:8080](http://localhost:8080)
+- **API:** [http://localhost:8000](http://localhost:8000)
+
+### 3. Stopping the app
+
+To stop the containers, press `Ctrl+C` in the terminal where Docker Compose is running. To remove the containers, run:
+
+```sh
+docker-compose down
+```
+
+### 4. Notes
+- Make sure Docker is installed and running on your system.
+- You can modify the Dockerfiles in the `dockerfiles/` directory if you need to customize the build process for the API or frontend.
+- The `docker-compose.yml` file orchestrates the services and handles port mapping.
