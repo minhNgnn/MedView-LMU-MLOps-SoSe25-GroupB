@@ -13,6 +13,11 @@ const ImageUploadAndPredict: React.FC = () => {
     if (file) {
       setSelectedImage(file);
       setPreviewUrl(URL.createObjectURL(file));
+      // Clear the previous prediction result when a new image is uploaded
+      if (predictedImageUrl) {
+        // @ts-ignore
+        predict.clearResult && predict.clearResult(); // if your hook supports clearing
+      }
     }
   };
 
@@ -51,21 +56,22 @@ const ImageUploadAndPredict: React.FC = () => {
           </Button>
         )}
       </div>
-      {/* Only show preview if no prediction result yet */}
-      {previewUrl && !predictedImageUrl && (
-        <img
-          src={previewUrl}
-          alt="Selected"
-          className="mt-2 rounded border max-w-xs max-h-64"
-        />
-      )}
-      {predictedImageUrl && (
-        <div className="mt-4">
+      {/* Show preview if available, otherwise show prediction result */}
+      {previewUrl ? (
+        <div className="w-full flex justify-center">
+          <img
+            src={previewUrl}
+            alt="Selected"
+            className="mt-2 rounded border w-full h-auto"
+          />
+        </div>
+      ) : predictedImageUrl && (
+        <div className="mt-4 w-full">
           <div className="font-semibold mb-2">Prediction Result:</div>
           <img
             src={predictedImageUrl}
             alt="Prediction Result"
-            className="rounded border max-w-xs max-h-64"
+            className="rounded border w-full h-auto"
           />
         </div>
       )}
