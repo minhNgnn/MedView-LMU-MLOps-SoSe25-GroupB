@@ -1,48 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ArrowLeft, Home, Phone, Mail, MapPin, Heart, Activity, Zap } from 'lucide-react';
-
-interface Patient {
-  id: number;
-  first_name: string;
-  last_name: string;
-  age: number;
-  gender: string;
-  phone_number: string;
-  email: string;
-  address: string;
-  blood_pressure: string;
-  blood_sugar: number;
-  cholesterol: number;
-  smoking_status: string;
-  alcohol_consumption: string;
-  exercise_frequency: string;
-  activity_level: string;
-}
+import { usePatient } from '@/hooks/usePatient';
 
 const PatientDetailView = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [patient, setPatient] = useState<Patient | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (id) {
-      fetch(`http://localhost:8000/patients/${id}`)
-        .then(res => res.json())
-        .then(data => {
-          setPatient(data);
-          setLoading(false);
-        });
-    }
-  }, [id]);
+  const { patient, loading, error } = usePatient(id);
 
   if (loading) {
     return <div className="p-8 text-center">Loading patient details...</div>;
+  }
+  if (error) {
+    return <div className="p-8 text-center text-red-500">{error}</div>;
   }
   if (!patient) {
     return <div className="p-8 text-center text-red-500">Patient not found.</div>;

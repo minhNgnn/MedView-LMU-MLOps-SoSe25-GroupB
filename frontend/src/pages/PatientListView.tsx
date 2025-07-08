@@ -1,41 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Clock, User, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { usePatients } from '@/hooks/usePatients';
 
-interface Patient {
-  id: number;
-  first_name: string;
-  last_name: string;
-  age: number;
-  gender: string;
-  phone_number: string;
-  email: string;
-  address: string;
-  blood_pressure: string;
-  blood_sugar: number;
-  cholesterol: number;
-  smoking_status: string;
-  alcohol_consumption: string;
-  exercise_frequency: string;
-  activity_level: string;
-}
-
-interface PatientListViewProps {
-  onPatientSelect: (patient: Patient) => void;
-}
-
-const PatientListView: React.FC<PatientListViewProps> = () => {
+const PatientListView: React.FC = () => {
   const navigate = useNavigate();
-  const [patients, setPatients] = useState<Patient[]>([]);
+  const { patients, loading, error } = usePatients();
 
-  useEffect(() => {
-    fetch('http://localhost:8000/patients')
-      .then(res => res.json())
-      .then(data => setPatients(data));
-  }, []);
+  if (loading) {
+    return <div className="p-8 text-center">Loading patients...</div>;
+  }
+  if (error) {
+    return <div className="p-8 text-center text-red-500">{error}</div>;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -45,7 +25,7 @@ const PatientListView: React.FC<PatientListViewProps> = () => {
           <p className="text-gray-600">Patient Management System</p>
         </div>
         <Button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/')} 
           variant="outline"
           className="flex items-center gap-2"
         >
