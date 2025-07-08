@@ -136,7 +136,7 @@ const PatientListView: React.FC<PatientListViewProps> = ({ onPatientSelect }) =>
         </Button>
       </div>
 
-      <Card>z
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
