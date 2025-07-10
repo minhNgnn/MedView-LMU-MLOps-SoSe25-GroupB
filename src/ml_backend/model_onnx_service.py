@@ -1,10 +1,14 @@
-import bentoml
-from bentoml.io import Image as BentoImage, Bytes
-import numpy as np
-from PIL import Image as PILImage
 import io
+
+import bentoml
 import cv2
+import numpy as np
+from bentoml.io import Bytes
+from bentoml.io import Image as BentoImage
+from PIL import Image as PILImage
+
 from .models import get_prediction_from_onnx_array
+
 
 @bentoml.service
 class YoloV8OnnxService:
@@ -17,6 +21,6 @@ class YoloV8OnnxService:
         img_np = img_np[:, :, ::-1]  # RGB to BGR
         _, annotated_image = get_prediction_from_onnx_array(img_np)
         # Encode annotated image as JPEG
-        
+
         _, img_encoded = cv2.imencode(".jpg", annotated_image)
-        return io.BytesIO(img_encoded.tobytes()).getvalue() 
+        return io.BytesIO(img_encoded.tobytes()).getvalue()

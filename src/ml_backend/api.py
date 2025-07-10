@@ -4,13 +4,12 @@ from typing import Dict
 
 import cv2
 import numpy as np
-from fastapi import FastAPI, File, HTTPException, UploadFile, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
-from .models import get_prediction_from_array
-from .models import get_prediction_from_onnx_array
+from .models import get_prediction_from_array, get_prediction_from_onnx_array
 
 app = FastAPI()
 
@@ -26,14 +25,17 @@ app.add_middleware(
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 # Global exception handler for unhandled exceptions
 def format_error(detail: str):
     return {"detail": detail}
+
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     logger.exception(f"Unhandled exception: {exc}")
     return JSONResponse(status_code=500, content=format_error("Internal server error"))
+
 
 class PatientData(BaseModel):
     age: int
@@ -43,9 +45,11 @@ class PatientData(BaseModel):
     cholesterol: int
     smoker: bool
 
+
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "Backend is running"}
+
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -58,7 +62,7 @@ async def predict(file: UploadFile = File(...)):
         logger.error("cv2.imdecode failed: invalid image file")
         raise HTTPException(status_code=400, detail="Invalid image file")
     logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
-    # results, annotated_image = get_prediction_from_array(image) 
+    # results, annotated_image = get_prediction_from_array(image)
     results, annotated_image = get_prediction_from_onnx_array(image)
     if annotated_image is None:
         logger.error("Model did not return an annotated image")
