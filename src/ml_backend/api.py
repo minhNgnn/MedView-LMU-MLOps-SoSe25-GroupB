@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
 from .models import get_prediction_from_array
+from .models import get_prediction_from_onnx_array
 
 app = FastAPI()
 
@@ -57,7 +58,8 @@ async def predict(file: UploadFile = File(...)):
         logger.error("cv2.imdecode failed: invalid image file")
         raise HTTPException(status_code=400, detail="Invalid image file")
     logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
-    results, annotated_image = get_prediction_from_array(image)
+    # results, annotated_image = get_prediction_from_array(image) 
+    results, annotated_image = get_prediction_from_onnx_array(image)
     if annotated_image is None:
         logger.error("Model did not return an annotated image")
         raise HTTPException(status_code=500, detail="Prediction failed: no annotated image returned")
