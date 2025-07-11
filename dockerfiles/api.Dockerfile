@@ -11,24 +11,23 @@ RUN apt-get update && \
 # 3) Work directory
 WORKDIR /app
 
-# ← Add this so Python can import ml_backend under /app/src
-ENV PYTHONPATH=/app/src
+# Add this so Python can import ml and backend under /app
+ENV PYTHONPATH=/app/backend/src:/app/ml
 
 # 4) Copy & install Python deps
-COPY requirements.txt pyproject.toml ./
+COPY backend/requirements.txt ./
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir \
-      fastapi==0.95.1 \
-      uvicorn[standard]==0.22.0 && \
     pip install --no-cache-dir -r requirements.txt
 
-# 5) Copy your app code + model weights
-COPY src/    ./src/
-COPY models/ ./models/
+# 5) Copy your app code + model weights + configs
+COPY backend/src/ ./backend/src/
+COPY ml/models/ ./ml/models/
+COPY ml/configs/ ./ml/configs/
 
 # 6) Expose the HTTP port
 EXPOSE 8000
 
 # 7) Start the FastAPI server
-ENTRYPOINT ["uvicorn", "ml_backend.api:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+WORKDIR /app/backend/src
 

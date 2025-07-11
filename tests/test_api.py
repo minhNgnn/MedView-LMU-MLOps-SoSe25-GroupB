@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-import src.ml_backend.api as api_module
-from src.ml_backend.api import normalize_image, resize_image, get_prediction
+import backend.src.api as api_module
+from backend.src.api import normalize_image, resize_image, get_prediction
 
 
 # -----------------------------------------------------------------------------

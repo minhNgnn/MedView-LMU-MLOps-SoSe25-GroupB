@@ -11,7 +11,7 @@ DEFAULT_DATA_YAML = os.path.join(
 
 def find_best_weights(model_name: str, project_dir: str = "models") -> str:
     """
-    Look for the latest version folder under models/{model_name}/
+    Look for the latest version folder under ml/models/{model_name}/
     and return the path to weights/best.pt
     """
     base = os.path.join(os.getcwd(), project_dir, model_name)
@@ -75,7 +75,7 @@ if __name__ == "__main__":
         "--model_name",
         type=str,
         default="simple",
-        help="Subfolder under models/ where your run lives",
+        help="Subfolder under ml/models/ where your run lives",
     )
     p.add_argument(
         "--data_yaml",
