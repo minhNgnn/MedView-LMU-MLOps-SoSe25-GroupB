@@ -3,9 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { ArrowLeft, Home, Phone, Mail, MapPin, Heart, Activity, Zap } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ArrowLeft, Home, Phone, Mail, MapPin, Heart, Activity, Zap, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Patient } from '@/types/medical';
 import { usePatient } from '@/hooks/usePatient';
+import ImageUploadAndPredict from './ImageUploadAndPredict';
 
 const PatientDetailView = () => {
   const { id } = useParams<{ id: string }>();
@@ -183,6 +185,87 @@ const PatientDetailView = () => {
                   <Badge variant="outline" className="mt-1">
                     {patient.activity_level}
                   </Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Image Upload and Predict Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <div className="w-2 h-6 bg-purple-500 rounded"></div>
+                <span>Image Prediction</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ImageUploadAndPredict />
+            </CardContent>
+          </Card>
+
+          {/* Brain Scan & ML Analysis */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <div className="w-2 h-6 bg-purple-500 rounded"></div>
+                <span>Brain Scan & ML Analysis</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                <img
+                  src={patient.brainScan?.imageUrl}
+                  alt="Brain Scan"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Tumor Detection</span>
+                  <div className="flex items-center space-x-2">
+                    {patient.brainScan?.hasTumor ? (
+                      <AlertTriangle className="h-5 w-5 text-red-500" />
+                    ) : (
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                    )}
+                    <Badge variant={patient.brainScan?.hasTumor ? 'destructive' : 'secondary'}>
+                      {patient.brainScan?.hasTumor ? 'Tumor Detected' : 'No Tumor'}
+                    </Badge>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Diagnosis</label>
+                  <p className="text-sm text-gray-900 mt-1">{patient.brainScan?.diagnosis}</p>
+                </div>
+
+                {patient.brainScan?.mlAnalysis && (
+                  <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                    <h4 className="font-medium text-gray-700 mb-2">ML Analysis</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Cancer Probability</span>
+                        <span className="font-semibold text-gray-700">
+                          {patient.brainScan.mlAnalysis.cancerProbability}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-purple-400 h-2 rounded-full"
+                          style={{ width: `${patient.brainScan.mlAnalysis.cancerProbability}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-sm text-gray-700 mt-2">
+                        {patient.brainScan.mlAnalysis.reasoning}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Scan Date</label>
+                  <p className="text-sm text-gray-900">{patient.brainScan?.scanDate}</p>
                 </div>
               </div>
             </CardContent>

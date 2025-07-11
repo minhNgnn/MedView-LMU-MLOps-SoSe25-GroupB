@@ -1,8 +1,15 @@
-from typing import Dict, Any
-from fastapi import FastAPI
-from pydantic import BaseModel
+import io
+import logging
+from typing import Dict
+
 import cv2
 import numpy as np
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse, StreamingResponse
+from pydantic import BaseModel
+
+from ml.models import get_prediction_from_array
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,19 +20,31 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# Import ML logic from the ml package
-from ml import models  # adjust as needed
 
 app = FastAPI()
 
-# Add CORS middleware for frontend-backend communication
+# Add this block after creating the app
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Or specify ["http://localhost:8080"] for more security
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+# Global exception handler for unhandled exceptions
+def format_error(detail: str):
+    return {"detail": detail}
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.exception(f"Unhandled exception: {exc}")
+    return JSONResponse(status_code=500, content=format_error("Internal server error"))
 
 # PostgreSQL connection (adjust user/password/host as needed)
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -34,57 +53,37 @@ engine = create_engine(DATABASE_URL)
 class PatientData(BaseModel):
     age: int
     gender: str
-    bloodPressure: int
-    bloodSugar: int
+    blood_pressure: int
+    blood_sugar: int
     cholesterol: int
     smoker: bool
 
-# Placeholder for loaded model
-# ml_model = models.predict_model.load_model("path/to/your/model.pkl")
 
-def normalize_image(image):
-    return image / 255.0
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "message": "Backend is running"}
 
-def resize_image(image, size=(640, 640)):
-    return cv2.resize(image, size)
 
-# @app.post("/predict")
-# async def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
-def get_prediction(best_model_path: str, test_image_path: str) -> Dict:
-    """Predicts health risks based on patient data."""
-    print("Received prediction request for patient data:", test_image_path)
-    image = cv2.imread(test_image_path)
-    if image is not None:
-        # Resize image
-        resized_image = resize_image(image, size=(640, 640))
-        # Normalize image
-        normalized_image = normalize_image(resized_image)
+@app.post("/predict")
+async def predict(file: UploadFile = File(...)):
+    logger.info("Received file: %s", file.filename)
+    contents = await file.read()
+    logger.info("File size: %d bytes", len(contents))
+    nparr = np.frombuffer(contents, np.uint8)
+    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    if image is None:
+        logger.error("cv2.imdecode failed: invalid image file")
+        raise HTTPException(status_code=400, detail="Invalid image file")
+    logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
+    results, annotated_image = get_prediction_from_array(image)
+    # results, annotated_image = get_prediction_from_onnx_array(image)
+    if annotated_image is None:
+        logger.error("Model did not return an annotated image")
+        raise HTTPException(status_code=500, detail="Prediction failed: no annotated image returned")
+    _, img_encoded = cv2.imencode(".jpg", annotated_image)
+    logger.info("Returning annotated image, size: %d bytes", len(img_encoded))
+    return StreamingResponse(io.BytesIO(img_encoded.tobytes()), media_type="image/jpeg")
 
-        # Convert the normalized image to uint8 data type
-        normalized_image_uint8 = (normalized_image * 255).astype(np.uint8)
-
-        # Predict with the model
-        best_model = YOLO(best_model_path)
-        results = best_model.predict(source=normalized_image_uint8, imgsz=640, conf=0.5,
-                                     project="reports", name="test_prediction", save=True, save_txt=True, save_conf=True, line_width=1)
-
-        # Plot image with labels
-        # annotated_image = results[0].plot(line_width=1)
-        # annotated_image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-        # plt.imshow(annotated_image_rgb)
-
-    # Mock prediction result for API endpoint
-    # mock_result = {
-    #     "heartDiseaseRisk": 70,
-    #     "diabetesRisk": 55,
-    #     "confidence": 88,
-    #     "recommendations": [
-    #         "Consult a nutritionist for dietary advice",
-    #         "Increase physical activity",
-    #         "Schedule regular check-ups"
-    #     ]
-    # }
-    return results
 
 @app.get("/patients")
 def get_patients():
@@ -102,5 +101,3 @@ def get_patient(id: int):
             raise HTTPException(status_code=404, detail="Patient not found")
         return dict(row)
 
-if __name__ == "__main__":
-    get_prediction(best_model_path="ml/models/yolov8n/weights/epoch10_yolov8n.pt", test_image_path="data/BrainTumor/test_images/30_jpg.rf.ed67030833ab55428267e6f9c38cc730.jpg")
