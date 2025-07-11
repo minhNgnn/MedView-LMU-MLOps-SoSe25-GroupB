@@ -204,6 +204,7 @@ const PatientDetailView = () => {
           </Card>
 
           {/* Brain Scan & ML Analysis */}
+          {/**
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
@@ -270,6 +271,7 @@ const PatientDetailView = () => {
               </div>
             </CardContent>
           </Card>
+          **/}
         </div>
       </div>
     </div>
