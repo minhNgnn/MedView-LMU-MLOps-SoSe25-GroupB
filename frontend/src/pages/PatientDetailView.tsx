@@ -1,54 +1,36 @@
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ArrowLeft, Home, Phone, Mail, MapPin, Heart, Activity, Zap, AlertTriangle, CheckCircle } from 'lucide-react';
 import { Patient } from '@/types/medical';
-import { useNavigate } from 'react-router-dom';
+import { usePatient } from '@/hooks/usePatient';
 import ImageUploadAndPredict from './ImageUploadAndPredict';
 
-interface PatientDetailViewProps {
-  patient: Patient;
-  onBack: () => void;
-}
-
-const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
+const PatientDetailView = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { patient, loading, error } = usePatient(id);
+
+  if (loading) {
+    return <div className="p-8 text-center">Loading patient details...</div>;
+  }
+  if (error) {
+    return <div className="p-8 text-center text-red-500">{error}</div>;
+  }
+  if (!patient) {
+    return <div className="p-8 text-center text-red-500">Patient not found.</div>;
+  }
 
   const handleGoHome = () => {
     navigate('/');
   };
 
-  // Function to get color classes based on cancer probability
-  const getCancerProbabilityColor = (probability: number) => {
-    if (probability < 0.3) {
-      return {
-        bg: 'bg-green-50',
-        text: 'text-green-800',
-        bar: 'bg-green-600',
-        border: 'border-green-200'
-      };
-    } else if (probability < 0.6) {
-      return {
-        bg: 'bg-yellow-50',
-        text: 'text-yellow-800',
-        bar: 'bg-yellow-600',
-        border: 'border-yellow-200'
-      };
-    } else {
-      return {
-        bg: 'bg-red-50',
-        text: 'text-red-800',
-        bar: 'bg-red-600',
-        border: 'border-red-200'
-      };
-    }
+  const handleBack = () => {
+    navigate('/patients');
   };
-
-  // Use 50% as the placeholder probability
-  const cancerProbability = 0.5;
-  const colorClasses = getCancerProbabilityColor(cancerProbability);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -58,13 +40,12 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <Avatar className="h-10 w-10">
-                <AvatarImage src={patient.avatar} alt={patient.name} />
                 <AvatarFallback className="bg-blue-100 text-blue-700">
-                  {patient.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  {patient.first_name[0]}{patient.last_name[0]}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">{patient.name}</h1>
+                <h1 className="text-xl font-semibold text-gray-900">{patient.first_name} {patient.last_name}</h1>
                 <p className="text-sm text-gray-500">ID: {patient.id}</p>
               </div>
             </div>
@@ -82,7 +63,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={onBack}
+                onClick={handleBack}
                 className="flex items-center space-x-2"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -116,28 +97,24 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-500">Condition</label>
+                <label className="text-sm font-medium text-gray-500">Address</label>
                 <Badge variant="secondary" className="mt-1">
-                  {patient.condition}
+                  {patient.address}
                 </Badge>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2 text-sm">
                   <Phone className="h-4 w-4 text-gray-400" />
-                  <span>{patient.contact.phone}</span>
+                  <span>{patient.phone_number}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <Mail className="h-4 w-4 text-gray-400" />
-                  <span>{patient.contact.email}</span>
+                  <span>{patient.email}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <MapPin className="h-4 w-4 text-gray-400" />
-                  <span>{patient.contact.address}</span>
+                  <span>{patient.address}</span>
                 </div>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-500">Last Update</label>
-                <p className="text-sm text-gray-900">{patient.lastUpdate}</p>
               </div>
             </CardContent>
           </Card>
@@ -156,21 +133,21 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                   <Heart className="h-5 w-5 text-red-600" />
                   <span className="font-medium">Blood Pressure</span>
                 </div>
-                <span className="text-lg font-semibold text-red-700">{patient.vitals.bloodPressure}</span>
+                <span className="text-lg font-semibold text-red-700">{patient.blood_pressure}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                 <div className="flex items-center space-x-2">
                   <Activity className="h-5 w-5 text-orange-600" />
                   <span className="font-medium">Blood Sugar</span>
                 </div>
-                <span className="text-lg font-semibold text-orange-700">{patient.vitals.bloodSugar} mg/dL</span>
+                <span className="text-lg font-semibold text-orange-700">{patient.blood_sugar} mg/dL</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                 <div className="flex items-center space-x-2">
                   <Zap className="h-5 w-5 text-blue-600" />
                   <span className="font-medium">Cholesterol</span>
                 </div>
-                <span className="text-lg font-semibold text-blue-700">{patient.vitals.cholesterol} mg/dL</span>
+                <span className="text-lg font-semibold text-blue-700">{patient.cholesterol} mg/dL</span>
               </div>
             </CardContent>
           </Card>
@@ -187,26 +164,26 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-500">Smoking Status</label>
-                  <Badge variant={patient.lifestyle.smokingStatus === 'Never' ? 'secondary' : 'destructive'} className="mt-1">
-                    {patient.lifestyle.smokingStatus}
+                  <Badge variant={patient.smoking_status === 'Never' ? 'secondary' : 'destructive'} className="mt-1">
+                    {patient.smoking_status}
                   </Badge>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Alcohol Consumption</label>
                   <Badge variant="outline" className="mt-1">
-                    {patient.lifestyle.alcoholConsumption}
+                    {patient.alcohol_consumption}
                   </Badge>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Exercise Frequency</label>
                   <Badge variant="outline" className="mt-1">
-                    {patient.lifestyle.exerciseFrequency}
+                    {patient.exercise_frequency}
                   </Badge>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Activity Level</label>
                   <Badge variant="outline" className="mt-1">
-                    {patient.lifestyle.activityLevel}
+                    {patient.activity_level}
                   </Badge>
                 </div>
               </div>
@@ -227,6 +204,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
           </Card>
 
           {/* Brain Scan & ML Analysis */}
+          {/**
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
@@ -237,7 +215,7 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
             <CardContent className="space-y-4">
               <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                 <img
-                  src={patient.brainScan.imageUrl}
+                  src={patient.brainScan?.imageUrl}
                   alt="Brain Scan"
                   className="w-full h-full object-cover"
                 />
@@ -247,50 +225,53 @@ const PatientDetailView = ({ patient, onBack }: PatientDetailViewProps) => {
                 <div className="flex items-center justify-between">
                   <span className="font-medium">Tumor Detection</span>
                   <div className="flex items-center space-x-2">
-                    {patient.brainScan.hasTumor ? (
+                    {patient.brainScan?.hasTumor ? (
                       <AlertTriangle className="h-5 w-5 text-red-500" />
                     ) : (
                       <CheckCircle className="h-5 w-5 text-green-500" />
                     )}
-                    <Badge variant={patient.brainScan.hasTumor ? 'destructive' : 'secondary'}>
-                      {patient.brainScan.hasTumor ? 'Tumor Detected' : 'No Tumor'}
+                    <Badge variant={patient.brainScan?.hasTumor ? 'destructive' : 'secondary'}>
+                      {patient.brainScan?.hasTumor ? 'Tumor Detected' : 'No Tumor'}
                     </Badge>
                   </div>
                 </div>
 
                 <div>
                   <label className="text-sm font-medium text-gray-500">Diagnosis</label>
-                  <p className="text-sm text-gray-900 mt-1">{patient.brainScan.diagnosis}</p>
+                  <p className="text-sm text-gray-900 mt-1">{patient.brainScan?.diagnosis}</p>
                 </div>
 
-                <div className={`${colorClasses.bg} ${colorClasses.border} p-4 rounded-lg border`}>
-                  <h4 className={`font-medium ${colorClasses.text} mb-2`}>ML Analysis</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className={`text-sm ${colorClasses.text}`}>Cancer Probability</span>
-                      <span className={`font-semibold ${colorClasses.text}`}>
-                        {(cancerProbability * 100).toFixed(1)}%
-                      </span>
+                {patient.brainScan?.mlAnalysis && (
+                  <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                    <h4 className="font-medium text-gray-700 mb-2">ML Analysis</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Cancer Probability</span>
+                        <span className="font-semibold text-gray-700">
+                          {patient.brainScan.mlAnalysis.cancerProbability}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-purple-400 h-2 rounded-full"
+                          style={{ width: `${patient.brainScan.mlAnalysis.cancerProbability}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-sm text-gray-700 mt-2">
+                        {patient.brainScan.mlAnalysis.reasoning}
+                      </p>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div
-                        className={`${colorClasses.bar} h-2 rounded-full`}
-                        style={{ width: `${cancerProbability * 100}%` }}
-                      ></div>
-                    </div>
-                    <p className={`text-sm ${colorClasses.text} mt-2`}>
-                      {patient.brainScan.mlAnalysis.reasoning}
-                    </p>
                   </div>
-                </div>
+                )}
 
                 <div>
                   <label className="text-sm font-medium text-gray-500">Scan Date</label>
-                  <p className="text-sm text-gray-900">{patient.brainScan.scanDate}</p>
+                  <p className="text-sm text-gray-900">{patient.brainScan?.scanDate}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
+          **/}
         </div>
       </div>
     </div>
