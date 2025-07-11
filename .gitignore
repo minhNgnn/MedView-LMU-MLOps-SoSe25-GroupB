@@ -63,6 +63,9 @@ MANIFEST
 *.manifest
 *.spec
 data/
+BrainTumor/
+outputs/
+wandb/
 
 # Installer logs
 pip-log.txt
