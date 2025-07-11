@@ -27,7 +27,7 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
         add_wandb_callback(T_Model)
 
     results = T_Model.train(
-        data="ml/configs/data/data.yaml",
+        data="ml/configs/data_config/data.yaml",
         epochs=epochs,
         patience=20,
         batch=batch_size,
