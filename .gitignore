@@ -1,3 +1,6 @@
+# Profilling files
+*.prof
+
 #OS stuff
 .DS_Store
 *Zone.Identifier
