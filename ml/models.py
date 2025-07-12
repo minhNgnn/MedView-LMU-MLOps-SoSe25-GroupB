@@ -39,8 +39,6 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
     return results
 
 
-def normalize_image(image):
-    return image / 255.0
 
 
 # get_prediction_from_array and its code have been moved to ml/predict.py
