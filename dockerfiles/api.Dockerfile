@@ -21,13 +21,14 @@ RUN pip install --upgrade pip && \
 
 # 5) Copy your app code + model weights + configs
 COPY backend/src/ ./backend/src/
-COPY ml/models/ ./ml/models/
-COPY ml/configs/ ./ml/configs/
+# COPY ml/predict.py /app/backend/src/ml/predict.py
+# COPY ml/models/ /app/backend/src/ml/models/
+# If needed, also copy configs:
+# COPY ml/configs/ /app/backend/src/ml/configs/
 
 # 6) Expose the HTTP port
 EXPOSE 8000
 
-# 7) Start the FastAPI server
-ENTRYPOINT ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+# 7) Set working directory and start the FastAPI server using the PORT env variable
 WORKDIR /app/backend/src
-
+ENTRYPOINT uvicorn api:app --host 0.0.0.0 --port $PORT

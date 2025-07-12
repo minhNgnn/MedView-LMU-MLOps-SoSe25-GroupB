@@ -244,24 +244,24 @@ const PatientDetailView = () => {
                 {patient.brainScan?.mlAnalysis && (
                   <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
                     <h4 className="font-medium text-gray-700 mb-2">ML Analysis</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-700">Cancer Probability</span>
                         <span className="font-semibold text-gray-700">
                           {patient.brainScan.mlAnalysis.cancerProbability}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
                           className="bg-purple-400 h-2 rounded-full"
                           style={{ width: `${patient.brainScan.mlAnalysis.cancerProbability}%` }}
-                        ></div>
-                      </div>
-                      <p className="text-sm text-gray-700 mt-2">
-                        {patient.brainScan.mlAnalysis.reasoning}
-                      </p>
+                      ></div>
                     </div>
+                      <p className="text-sm text-gray-700 mt-2">
+                      {patient.brainScan.mlAnalysis.reasoning}
+                    </p>
                   </div>
+                </div>
                 )}
 
                 <div>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export function usePredictImage() {
   const [loading, setLoading] = useState(false);
   const [predictedImageUrl, setPredictedImageUrl] = useState<string | null>(null);
@@ -10,7 +12,7 @@ export function usePredictImage() {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const response = await fetch('http://127.0.0.1:8000/predict', {
+      const response = await fetch(`${API_BASE_URL}/predict`, {
         method: 'POST',
         body: formData,
       });
