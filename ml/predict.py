@@ -1,21 +1,18 @@
-import cv2
 import numpy as np
 from ultralytics import YOLO
-from .utils import resize_image
+from ml.utils import resize_image
 
 BEST_MODEL_PATH = "ml/models/yolov8n/weights/epoch10_yolov8n.pt"
 
-def get_prediction_from_array(image: np.ndarray) -> tuple:
+def get_prediction_from_array(image: np.ndarray) -> 'np.ndarray | None':
     """
-    Run YOLO prediction on an input image array and return the results and annotated image.
+    Run YOLO prediction on an input image array and return the annotated image.
 
     Args:
         image (np.ndarray): Input image as a numpy array (BGR, uint8 or float, any size).
 
     Returns:
-        tuple: (results, annotated_image)
-            - results: YOLO prediction results object
-            - annotated_image: np.ndarray or None, image with predictions drawn on it
+        np.ndarray or None: Image with predictions drawn on it, or None if input is invalid.
     """
     if image is not None:
         # Ensure image is uint8 BGR and correct size
@@ -27,6 +24,7 @@ def get_prediction_from_array(image: np.ndarray) -> tuple:
         results = best_model.predict(source=image, imgsz=640, conf=0.5)
         # Get annotated image from results (BGR numpy array)
         annotated_image = results[0].plot()
-        return results, annotated_image
+        return annotated_image
     else:
-        return None, None
+        return None
+    

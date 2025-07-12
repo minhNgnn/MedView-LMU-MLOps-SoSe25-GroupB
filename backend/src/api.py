@@ -8,7 +8,7 @@ import numpy as np
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 
-# from ml.predict import get_prediction_from_array
+from ml.predict import get_prediction_from_array
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
@@ -62,25 +62,24 @@ def health_check():
     return {"status": "ok", "message": "Backend is running"}
 
 
-# @app.post("/predict")
-# async def predict(file: UploadFile = File(...)):
-#     logger.info("Received file: %s", file.filename)
-#     contents = await file.read()
-#     logger.info("File size: %d bytes", len(contents))
-#     nparr = np.frombuffer(contents, np.uint8)
-#     image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-#     if image is None:
-#         logger.error("cv2.imdecode failed: invalid image file")
-#         raise HTTPException(status_code=400, detail="Invalid image file")
-#     logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
-#     results, annotated_image = get_prediction_from_array(image)
-#     # results, annotated_image = get_prediction_from_onnx_array(image)
-#     if annotated_image is None:
-#         logger.error("Model did not return an annotated image")
-#         raise HTTPException(status_code=500, detail="Prediction failed: no annotated image returned")
-#     _, img_encoded = cv2.imencode(".jpg", annotated_image)
-#     logger.info("Returning annotated image, size: %d bytes", len(img_encoded))
-#     return StreamingResponse(io.BytesIO(img_encoded.tobytes()), media_type="image/jpeg")
+@app.post("/predict")
+async def predict(file: UploadFile = File(...)):
+    logger.info("Received file: %s", file.filename)
+    contents = await file.read()
+    logger.info("File size: %d bytes", len(contents))
+    nparr = np.frombuffer(contents, np.uint8)
+    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    if image is None:
+        logger.error("cv2.imdecode failed: invalid image file")
+        raise HTTPException(status_code=400, detail="Invalid image file")
+    logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
+    annotated_image = get_prediction_from_array(image)
+    if annotated_image is None:
+        logger.error("Model did not return an annotated image")
+        raise HTTPException(status_code=500, detail="Prediction failed: no annotated image returned")
+    _, img_encoded = cv2.imencode(".jpg", annotated_image)
+    logger.info("Returning annotated image, size: %d bytes", len(img_encoded))
+    return StreamingResponse(io.BytesIO(img_encoded.tobytes()), media_type="image/jpeg")
 
 
 @app.get("/patients")

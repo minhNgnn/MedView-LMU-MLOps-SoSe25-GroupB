@@ -21,8 +21,11 @@ RUN pip install --upgrade pip && \
 
 # 5) Copy your app code + model weights + configs
 COPY backend/src/ ./backend/src/
-# COPY ml/predict.py /app/backend/src/ml/predict.py
-# COPY ml/models/ /app/backend/src/ml/models/
+COPY ml/predict.py /app/backend/src/ml/predict.py
+COPY ml/utils.py /app/backend/src/ml/utils.py
+# Create the weights directory and copy only the ONNX model file
+RUN mkdir -p /app/backend/src/ml/models/yolov8n/weights/
+COPY ml/models/yolov8n/weights/epoch10_yolov8n.pt /app/backend/src/ml/models/yolov8n/weights/epoch10_yolov8n.pt
 # If needed, also copy configs:
 # COPY ml/configs/ /app/backend/src/ml/configs/
 

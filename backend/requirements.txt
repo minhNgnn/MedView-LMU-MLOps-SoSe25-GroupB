@@ -5,5 +5,7 @@ sqlalchemy
 python-dotenv
 opencv-python
 numpy==1.24.3
-# ultralytics
 psycopg2-binary
+python-multipart
+ultralytics
+# pip install ultralytics --no-deps

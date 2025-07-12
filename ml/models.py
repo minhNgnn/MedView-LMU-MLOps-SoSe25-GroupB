@@ -40,10 +40,6 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
 
 
 
-
-# get_prediction_from_array and its code have been moved to ml/predict.py
-
-
 # def export_model_to_onnx():
 #     # Export model to ONNX
 #     model_path = "models/yolov8n/weights/epoch10_yolov8n.pt"
