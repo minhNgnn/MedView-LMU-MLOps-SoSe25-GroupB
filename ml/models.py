@@ -12,8 +12,8 @@ from wandb.integration.ultralytics import add_wandb_callback
 def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 10, wandb_logging: bool = False) -> Any:
     """Trains the machine learning model."""
     
-    print("Training model with pretrained weights:", f"src/ml/models/{model_name}.pt")
-    T_Model = YOLO(f"src/ml/models/{model_name}.pt")
+    print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
+    T_Model = YOLO(f"ml/models/{model_name}.pt")
 
     if wandb_logging == True:
         print("Initializing Weights & Biases for logging...")
@@ -27,12 +27,12 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
         add_wandb_callback(T_Model)
 
     results = T_Model.train(
-        data="src/ml/configs/data_config/data.yaml",
+        data="ml/configs/data_config/data.yaml",
         epochs=epochs,
         patience=20,
         batch=batch_size,
         optimizer="auto",
-        project="src/ml/models/",
+        project="ml/models/",
         name=model_name,
     )
     return results

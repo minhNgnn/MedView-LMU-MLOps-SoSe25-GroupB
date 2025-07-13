@@ -1,8 +1,8 @@
 task: detect
 mode: train
-model: src/ml/models/simple.pt
-data: ml/configs/data_config/data.yaml
-epochs: 5
+model: models/yolov8n.pt
+data: data/BrainTumor/BrainTumorSimple/data.yaml
+epochs: 3
 time: null
 patience: 20
 batch: -1
@@ -12,7 +12,7 @@ save_period: -1
 cache: false
 device: cpu
 workers: 8
-project: ml/models/
+project: models/
 name: simple
 exist_ok: false
 pretrained: true
@@ -102,4 +102,4 @@ auto_augment: randaugment
 erasing: 0.4
 cfg: null
 tracker: botsort.yaml
-save_dir: ml/models/simple
+save_dir: models/simple

@@ -21,6 +21,10 @@ classifiers = [
 ]
 dynamic = ["dependencies", "optional-dependencies"]
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ml*"]
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["src/ml/requirements.txt"]}
 
