@@ -1,0 +1,10 @@
+train: /gcs/brain-tumor-data/Simple/train/images
+# ../../../data/Simple/train/images
+val: /gcs/brain-tumor-data/Simple/valid/images
+# ../../../data/Simple/valid/images
+test: /gcs/brain-tumor-data/Simple/test/images
+# ../../../data/Simple/test/images
+
+nc: 3
+names: ['glioma', 'meningioma', 'pituitary']
+
