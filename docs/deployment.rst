@@ -19,6 +19,7 @@ Local Development Deployment
 ---------------------------
 
 **Prerequisites:**
+
 * Python 3.8+
 * PostgreSQL 12+
 * Node.js 16+
@@ -102,6 +103,7 @@ Docker Deployment
 ----------------
 
 **Prerequisites:**
+
 * Docker and Docker Compose
 * Git
 
@@ -201,6 +203,7 @@ Cloud Deployment
 ### Google Cloud Platform (GCP)
 
 **Prerequisites:**
+
 * Google Cloud SDK
 * Docker
 * GCP project with billing enabled
@@ -261,6 +264,7 @@ Cloud Deployment
 ### Amazon Web Services (AWS)
 
 **Prerequisites:**
+
 * AWS CLI
 * Docker
 * AWS account
@@ -300,6 +304,7 @@ Cloud Deployment
 ### Microsoft Azure
 
 **Prerequisites:**
+
 * Azure CLI
 * Docker
 * Azure subscription
@@ -341,6 +346,7 @@ Kubernetes Deployment
 --------------------
 
 **Prerequisites:**
+
 * kubectl
 * Docker
 * Kubernetes cluster

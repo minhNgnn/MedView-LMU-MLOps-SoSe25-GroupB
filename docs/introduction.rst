@@ -102,24 +102,28 @@ Technology Stack
 ---------------
 
 **Backend**
+
     * FastAPI: Modern, fast web framework
     * SQLAlchemy: Database ORM
     * PostgreSQL: Primary database
     * Evidently AI: Drift detection and reporting
 
 **Frontend**
+
     * React: Modern UI framework
     * TypeScript: Type-safe development
     * Tailwind CSS: Utility-first styling
     * Chart.js: Interactive visualizations
 
 **ML & Monitoring**
+
     * OpenCV: Image processing
     * NumPy/Pandas: Data manipulation
     * YOLOv8: Object detection
     * Custom drift detection algorithms
 
 **Deployment**
+
     * Docker: Containerization
     * Docker Compose: Local development
     * Kubernetes: Production orchestration

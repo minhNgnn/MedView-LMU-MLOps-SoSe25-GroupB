@@ -229,18 +229,21 @@ Step 10: Next Steps
 -------------------
 
 **Production Deployment:**
+
 * Follow the :doc:`deployment` guide
 * Set up proper authentication
 * Configure monitoring and alerting
 * Implement backup strategies
 
 **Customization:**
+
 * Adjust drift detection thresholds
 * Customize feature extraction
 * Modify report templates
 * Add custom monitoring metrics
 
 **Integration:**
+
 * Integrate with existing ML pipelines
 * Set up automated monitoring
 * Configure alerting systems
@@ -292,12 +295,14 @@ Troubleshooting
    tail -f /var/log/postgresql/postgresql-*.log
 
 **No drift detection:**
+
 * Ensure sufficient data exists (at least 50 records)
 * Check drift threshold settings
 * Verify feature extraction is working
 * Review database data quality
 
 **Getting Help:**
+
 * Check the :doc:`troubleshooting` guide
 * Review system logs
 * Test with sample data
@@ -364,6 +369,7 @@ Now that you have the system running, explore:
 5. **Production Setup**: Deploy to production environment
 
 For detailed information, see:
+
 * :doc:`api/index` - Complete API reference
 * :doc:`monitoring/index` - Monitoring system details
 * :doc:`deployment` - Production deployment guide

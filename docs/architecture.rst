@@ -70,6 +70,7 @@ Backend API (FastAPI)
 ^^^^^^^^^^^^^^^^^^^^
 
 **Technology Stack:**
+
 * FastAPI for REST API
 * SQLAlchemy for ORM
 * PostgreSQL for database
@@ -87,6 +88,7 @@ Backend API (FastAPI)
    └── requirements.txt    # Python dependencies
 
 **Key Endpoints:**
+
 * `/health` - Health checks
 * `/predict` - Image prediction
 * `/monitoring/*` - Monitoring endpoints
@@ -96,6 +98,7 @@ Monitoring Engine
 ^^^^^^^^^^^^^^^^
 
 **Core Components:**
+
 * **BrainTumorImageMonitor**: Main orchestrator
 * **DriftDetector**: Statistical drift detection
 * **FeatureExtractor**: Image feature extraction
@@ -170,6 +173,7 @@ ML Pipeline
 ^^^^^^^^^^^
 
 **Technology Stack:**
+
 * YOLOv8 for object detection
 * OpenCV for image processing
 * NumPy/Pandas for data manipulation
@@ -187,12 +191,14 @@ ML Pipeline
    └── utils.py           # Utility functions
 
 **Training Process:**
+
 1. **Data Preparation**: Image preprocessing and annotation
 2. **Model Training**: YOLOv8 training with custom dataset
 3. **Validation**: Model evaluation on test set
 4. **Export**: Model export for production
 
 **Inference Process:**
+
 1. **Image Preprocessing**: Resize, normalize, format conversion
 2. **Model Inference**: YOLOv8 prediction
 3. **Post-processing**: NMS, confidence filtering
@@ -239,24 +245,28 @@ Security Architecture
 --------------------
 
 **Authentication & Authorization:**
+
 * JWT token-based authentication
 * Role-based access control (RBAC)
 * API key management
 * Session management
 
 **Data Security:**
+
 * HTTPS/TLS encryption
 * Database encryption at rest
 * Secure file upload validation
 * Input sanitization
 
 **Network Security:**
+
 * CORS configuration
 * Rate limiting
 * DDoS protection
 * Firewall rules
 
 **Compliance:**
+
 * HIPAA compliance for medical data
 * GDPR compliance for EU users
 * Data retention policies
@@ -266,24 +276,28 @@ Scalability Design
 -----------------
 
 **Horizontal Scaling:**
+
 * Stateless API design
 * Load balancer support
 * Database connection pooling
 * Microservices architecture
 
 **Vertical Scaling:**
+
 * Resource monitoring
 * Auto-scaling policies
 * Performance optimization
 * Caching strategies
 
 **Database Scaling:**
+
 * Read replicas
 * Connection pooling
 * Query optimization
 * Partitioning strategies
 
 **Caching Strategy:**
+
 * Redis for session storage
 * CDN for static assets
 * Browser caching
@@ -293,24 +307,28 @@ Performance Optimization
 ----------------------
 
 **API Performance:**
+
 * Async/await patterns
 * Background task processing
 * Database query optimization
 * Response compression
 
 **Frontend Performance:**
+
 * Code splitting
 * Lazy loading
 * Image optimization
 * Bundle optimization
 
 **Database Performance:**
+
 * Index optimization
 * Query optimization
 * Connection pooling
 * Read/write separation
 
 **Monitoring Performance:**
+
 * Efficient feature extraction
 * Batch processing
 * Caching strategies
@@ -352,6 +370,7 @@ Deployment Architecture
          - postgres_data:/var/lib/postgresql/data
 
 **Production Environment:**
+
 * **Cloud Deployment**: GCP, AWS, Azure support
 * **Container Orchestration**: Kubernetes, Docker Swarm
 * **Load Balancing**: Nginx, HAProxy, Cloud Load Balancer
@@ -389,24 +408,28 @@ Error Handling
 --------------
 
 **API Error Handling:**
+
 * Global exception handlers
 * Structured error responses
 * Logging and monitoring
 * Graceful degradation
 
 **Database Error Handling:**
+
 * Connection retry logic
 * Transaction rollback
 * Deadlock detection
 * Query timeout handling
 
 **Monitoring Error Handling:**
+
 * Feature extraction fallbacks
 * Drift detection error recovery
 * Report generation error handling
 * Alert system redundancy
 
 **Frontend Error Handling:**
+
 * Error boundaries
 * Network error handling
 * User-friendly error messages
@@ -416,24 +439,28 @@ Monitoring & Observability
 -------------------------
 
 **Application Monitoring:**
+
 * Request/response logging
 * Performance metrics
 * Error tracking
 * User behavior analytics
 
 **Infrastructure Monitoring:**
+
 * System resource usage
 * Database performance
 * Network latency
 * Service health checks
 
 **Business Metrics:**
+
 * Prediction accuracy
 * Drift detection rates
 * User engagement
 * System uptime
 
 **Alerting:**
+
 * Performance thresholds
 * Error rate alerts
 * Drift detection alerts
@@ -443,24 +470,28 @@ Integration Points
 -----------------
 
 **External APIs:**
+
 * Medical imaging systems
 * Electronic health records
 * Laboratory information systems
 * Telemedicine platforms
 
 **Data Sources:**
+
 * PACS systems
 * DICOM servers
 * Cloud storage
 * Local file systems
 
 **Third-party Services:**
+
 * Authentication providers
 * Email services
 * SMS services
 * Cloud monitoring
 
 **ML Pipeline Integration:**
+
 * Model training pipelines
 * Feature stores
 * Model registries
@@ -470,30 +501,35 @@ Future Architecture
 ------------------
 
 **Planned Enhancements:**
+
 * GraphQL API support
 * Real-time streaming
 * Advanced ML models
 * Mobile applications
 
 **Scalability Improvements:**
+
 * Event-driven architecture
 * Message queues
 * Distributed caching
 * Multi-region deployment
 
 **Security Enhancements:**
+
 * Zero-trust architecture
 * Advanced encryption
 * Compliance automation
 * Security monitoring
 
 **Performance Optimizations:**
+
 * Edge computing
 * CDN integration
 * Database sharding
 * Microservices decomposition
 
 For detailed implementation information, see:
+
 * :doc:`api/index` - API architecture details
 * :doc:`monitoring/index` - Monitoring system architecture
 * :doc:`deployment` - Deployment architecture

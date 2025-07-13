@@ -118,18 +118,21 @@ Drift Detection
 The system implements multiple drift detection strategies:
 
 **Statistical Drift Detection:**
+
 * Compares current data distributions against reference datasets
 * Uses mean, standard deviation, and distribution shape analysis
 * Customizable thresholds for different features
 * Clean dataset splitting to avoid overlap
 
 **Drift Scoring:**
+
 * Combines mean and standard deviation differences
 * Normalizes by reference standard deviation
 * Provides interpretable drift scores
 * Configurable significance thresholds
 
 **Reference Data Management:**
+
 * Uses oldest 50 records as reference dataset
 * Current data uses newest 50 records
 * Ensures no temporal overlap
@@ -152,12 +155,14 @@ Reporting System
 The system generates comprehensive HTML reports using Evidently AI:
 
 **Report Types:**
+
 * **Drift Reports**: Feature distribution comparisons
 * **Data Quality Reports**: Missing values, outliers, completeness
 * **Performance Reports**: Model accuracy and confidence trends
 * **Summary Reports**: Executive summaries for stakeholders
 
 **Report Features:**
+
 * Interactive visualizations
 * Statistical summaries
 * Drift score explanations
@@ -181,6 +186,7 @@ Dashboard
 The monitoring dashboard provides real-time insights:
 
 **Key Metrics:**
+
 * Total predictions today
 * Average confidence scores
 * Most common prediction classes
@@ -188,12 +194,14 @@ The monitoring dashboard provides real-time insights:
 * System health indicators
 
 **Real-time Updates:**
+
 * WebSocket connections for live updates
 * Automatic refresh every 30 seconds
 * Configurable update intervals
 * Historical trend visualization
 
 **Alert System:**
+
 * Configurable drift thresholds
 * Email notifications
 * Slack/Teams integration
@@ -256,6 +264,7 @@ Performance Monitoring
 ---------------------
 
 **System Metrics:**
+
 * API response times
 * Database query performance
 * Memory usage
@@ -263,6 +272,7 @@ Performance Monitoring
 * Disk I/O
 
 **Application Metrics:**
+
 * Prediction throughput
 * Feature extraction time
 * Drift analysis duration
@@ -270,6 +280,7 @@ Performance Monitoring
 * Error rates
 
 **Monitoring Tools:**
+
 * Built-in logging
 * Prometheus metrics
 * Grafana dashboards
@@ -324,30 +335,35 @@ Troubleshooting
 **Common Issues:**
 
 **No Drift Detection:**
+
 * Check if sufficient data exists
 * Verify reference/current data split
 * Review drift threshold settings
 * Check feature extraction
 
 **High Memory Usage:**
+
 * Reduce batch sizes
 * Optimize database queries
 * Implement data retention policies
 * Monitor memory leaks
 
 **Slow Report Generation:**
+
 * Increase timeout settings
 * Optimize Evidently configuration
 * Use background processing
 * Implement caching
 
 **Database Connection Issues:**
+
 * Verify connection string
 * Check database permissions
 * Monitor connection pool
 * Review query performance
 
 **Getting Help:**
+
 * Check logs: `tail -f logs/monitoring.log`
 * Review configuration
 * Test with sample data
@@ -357,30 +373,35 @@ Best Practices
 -------------
 
 **Data Management:**
+
 * Regular backup of monitoring data
 * Implement data retention policies
 * Monitor database size
 * Optimize query performance
 
 **Drift Detection:**
+
 * Start with conservative thresholds
 * Monitor drift patterns over time
 * Adjust thresholds based on domain knowledge
 * Document drift events and responses
 
 **Reporting:**
+
 * Schedule regular report generation
 * Archive old reports
 * Share reports with stakeholders
 * Track report usage and feedback
 
 **Performance:**
+
 * Monitor system resources
 * Optimize feature extraction
 * Use background processing for heavy tasks
 * Implement caching where appropriate
 
 **Security:**
+
 * Secure database connections
 * Implement access controls
 * Monitor for suspicious activity

@@ -69,10 +69,12 @@ Image Prediction
 **Description:** Upload an image and get brain tumor prediction results.
 
 **Request:**
+
 * **Content-Type:** `multipart/form-data`
 * **Body:** Form data with `file` field containing image
 
 **Parameters:**
+
 * `file` (required): Image file (JPG, PNG, BMP supported)
 * `max_size`: 10MB
 
@@ -96,6 +98,7 @@ Image Prediction
    }
 
 **Status Codes:**
+
 * `200`: Prediction successful
 * `400`: Invalid file or format
 * `413`: File too large
@@ -135,6 +138,7 @@ Dashboard Data
    }
 
 **Status Codes:**
+
 * `200`: Dashboard data retrieved
 * `500`: Error retrieving data
 
@@ -152,6 +156,7 @@ Drift Report Generation
 **Description:** Generate HTML drift report for specified time period.
 
 **Query Parameters:**
+
 * `days` (optional): Number of days to analyze (default: 7)
 
 **Response:**
@@ -170,6 +175,7 @@ Drift Report Generation
    }
 
 **Status Codes:**
+
 * `200`: Report generated successfully
 * `400`: Insufficient data for analysis
 * `500`: Error generating report
@@ -188,6 +194,7 @@ Feature Analysis
 **Description:** Get detailed feature drift analysis.
 
 **Query Parameters:**
+
 * `days` (optional): Number of days to analyze (default: 7)
 
 **Response:**
@@ -218,6 +225,7 @@ Feature Analysis
    }
 
 **Status Codes:**
+
 * `200`: Analysis completed
 * `400`: Insufficient data
 * `500`: Analysis error
@@ -252,6 +260,7 @@ Data Quality Tests
    }
 
 **Status Codes:**
+
 * `200`: Tests completed
 * `500`: Test error
 
@@ -269,13 +278,16 @@ Report Serving
 **Description:** Serve generated HTML reports.
 
 **Path Parameters:**
+
 * `report_name`: Name of the report file
 
 **Response:**
+
 * **Content-Type:** `text/html`
 * **Body:** HTML report content
 
 **Status Codes:**
+
 * `200`: Report served
 * `404`: Report not found
 
@@ -313,6 +325,7 @@ Get All Patients
    }
 
 **Status Codes:**
+
 * `200`: Patients retrieved
 * `500`: Database error
 
@@ -330,6 +343,7 @@ Get Patient by ID
 **Description:** Get specific patient information.
 
 **Path Parameters:**
+
 * `id`: Patient ID
 
 **Response:**
@@ -353,6 +367,7 @@ Get Patient by ID
    }
 
 **Status Codes:**
+
 * `200`: Patient found
 * `404`: Patient not found
 * `500`: Database error
@@ -405,6 +420,7 @@ Rate Limiting
 The API implements rate limiting to prevent abuse:
 
 * **Default limit**: 100 requests per minute per IP
+
 * **Prediction endpoints**: 50 requests per minute
 * **Report generation**: 10 requests per minute
 

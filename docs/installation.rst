@@ -7,17 +7,20 @@ Prerequisites
 ------------
 
 **System Requirements**
+
     * Python 3.8 or higher
     * Node.js 16 or higher (for frontend)
     * PostgreSQL 12 or higher
     * Docker and Docker Compose (optional, for containerized setup)
 
 **Operating Systems**
+
     * Linux (Ubuntu 20.04+, CentOS 8+)
     * macOS (10.15+)
     * Windows 10/11 (with WSL2 recommended)
 
 **Hardware Requirements**
+
     * CPU: 4+ cores recommended
     * RAM: 8GB minimum, 16GB recommended
     * Storage: 20GB free space
