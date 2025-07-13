@@ -1,4 +1,5 @@
 *.prof
+backend/migrations
 
 #OS stuff
 .DS_Store

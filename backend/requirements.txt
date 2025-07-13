@@ -1,11 +1,13 @@
-fastapi==0.95.1
-pydantic
-uvicorn[standard]==0.22.0
-sqlalchemy
-python-dotenv
-opencv-python
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+opencv-python==4.8.1.78
 numpy==1.24.3
-psycopg2-binary
-python-multipart
-ultralytics
-# pip install ultralytics --no-deps
+python-dotenv==1.0.0
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+pydantic==2.5.0
+evidently==0.4.0
+pandas==2.1.4
+nltk==3.8.1
+anyio==3.7.1

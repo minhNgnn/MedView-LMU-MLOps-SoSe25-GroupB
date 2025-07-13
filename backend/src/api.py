@@ -9,12 +9,14 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse, HTMLResponse
 from pydantic import BaseModel, ValidationError
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
+from fastapi import BackgroundTasks
 
 from ml.predict import get_prediction_from_array
+from backend.monitoring import init_monitor, get_monitor
 
 load_dotenv()
 
@@ -72,6 +74,9 @@ if not DATABASE_URL:
 
 engine = create_engine(DATABASE_URL)
 
+# Initialize monitoring system
+init_monitor(DATABASE_URL)
+
 
 @app.get("/health")
 def health_check() -> Dict[str, str]:
@@ -83,7 +88,7 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
 
 
 @app.post("/predict", status_code=status.HTTP_200_OK)
-async def predict(file: UploadFile = File(...)) -> StreamingResponse:
+async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> StreamingResponse:
     # Validate file type
     if not file.content_type or not file.content_type.startswith("image/"):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File must be an image")
@@ -119,6 +124,18 @@ async def predict(file: UploadFile = File(...)) -> StreamingResponse:
                 detail="Prediction failed: no annotated image returned",
             )
 
+        # Log prediction for monitoring as a background task
+        try:
+            monitor = get_monitor()
+            prediction_info = {
+                'confidence': 0.8,  # Placeholder - extract from your model output
+                'class': 'medical_condition',  # Placeholder
+                'num_detections': 1  # Placeholder
+            }
+            background_tasks.add_task(monitor.log_prediction, image, prediction_info)
+        except Exception as e:
+            logger.warning(f"Failed to schedule logging for monitoring: {e}")
+
         result = cv2.imencode(".jpg", annotated_image)
         _, img_encoded = result
         logger.info("Returning annotated image, size: %d bytes", len(img_encoded))
@@ -132,6 +149,68 @@ async def predict(file: UploadFile = File(...)) -> StreamingResponse:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error during prediction"
         )
+
+
+# Monitoring endpoints
+@app.get("/monitoring/dashboard")
+async def get_monitoring_dashboard() -> JSONResponse:
+    """Get brain tumor monitoring dashboard data."""
+    try:
+        monitor = get_monitor()
+        dashboard_data = monitor.get_brain_tumor_dashboard_data()
+        return JSONResponse(content=dashboard_data)
+    except Exception as e:
+        logger.error(f"Error getting dashboard data: {e}")
+        raise HTTPException(status_code=500, detail="Error getting dashboard data")
+
+
+@app.get("/monitoring/drift-report")
+async def generate_drift_report(days: int = 7) -> JSONResponse:
+    """Generate brain tumor image drift report."""
+    try:
+        monitor = get_monitor()
+        report_path = monitor.generate_brain_tumor_drift_report(days)
+        return JSONResponse(content={
+            "message": "Brain tumor drift report generated successfully",
+            "report_path": report_path,
+            "days_analyzed": days
+        })
+    except Exception as e:
+        logger.error(f"Error generating drift report: {e}")
+        raise HTTPException(status_code=500, detail="Error generating drift report")
+
+
+@app.get("/monitoring/data-quality")
+async def run_data_quality_tests() -> JSONResponse:
+    """Run brain tumor image quality tests."""
+    try:
+        monitor = get_monitor()
+        results = monitor.run_brain_tumor_quality_tests()
+        return JSONResponse(content=results)
+    except Exception as e:
+        logger.error(f"Error running data quality tests: {e}")
+        raise HTTPException(status_code=500, detail="Error running data quality tests")
+
+
+@app.get("/monitoring/report/{report_name}")
+async def get_report(report_name: str) -> HTMLResponse:
+    """Get a specific monitoring report."""
+    try:
+        monitor = get_monitor()
+        report_path = monitor.reports_dir / report_name
+        
+        if not report_path.exists():
+            raise HTTPException(status_code=404, detail="Report not found")
+        
+        with open(report_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        return HTMLResponse(content=html_content, status_code=200)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error reading report: {e}")
+        raise HTTPException(status_code=500, detail="Error reading report")
 
 
 @app.get("/patients", status_code=status.HTTP_200_OK)
