@@ -1,0 +1,8 @@
+# imaging for ultralytics import
+Pillow>=9.0.0
+
+pytest>=8.4.1        # test framework
+coverage>=7.3.1      # coverage reporting
+PyYAML>=6.0.0      # YAML parsing for ultralytics
+
+onnxruntime>=1.15.1 # ONNX runtime for inference
