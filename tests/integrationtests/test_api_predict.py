@@ -18,7 +18,10 @@ class TestPredictEndpoint:
         img_byte_arr.seek(0)
         with patch("backend.src.api.get_prediction_from_array") as mock_predict:
             mock_predict.return_value = np.full((100, 100, 3), 128, dtype=np.uint8)
-            response = client.post("/predict", files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")})
+            response = client.post(
+                "/predict",
+                files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")},
+            )
             assert response.status_code == 200
             assert response.headers["content-type"] == "image/jpeg"
             mock_predict.assert_called_once()
@@ -57,7 +60,10 @@ class TestPredictEndpoint:
         img_byte_arr.seek(0)
         with patch("backend.src.api.get_prediction_from_array") as mock_predict:
             mock_predict.return_value = None
-            response = client.post("/predict", files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")})
+            response = client.post(
+                "/predict",
+                files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")},
+            )
             assert response.status_code == 500
             data = response.json()
             assert "Prediction failed" in data["detail"]

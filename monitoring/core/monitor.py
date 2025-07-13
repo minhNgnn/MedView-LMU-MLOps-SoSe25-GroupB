@@ -48,7 +48,8 @@ class BrainTumorImageMonitor:
         try:
             with self.engine.connect() as conn:
                 # Get older data for reference (first 50 records, ordered by timestamp ASC)
-                query = text("""
+                query = text(
+                    """
                     SELECT image_width, image_height, image_channels, image_size_bytes,
                            brightness_mean, brightness_std, contrast_mean, contrast_std,
                            entropy, skewness, kurtosis, mean_intensity, std_intensity,
@@ -59,7 +60,8 @@ class BrainTumorImageMonitor:
                     FROM predictions_log
                     ORDER BY timestamp ASC
                     LIMIT 50
-                """)
+                """
+                )
                 result = conn.execute(query)
                 df = pd.DataFrame(result.fetchall(), columns=result.keys())
 
@@ -80,7 +82,8 @@ class BrainTumorImageMonitor:
             with self.engine.connect() as conn:
                 # Get recent data for current (last 50 records, ordered by timestamp DESC)
                 # This ensures no overlap with reference data
-                query = text("""
+                query = text(
+                    """
                     SELECT image_width, image_height, image_channels, image_size_bytes,
                            brightness_mean, brightness_std, contrast_mean, contrast_std,
                            entropy, skewness, kurtosis, mean_intensity, std_intensity,
@@ -91,7 +94,8 @@ class BrainTumorImageMonitor:
                     FROM predictions_log
                     ORDER BY timestamp DESC
                     LIMIT 50
-                """)
+                """
+                )
                 result = conn.execute(query)
                 df = pd.DataFrame(result.fetchall(), columns=result.keys())
 
@@ -186,7 +190,8 @@ class BrainTumorImageMonitor:
             # Store in database
             with self.engine.connect() as conn:
                 # Insert into predictions_log table (no patient_id)
-                insert_query = text("""
+                insert_query = text(
+                    """
                     INSERT INTO predictions_log (
                         timestamp, prediction_confidence, prediction_class,
                         num_detections, model_version, processing_time_ms,
@@ -206,7 +211,8 @@ class BrainTumorImageMonitor:
                         :num_tumors_detected, :largest_tumor_area, :tumor_density,
                         :tumor_location_x, :tumor_location_y, :tumor_shape_regularity
                     )
-                """)
+                """
+                )
                 conn.execute(insert_query, log_data)
                 conn.commit()
                 logger.info(f"Logged brain tumor prediction: {log_data}")
@@ -221,7 +227,10 @@ class BrainTumorImageMonitor:
             current_data = self.get_current_data(days)
 
             if reference_data.empty or current_data.empty:
-                raise HTTPException(status_code=400, detail="Insufficient data for brain tumor drift analysis")
+                raise HTTPException(
+                    status_code=400,
+                    detail="Insufficient data for brain tumor drift analysis",
+                )
 
             # Log the split details for debugging
             logger.info(
@@ -305,7 +314,8 @@ class BrainTumorImageMonitor:
             # Get recent brain tumor predictions
             with self.engine.connect() as conn:
                 # Query recent predictions
-                query = text("""
+                query = text(
+                    """
                     SELECT
                         COUNT(*) as total_predictions_today,
                         AVG(prediction_confidence) as average_confidence,
@@ -316,7 +326,8 @@ class BrainTumorImageMonitor:
                         COUNT(CASE WHEN prediction_class = 'normal' THEN 1 END) as normal_count
                     FROM predictions_log
                     WHERE DATE(timestamp) = CURRENT_DATE
-                """)
+                """
+                )
                 result = conn.execute(query)
                 row = result.fetchone()
 

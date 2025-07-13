@@ -17,7 +17,12 @@ class DriftDetector:
 
     def __init__(self, drift_threshold: float = 1.0):
         self.drift_threshold = drift_threshold
-        self.key_features = ["brightness_mean", "contrast_mean", "entropy", "tumor_detection_confidence"]
+        self.key_features = [
+            "brightness_mean",
+            "contrast_mean",
+            "entropy",
+            "tumor_detection_confidence",
+        ]
 
     def analyze_feature_drift(self, reference_data: pd.DataFrame, current_data: pd.DataFrame) -> Dict:
         """Analyze feature distributions and drift indicators."""
@@ -89,13 +94,17 @@ class DriftDetector:
         for feature, data in analysis.items():
             if data.get("significant_drift", False):
                 drifted_features.append(
-                    {"feature": feature, "drift_score": data["drift_score"], "mean_difference": data["mean_difference"]}
+                    {
+                        "feature": feature,
+                        "drift_score": data["drift_score"],
+                        "mean_difference": data["mean_difference"],
+                    }
                 )
 
         return {
             "total_features": total_features,
             "drifted_features_count": len(drifted_features),
-            "drift_percentage": (len(drifted_features) / total_features) * 100 if total_features > 0 else 0,
+            "drift_percentage": ((len(drifted_features) / total_features) * 100 if total_features > 0 else 0),
             "drifted_features": drifted_features,
             "timestamp": datetime.now().isoformat(),
         }

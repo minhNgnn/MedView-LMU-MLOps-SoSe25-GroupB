@@ -6,7 +6,15 @@ from typing import Dict, List, Optional, Union
 import cv2
 import numpy as np
 from dotenv import load_dotenv
-from fastapi import BackgroundTasks, FastAPI, File, HTTPException, Request, UploadFile, status
+from fastapi import (
+    BackgroundTasks,
+    FastAPI,
+    File,
+    HTTPException,
+    Request,
+    UploadFile,
+    status,
+)
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
@@ -44,7 +52,8 @@ def format_error(detail: str) -> Dict[str, str]:
 async def global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     logger.exception(f"Unhandled exception: {exc}")
     return JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=format_error("Internal server error")
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content=format_error("Internal server error"),
     )
 
 
@@ -61,7 +70,8 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 async def database_exception_handler(request: Request, exc: SQLAlchemyError) -> JSONResponse:
     logger.error(f"Database error: {exc}")
     return JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=format_error("Database error occurred")
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content=format_error("Database error occurred"),
     )
 
 
@@ -145,7 +155,8 @@ async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...
     except Exception as e:
         logger.exception("Unexpected error in predict endpoint")
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error during prediction"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error during prediction",
         )
 
 

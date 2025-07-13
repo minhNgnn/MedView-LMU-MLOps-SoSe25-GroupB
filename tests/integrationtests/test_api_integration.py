@@ -19,7 +19,10 @@ class TestPredictionIntegration:
         with patch("backend.src.api.get_prediction_from_array") as mock_predict:
             annotated_image = np.full((100, 100, 3), 255, dtype=np.uint8)
             mock_predict.return_value = annotated_image
-            response = client.post("/predict", files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")})
+            response = client.post(
+                "/predict",
+                files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")},
+            )
             assert response.status_code == 200
             assert response.headers["content-type"] == "image/jpeg"
             response_content = response.content

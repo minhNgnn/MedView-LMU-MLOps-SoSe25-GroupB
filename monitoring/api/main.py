@@ -49,7 +49,11 @@ app.include_router(router)
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "service": "brain-tumor-monitoring", "version": "1.0.0"}
+    return {
+        "status": "healthy",
+        "service": "brain-tumor-monitoring",
+        "version": "1.0.0",
+    }
 
 
 @app.get("/")

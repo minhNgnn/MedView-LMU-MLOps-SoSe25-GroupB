@@ -10,7 +10,12 @@ from ultralytics import YOLO
 from wandb.integration.ultralytics import add_wandb_callback
 
 
-def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 10, wandb_logging: bool = False) -> Any:
+def train_model(
+    model_name: str = "simple",
+    batch_size: int = -1,
+    epochs: int = 10,
+    wandb_logging: bool = False,
+) -> Any:
     """Trains the machine learning model."""
 
     print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
