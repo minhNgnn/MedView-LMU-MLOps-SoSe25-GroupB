@@ -52,6 +52,7 @@ Frontend (React + TypeScript)
 * Responsive design
 
 **Architecture:**
+
 .. code-block:: typescript
 
    // Component structure
@@ -76,6 +77,7 @@ Backend API (FastAPI)
 * Uvicorn for ASGI server
 
 **API Structure:**
+
 .. code-block:: python
 
    backend/
@@ -100,6 +102,7 @@ Monitoring Engine
 * **ReportGenerator**: HTML report creation
 
 **Architecture:**
+
 .. code-block:: python
 
    monitoring/
@@ -115,6 +118,7 @@ Database Design
 ^^^^^^^^^^^^^^
 
 **PostgreSQL Schema:**
+
 .. code-block:: sql
 
    -- Main predictions table
@@ -154,6 +158,7 @@ Database Design
    );
 
 **Indexes:**
+
 .. code-block:: sql
 
    -- Performance indexes
@@ -171,6 +176,7 @@ ML Pipeline
 * PyTorch for deep learning
 
 **Pipeline Components:**
+
 .. code-block:: python
 
    ml/
@@ -314,6 +320,7 @@ Deployment Architecture
 ----------------------
 
 **Development Environment:**
+
 .. code-block:: yaml
 
    # docker-compose.yml
@@ -351,6 +358,7 @@ Deployment Architecture
 * **Monitoring**: Prometheus, Grafana, Cloud Monitoring
 
 **CI/CD Pipeline:**
+
 .. code-block:: yaml
 
    # .github/workflows/deploy.yml

@@ -17,18 +17,21 @@ Step 1: Clone and Setup
 -----------------------
 
 **Clone the repository:**
+
 .. code-block:: bash
 
    git clone https://github.com/your-org/brain-tumor-monitoring.git
    cd brain-tumor-monitoring
 
 **Create virtual environment:**
+
 .. code-block:: bash
 
    python -m venv env
    source env/bin/activate  # On Windows: env\Scripts\activate
 
 **Install dependencies:**
+
 .. code-block:: bash
 
    pip install -r requirements.txt
@@ -38,6 +41,7 @@ Step 2: Database Setup
 ----------------------
 
 **Create database:**
+
 .. code-block:: bash
 
    # Connect to PostgreSQL
@@ -50,6 +54,7 @@ Step 2: Database Setup
    \q
 
 **Run migrations:**
+
 .. code-block:: bash
 
    # Set environment variable
@@ -62,22 +67,26 @@ Step 3: Start the Backend
 -------------------------
 
 **Set environment variables:**
+
 .. code-block:: bash
 
    export DATABASE_URL="postgresql://monitoring_user:your_password@localhost:5432/monitoring"
    export DEBUG=True
 
 **Start the API server:**
+
 .. code-block:: bash
 
    uvicorn backend.src.api:app --reload --host 0.0.0.0 --port 8000
 
 **Verify the backend is running:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/health
 
 You should see:
+
 .. code-block:: json
 
    {
@@ -89,6 +98,7 @@ Step 4: Start the Frontend
 --------------------------
 
 **Install Node.js dependencies:**
+
 .. code-block:: bash
 
    cd frontend
@@ -96,6 +106,7 @@ Step 4: Start the Frontend
    cd ..
 
 **Start the frontend development server:**
+
 .. code-block:: bash
 
    cd frontend
@@ -107,17 +118,20 @@ Step 5: Test the System
 -----------------------
 
 **Upload a test image:**
+
 .. code-block:: bash
 
    curl -X POST http://localhost:8000/predict \
      -F "file=@path/to/test/image.jpg"
 
 **Check monitoring dashboard:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/monitoring/dashboard
 
 **Generate a drift report:**
+
 .. code-block:: bash
 
    curl "http://localhost:8000/monitoring/drift-report?days=7"
@@ -137,6 +151,7 @@ Step 7: Generate Sample Data
 ---------------------------
 
 **Create synthetic data for testing:**
+
 .. code-block:: python
 
    from monitoring.core.monitor import BrainTumorImageMonitor
@@ -161,6 +176,7 @@ Step 7: Generate Sample Data
        monitor.log_prediction(image, prediction)
 
 **Verify data generation:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/monitoring/dashboard
@@ -169,6 +185,7 @@ Step 8: Test Drift Detection
 ----------------------------
 
 **Generate drifted data:**
+
 .. code-block:: python
 
    # Generate data with different characteristics
@@ -185,11 +202,13 @@ Step 8: Test Drift Detection
        monitor.log_prediction(image, prediction)
 
 **Check drift analysis:**
+
 .. code-block:: bash
 
    curl "http://localhost:8000/monitoring/feature-analysis?days=7"
 
 **Generate drift report:**
+
 .. code-block:: bash
 
    curl "http://localhost:8000/monitoring/drift-report?days=7"
@@ -233,6 +252,7 @@ Troubleshooting
 **Common Issues:**
 
 **Backend won't start:**
+
 .. code-block:: bash
 
    # Check if port is in use
@@ -245,6 +265,7 @@ Troubleshooting
    psql -h localhost -U monitoring_user -d monitoring -c "SELECT 1;"
 
 **Frontend won't start:**
+
 .. code-block:: bash
 
    # Check Node.js version
@@ -258,6 +279,7 @@ Troubleshooting
    npm install
 
 **Database connection issues:**
+
 .. code-block:: bash
 
    # Check PostgreSQL status
@@ -285,6 +307,7 @@ Configuration Options
 --------------------
 
 **Environment Variables:**
+
 .. code-block:: bash
 
    # Database
@@ -304,6 +327,7 @@ Configuration Options
 
 **Configuration File:**
 Create a `.env` file in the project root:
+
 .. code-block:: bash
 
    # .env file
@@ -316,6 +340,7 @@ Create a `.env` file in the project root:
    LOG_LEVEL=INFO
 
 **Docker Setup (Alternative):**
+
 .. code-block:: bash
 
    # Use Docker Compose for easier setup

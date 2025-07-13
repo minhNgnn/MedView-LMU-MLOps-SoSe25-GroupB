@@ -39,12 +39,14 @@ Local Installation
 
 **Step 1: Clone the Repository**
 
+
 .. code-block:: bash
 
    git clone https://github.com/your-org/brain-tumor-monitoring.git
    cd brain-tumor-monitoring
 
 **Step 2: Set Up Python Environment**
+
 
 .. code-block:: bash
 
@@ -58,6 +60,7 @@ Local Installation
 
 **Step 3: Install Node.js Dependencies**
 
+
 .. code-block:: bash
 
    cd frontend
@@ -69,6 +72,7 @@ Local Installation
 Install PostgreSQL on your system:
 
 **Ubuntu/Debian:**
+
 .. code-block:: bash
 
    sudo apt update
@@ -77,6 +81,7 @@ Install PostgreSQL on your system:
    sudo systemctl enable postgresql
 
 **macOS:**
+
 .. code-block:: bash
 
    brew install postgresql
@@ -86,6 +91,7 @@ Install PostgreSQL on your system:
 Download and install from `https://www.postgresql.org/download/windows/`
 
 **Create Database and User:**
+
 
 .. code-block:: bash
 
@@ -98,6 +104,7 @@ Download and install from `https://www.postgresql.org/download/windows/`
 
 **Step 5: Run Database Migrations**
 
+
 .. code-block:: bash
 
    # Set environment variable
@@ -109,6 +116,7 @@ Download and install from `https://www.postgresql.org/download/windows/`
 **Step 6: Configure Environment Variables**
 
 Create a `.env` file in the project root:
+
 
 .. code-block:: bash
 
@@ -129,6 +137,7 @@ Create a `.env` file in the project root:
 
 **Step 7: Verify Installation**
 
+
 .. code-block:: bash
 
    # Test backend
@@ -146,6 +155,7 @@ Docker Installation
 **Step 1: Install Docker and Docker Compose**
 
 **Ubuntu/Debian:**
+
 .. code-block:: bash
 
    sudo apt update
@@ -161,6 +171,7 @@ Download Docker Desktop from `https://www.docker.com/products/docker-desktop`
 
 **Step 2: Clone and Configure**
 
+
 .. code-block:: bash
 
    git clone https://github.com/your-org/brain-tumor-monitoring.git
@@ -174,6 +185,7 @@ Download Docker Desktop from `https://www.docker.com/products/docker-desktop`
 
 **Step 3: Start Services**
 
+
 .. code-block:: bash
 
    # Start all services
@@ -183,6 +195,7 @@ Download Docker Desktop from `https://www.docker.com/products/docker-desktop`
    docker-compose logs -f
 
 **Step 4: Verify Installation**
+
 
 .. code-block:: bash
 
@@ -202,6 +215,7 @@ Cloud Installation
 
 **Google Cloud Platform (GCP)**
 
+
 .. code-block:: bash
 
    # Install Google Cloud SDK
@@ -218,6 +232,7 @@ Cloud Installation
 
 **Amazon Web Services (AWS)**
 
+
 .. code-block:: bash
 
    # Install AWS CLI
@@ -231,6 +246,7 @@ Cloud Installation
    # Deploy using AWS ECS or EKS
 
 **Microsoft Azure**
+
 
 .. code-block:: bash
 
@@ -249,6 +265,7 @@ Configuration
 
 The system supports PostgreSQL with the following configuration options:
 
+
 .. code-block:: python
 
    # Example database configuration
@@ -260,6 +277,7 @@ The system supports PostgreSQL with the following configuration options:
    DB_POOL_TIMEOUT = 30
 
 **Monitoring Configuration**
+
 
 .. code-block:: python
 
@@ -273,6 +291,7 @@ The system supports PostgreSQL with the following configuration options:
    FEATURE_EXTRACTION_TIMEOUT = 30     # seconds
 
 **API Configuration**
+
 
 .. code-block:: python
 
@@ -288,6 +307,7 @@ The system supports PostgreSQL with the following configuration options:
    RATE_LIMIT_PER_MINUTE = 100
 
 **Frontend Configuration**
+
 
 .. code-block:: javascript
 
@@ -309,6 +329,7 @@ Verification
 
 **Backend Verification**
 
+
 .. code-block:: bash
 
    # Test health endpoint
@@ -323,6 +344,7 @@ Verification
 
 **Frontend Verification**
 
+
 .. code-block:: bash
 
    # Start frontend development server
@@ -333,6 +355,7 @@ Verification
    open http://localhost:3000
 
 **Database Verification**
+
 
 .. code-block:: bash
 
@@ -346,6 +369,7 @@ Verification
    SELECT COUNT(*) FROM predictions_log;
 
 **ML Pipeline Verification**
+
 
 .. code-block:: bash
 

@@ -25,6 +25,7 @@ Local Development Deployment
 * Git
 
 **Step 1: Environment Setup**
+
 .. code-block:: bash
 
    # Clone repository
@@ -40,6 +41,7 @@ Local Development Deployment
    pip install -r requirements_dev.txt
 
 **Step 2: Database Setup**
+
 .. code-block:: bash
 
    # Install PostgreSQL (Ubuntu)
@@ -58,6 +60,7 @@ Local Development Deployment
    \q
 
 **Step 3: Environment Configuration**
+
 .. code-block:: bash
 
    # Create .env file
@@ -72,6 +75,7 @@ Local Development Deployment
    EOF
 
 **Step 4: Start Services**
+
 .. code-block:: bash
 
    # Start backend
@@ -83,6 +87,7 @@ Local Development Deployment
    npm start
 
 **Step 5: Verify Deployment**
+
 .. code-block:: bash
 
    # Test API
@@ -101,6 +106,7 @@ Docker Deployment
 * Git
 
 **Step 1: Clone and Configure**
+
 .. code-block:: bash
 
    git clone https://github.com/your-org/brain-tumor-monitoring.git
@@ -113,6 +119,7 @@ Docker Deployment
    nano .env
 
 **Step 2: Build and Start**
+
 .. code-block:: bash
 
    # Build and start all services
@@ -125,6 +132,7 @@ Docker Deployment
    docker-compose logs -f
 
 **Step 3: Verify Deployment**
+
 .. code-block:: bash
 
    # Test API
@@ -137,6 +145,7 @@ Docker Deployment
    docker-compose exec db psql -U monitoring_user -d monitoring -c "SELECT COUNT(*) FROM predictions_log;"
 
 **Docker Compose Configuration:**
+
 .. code-block:: yaml
 
    # docker-compose.yml
@@ -197,6 +206,7 @@ Cloud Deployment
 * GCP project with billing enabled
 
 **Step 1: Setup GCP**
+
 .. code-block:: bash
 
    # Install Google Cloud SDK
@@ -213,6 +223,7 @@ Cloud Deployment
    gcloud services enable containerregistry.googleapis.com
 
 **Step 2: Deploy to Cloud Run**
+
 .. code-block:: bash
 
    # Build and push image
@@ -230,6 +241,7 @@ Cloud Deployment
      --set-env-vars DATABASE_URL="postgresql://user:password@host:5432/database"
 
 **Step 3: Setup Cloud SQL**
+
 .. code-block:: bash
 
    # Create Cloud SQL instance
@@ -254,6 +266,7 @@ Cloud Deployment
 * AWS account
 
 **Step 1: Setup AWS**
+
 .. code-block:: bash
 
    # Install AWS CLI
@@ -265,6 +278,7 @@ Cloud Deployment
    aws configure
 
 **Step 2: Deploy to ECS**
+
 .. code-block:: bash
 
    # Create ECR repository
@@ -291,6 +305,7 @@ Cloud Deployment
 * Azure subscription
 
 **Step 1: Setup Azure**
+
 .. code-block:: bash
 
    # Install Azure CLI
@@ -300,6 +315,7 @@ Cloud Deployment
    az login
 
 **Step 2: Deploy to Azure Container Instances**
+
 .. code-block:: bash
 
    # Create resource group
@@ -330,6 +346,7 @@ Kubernetes Deployment
 * Kubernetes cluster
 
 **Step 1: Create Kubernetes Manifests**
+
 .. code-block:: yaml
 
    # k8s/deployment.yaml
@@ -387,6 +404,7 @@ Kubernetes Deployment
      type: LoadBalancer
 
 **Step 2: Deploy to Kubernetes**
+
 .. code-block:: bash
 
    # Create namespace
@@ -400,6 +418,7 @@ Kubernetes Deployment
    kubectl get services -n brain-tumor-monitoring
 
 **Step 3: Setup Ingress**
+
 .. code-block:: yaml
 
    # k8s/ingress.yaml
@@ -426,6 +445,7 @@ Production Configuration
 -----------------------
 
 **Environment Variables:**
+
 .. code-block:: bash
 
    # Production environment variables
@@ -441,6 +461,7 @@ Production Configuration
    CORS_ORIGINS=https://your-domain.com
 
 **Security Configuration:**
+
 .. code-block:: python
 
    # Security settings
@@ -453,6 +474,7 @@ Production Configuration
    }
 
 **Database Configuration:**
+
 .. code-block:: python
 
    # Database settings
@@ -464,6 +486,7 @@ Production Configuration
    }
 
 **Monitoring Configuration:**
+
 .. code-block:: python
 
    # Monitoring settings
@@ -478,6 +501,7 @@ Load Balancing
 --------------
 
 **Nginx Configuration:**
+
 .. code-block:: nginx
 
    # nginx.conf
@@ -510,6 +534,7 @@ Load Balancing
    }
 
 **HAProxy Configuration:**
+
 .. code-block:: haproxy
 
    # haproxy.cfg
@@ -536,6 +561,7 @@ SSL/TLS Configuration
 ---------------------
 
 **Let's Encrypt Setup:**
+
 .. code-block:: bash
 
    # Install Certbot
@@ -549,6 +575,7 @@ SSL/TLS Configuration
    # Add: 0 12 * * * /usr/bin/certbot renew --quiet
 
 **Manual SSL Certificate:**
+
 .. code-block:: nginx
 
    # SSL configuration
@@ -568,6 +595,7 @@ Monitoring & Logging
 -------------------
 
 **Prometheus Configuration:**
+
 .. code-block:: yaml
 
    # prometheus.yml
@@ -582,6 +610,7 @@ Monitoring & Logging
        scrape_interval: 5s
 
 **Grafana Dashboard:**
+
 .. code-block:: json
 
    {
@@ -602,6 +631,7 @@ Monitoring & Logging
    }
 
 **Logging Configuration:**
+
 .. code-block:: python
 
    # logging.conf
@@ -628,6 +658,7 @@ Backup & Recovery
 -----------------
 
 **Database Backup:**
+
 .. code-block:: bash
 
    # Automated backup script
@@ -641,6 +672,7 @@ Backup & Recovery
    find $BACKUP_DIR -name "backup_*.sql" -mtime +7 -delete
 
 **File Backup:**
+
 .. code-block:: bash
 
    # Backup reports and configurations
@@ -648,6 +680,7 @@ Backup & Recovery
    tar -czf /backups/config_$(date +%Y%m%d).tar.gz /app/config
 
 **Recovery Process:**
+
 .. code-block:: bash
 
    # Database recovery
@@ -661,6 +694,7 @@ CI/CD Pipeline
 --------------
 
 **GitHub Actions:**
+
 .. code-block:: yaml
 
    # .github/workflows/deploy.yml
@@ -709,6 +743,7 @@ CI/CD Pipeline
              # Deployment commands
 
 **GitLab CI:**
+
 .. code-block:: yaml
 
    # .gitlab-ci.yml
@@ -745,6 +780,7 @@ Troubleshooting
 **Common Deployment Issues:**
 
 **Database Connection Failed:**
+
 .. code-block:: bash
 
    # Check database connectivity
@@ -757,6 +793,7 @@ Troubleshooting
    sudo ufw status
 
 **Container Won't Start:**
+
 .. code-block:: bash
 
    # Check container logs
@@ -769,6 +806,7 @@ Troubleshooting
    docker exec container-name env
 
 **Kubernetes Pod Issues:**
+
 .. code-block:: bash
 
    # Check pod status
@@ -781,6 +819,7 @@ Troubleshooting
    kubectl describe pod pod-name
 
 **Load Balancer Issues:**
+
 .. code-block:: bash
 
    # Check service health
@@ -790,6 +829,7 @@ Troubleshooting
    kubectl logs -n ingress-nginx deployment/ingress-nginx-controller
 
 **Performance Issues:**
+
 .. code-block:: bash
 
    # Check resource usage

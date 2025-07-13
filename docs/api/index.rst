@@ -68,6 +68,7 @@ Response Format
 --------------
 
 **Success Response:**
+
 .. code-block:: json
 
    {
@@ -77,6 +78,7 @@ Response Format
    }
 
 **Error Response:**
+
 .. code-block:: json
 
    {
@@ -89,21 +91,25 @@ Quick Start
 -----------
 
 **1. Health Check**
+
 .. code-block:: bash
 
    curl http://localhost:8000/health
 
 **2. Get Dashboard Data**
+
 .. code-block:: bash
 
    curl http://localhost:8000/monitoring/dashboard
 
 **3. Generate Drift Report**
+
 .. code-block:: bash
 
    curl "http://localhost:8000/monitoring/drift-report?days=7"
 
 **4. Upload Image for Prediction**
+
 .. code-block:: bash
 
    curl -X POST http://localhost:8000/predict \
@@ -128,6 +134,7 @@ SDK Examples
 ------------
 
 **Python Client Example:**
+
 .. code-block:: python
 
    import requests
@@ -143,6 +150,7 @@ SDK Examples
        print(response.json())
 
 **JavaScript Client Example:**
+
 .. code-block:: javascript
 
    // Health check
@@ -162,6 +170,7 @@ SDK Examples
    .then(data => console.log(data));
 
 **cURL Examples:**
+
 .. code-block:: bash
 
    # Health check
@@ -182,16 +191,19 @@ Testing
 -------
 
 **Unit Tests:**
+
 .. code-block:: bash
 
    pytest tests/integrationtests/test_api_*.py
 
 **Integration Tests:**
+
 .. code-block:: bash
 
    pytest tests/integrationtests/ -v
 
 **Load Testing:**
+
 .. code-block:: bash
 
    # Install locust

@@ -14,6 +14,7 @@ Health Check
 **Description:** Check the health status of the API and its dependencies.
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -24,10 +25,12 @@ Health Check
    }
 
 **Status Codes:**
+
 * `200`: Service is healthy
 * `503`: Service is unhealthy
 
 **Example:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/health
@@ -40,6 +43,8 @@ Root Endpoint
 **Description:** Get basic information about the API and available endpoints.
 
 **Response:**
+
+
 .. code-block:: json
 
    {
@@ -72,6 +77,7 @@ Image Prediction
 * `max_size`: 10MB
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -96,6 +102,7 @@ Image Prediction
 * `500`: Prediction failed
 
 **Example:**
+
 .. code-block:: bash
 
    curl -X POST http://localhost:8000/predict \
@@ -112,6 +119,7 @@ Dashboard Data
 **Description:** Get real-time monitoring dashboard data.
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -131,6 +139,7 @@ Dashboard Data
 * `500`: Error retrieving data
 
 **Example:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/monitoring/dashboard
@@ -146,6 +155,7 @@ Drift Report Generation
 * `days` (optional): Number of days to analyze (default: 7)
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -165,6 +175,7 @@ Drift Report Generation
 * `500`: Error generating report
 
 **Example:**
+
 .. code-block:: bash
 
    curl "http://localhost:8000/monitoring/drift-report?days=14"
@@ -180,6 +191,7 @@ Feature Analysis
 * `days` (optional): Number of days to analyze (default: 7)
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -211,6 +223,7 @@ Feature Analysis
 * `500`: Analysis error
 
 **Example:**
+
 .. code-block:: bash
 
    curl "http://localhost:8000/monitoring/feature-analysis?days=7"
@@ -223,6 +236,7 @@ Data Quality Tests
 **Description:** Run data quality tests and return results.
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -242,6 +256,7 @@ Data Quality Tests
 * `500`: Test error
 
 **Example:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/monitoring/data-quality
@@ -265,6 +280,7 @@ Report Serving
 * `404`: Report not found
 
 **Example:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/monitoring/report/brain_tumor_drift_report_20250113_200000.html
@@ -280,6 +296,7 @@ Get All Patients
 **Description:** Get list of all patients.
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -300,6 +317,7 @@ Get All Patients
 * `500`: Database error
 
 **Example:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/patients
@@ -315,6 +333,7 @@ Get Patient by ID
 * `id`: Patient ID
 
 **Response:**
+
 .. code-block:: json
 
    {
@@ -339,6 +358,7 @@ Get Patient by ID
 * `500`: Database error
 
 **Example:**
+
 .. code-block:: bash
 
    curl http://localhost:8000/patients/1
@@ -349,6 +369,7 @@ Error Handling
 All endpoints follow consistent error handling patterns:
 
 **Validation Errors (422):**
+
 .. code-block:: json
 
    {
@@ -363,6 +384,7 @@ All endpoints follow consistent error handling patterns:
    }
 
 **Not Found Errors (404):**
+
 .. code-block:: json
 
    {
@@ -370,6 +392,7 @@ All endpoints follow consistent error handling patterns:
    }
 
 **Internal Server Errors (500):**
+
 .. code-block:: json
 
    {
@@ -386,6 +409,7 @@ The API implements rate limiting to prevent abuse:
 * **Report generation**: 10 requests per minute
 
 When rate limit is exceeded:
+
 .. code-block:: json
 
    {
@@ -423,7 +447,7 @@ For real-time updates, the API supports WebSocket connections:
 * **Authentication**: Same as REST API
 
 Example WebSocket usage:
-.. code-block:: javascript
+ javascript
 
    const ws = new WebSocket('ws://localhost:8000/ws');
 

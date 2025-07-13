@@ -101,6 +101,7 @@ The system extracts 20+ features from brain tumor images:
 * Compression artifacts
 
 Example feature extraction:
+
 .. code-block:: python
 
    from monitoring.core.monitor import BrainTumorImageMonitor
@@ -135,6 +136,7 @@ The system implements multiple drift detection strategies:
 * Automatic reference data updates
 
 Example drift analysis:
+
 .. code-block:: python
 
    # Analyze drift for last 7 days
@@ -163,6 +165,7 @@ The system generates comprehensive HTML reports using Evidently AI:
 * Automated scheduling
 
 **Report Generation:**
+
 .. code-block:: python
 
    # Generate drift report
@@ -200,6 +203,7 @@ Configuration
 ------------
 
 **Environment Variables:**
+
 .. code-block:: bash
 
    # Database connection
@@ -219,6 +223,7 @@ Configuration
    REPORT_RETENTION_DAYS=30
 
 **Drift Detection Configuration:**
+
 .. code-block:: python
 
    # Customize drift detection
@@ -230,6 +235,7 @@ Configuration
    )
 
 **Feature Selection:**
+
 .. code-block:: python
 
    # Focus on specific features
@@ -273,6 +279,7 @@ Integration
 ----------
 
 **ML Pipeline Integration:**
+
 .. code-block:: python
 
    # In your prediction pipeline
@@ -284,6 +291,7 @@ Integration
    monitor.log_prediction(image, prediction_result)
 
 **API Integration:**
+
 .. code-block:: python
 
    import requests
@@ -297,6 +305,7 @@ Integration
    report_info = response.json()
 
 **WebSocket Integration:**
+
 .. code-block:: javascript
 
    const ws = new WebSocket('ws://localhost:8000/ws');
