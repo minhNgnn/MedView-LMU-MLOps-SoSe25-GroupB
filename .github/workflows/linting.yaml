@@ -42,3 +42,4 @@ jobs:
 
       - name: Auto-format with ruff
         run: ruff format .
+

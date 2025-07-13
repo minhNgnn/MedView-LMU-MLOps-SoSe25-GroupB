@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Point this to wherever your test runner invokes it
 PROJECT_ROOT = Path(__file__).parent.parent
-DATA_YAML    = PROJECT_ROOT / "data" / "BrainTumor" / "BrainTumorSimple" / "data.yaml"
+DATA_YAML    = PROJECT_ROOT / "ml" / "configs" / "data_config" / "data.yaml"
 
 def test_data_yaml_exists():
     assert DATA_YAML.exists(), f"Could not find data.yaml at {DATA_YAML}"
