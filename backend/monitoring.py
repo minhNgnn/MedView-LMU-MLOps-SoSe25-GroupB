@@ -131,7 +131,7 @@ class BrainTumorImageMonitor:
         """Get reference brain tumor image data from the database."""
         try:
             with self.engine.connect() as conn:
-                # Get historical prediction data for reference
+                # Get older data for reference (first 50 records, ordered by timestamp ASC)
                 query = text("""
                     SELECT image_width, image_height, image_channels, image_size_bytes,
                            brightness_mean, brightness_std, contrast_mean, contrast_std,
@@ -139,11 +139,10 @@ class BrainTumorImageMonitor:
                            tumor_area_ratio, tumor_detection_confidence,
                            num_tumors_detected, largest_tumor_area, tumor_density,
                            tumor_location_x, tumor_location_y, tumor_shape_regularity,
-                           prediction_confidence, prediction_class, created_at
+                           prediction_confidence, prediction_class, timestamp
                     FROM predictions_log 
-                    WHERE created_at >= NOW() - INTERVAL '30 days'
-                    ORDER BY created_at DESC
-                    LIMIT 1000
+                    ORDER BY timestamp ASC
+                    LIMIT 50
                 """)
                 result = conn.execute(query)
                 df = pd.DataFrame(result.fetchall(), columns=result.keys())
@@ -163,7 +162,8 @@ class BrainTumorImageMonitor:
         """Get current brain tumor image data from the database."""
         try:
             with self.engine.connect() as conn:
-                # Get recent prediction data
+                # Get recent data for current (last 50 records, ordered by timestamp DESC)
+                # This ensures no overlap with reference data
                 query = text("""
                     SELECT image_width, image_height, image_channels, image_size_bytes,
                            brightness_mean, brightness_std, contrast_mean, contrast_std,
@@ -171,12 +171,12 @@ class BrainTumorImageMonitor:
                            tumor_area_ratio, tumor_detection_confidence,
                            num_tumors_detected, largest_tumor_area, tumor_density,
                            tumor_location_x, tumor_location_y, tumor_shape_regularity,
-                           prediction_confidence, prediction_class, created_at
+                           prediction_confidence, prediction_class, timestamp
                     FROM predictions_log 
-                    WHERE created_at >= NOW() - INTERVAL ':days days'
-                    ORDER BY created_at DESC
+                    ORDER BY timestamp DESC
+                    LIMIT 50
                 """)
-                result = conn.execute(query, {"days": days})
+                result = conn.execute(query)
                 df = pd.DataFrame(result.fetchall(), columns=result.keys())
                 
                 # If no data exists, create synthetic current data
@@ -308,9 +308,23 @@ class BrainTumorImageMonitor:
             if reference_data.empty or current_data.empty:
                 raise HTTPException(status_code=400, detail="Insufficient data for brain tumor drift analysis")
             
-            # Generate brain tumor specific drift report
+            # Log the split details for debugging
+            logger.info(f"Reference data: {len(reference_data)} samples, timestamp range: {reference_data['timestamp'].min()} to {reference_data['timestamp'].max()}")
+            logger.info(f"Current data: {len(current_data)} samples, timestamp range: {current_data['timestamp'].min()} to {current_data['timestamp'].max()}")
+            
+            # Check for overlap
+            ref_timestamps = set(reference_data['timestamp'].dt.strftime('%Y-%m-%d %H:%M:%S'))
+            curr_timestamps = set(current_data['timestamp'].dt.strftime('%Y-%m-%d %H:%M:%S'))
+            overlap = ref_timestamps.intersection(curr_timestamps)
+            logger.info(f"Timestamp overlap between reference and current: {len(overlap)} records")
+            
+            # Generate brain tumor specific drift report with more sensitive settings
+            # Use DataDriftPreset with custom settings
             drift_report = Report(metrics=[
-                DataDriftPreset(columns=self.image_columns + self.tumor_features),
+                DataDriftPreset(
+                    columns=self.image_columns + self.tumor_features,
+                    drift_share=0.1  # Detect drift if 10% of features drift
+                ),
                 DataSummaryPreset(columns=self.image_columns + self.tumor_features)
             ])
             
@@ -357,6 +371,51 @@ class BrainTumorImageMonitor:
         except Exception as e:
             logger.error(f"Error running brain tumor quality tests: {e}")
             return {"data_quality": False, "error": str(e)}
+    
+    def analyze_feature_drift(self, days: int = 7) -> Dict:
+        """Analyze feature distributions and drift indicators."""
+        try:
+            reference_data = self.get_reference_data()
+            current_data = self.get_current_data(days)
+            
+            if reference_data.empty or current_data.empty:
+                return {"error": "Insufficient data for analysis"}
+            
+            analysis = {}
+            
+            # Analyze key features that are most likely to show drift
+            key_features = ['brightness_mean', 'contrast_mean', 'entropy', 'tumor_detection_confidence']
+            
+            for feature in key_features:
+                if feature in reference_data.columns and feature in current_data.columns:
+                    ref_mean = float(reference_data[feature].mean())
+                    ref_std = float(reference_data[feature].std())
+                    curr_mean = float(current_data[feature].mean())
+                    curr_std = float(current_data[feature].std())
+                    
+                    # Calculate drift indicators
+                    mean_diff = abs(curr_mean - ref_mean)
+                    std_diff = abs(curr_std - ref_std)
+                    drift_score = (mean_diff / ref_std) + (std_diff / ref_std)
+                    
+                    analysis[feature] = {
+                        "reference_mean": ref_mean,
+                        "reference_std": ref_std,
+                        "current_mean": curr_mean,
+                        "current_std": curr_std,
+                        "mean_difference": mean_diff,
+                        "std_difference": std_diff,
+                        "drift_score": drift_score,
+                        "significant_drift": bool(drift_score > 1.0)  # Convert to Python bool
+                    }
+                    
+                    logger.info(f"Feature {feature}: ref_mean={ref_mean:.2f}, curr_mean={curr_mean:.2f}, drift_score={drift_score:.2f}")
+            
+            return analysis
+            
+        except Exception as e:
+            logger.error(f"Error analyzing feature drift: {e}")
+            return {"error": str(e)}
     
     def get_brain_tumor_dashboard_data(self) -> Dict:
         """Get data for brain tumor monitoring dashboard."""

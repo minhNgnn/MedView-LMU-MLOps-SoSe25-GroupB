@@ -192,6 +192,18 @@ async def run_data_quality_tests() -> JSONResponse:
         raise HTTPException(status_code=500, detail="Error running data quality tests")
 
 
+@app.get("/monitoring/feature-analysis")
+async def analyze_feature_drift(days: int = 7) -> JSONResponse:
+    """Analyze feature distributions and drift indicators."""
+    try:
+        monitor = get_monitor()
+        analysis = monitor.analyze_feature_drift(days)
+        return JSONResponse(content=analysis)
+    except Exception as e:
+        logger.error(f"Error analyzing feature drift: {e}")
+        raise HTTPException(status_code=500, detail="Error analyzing feature drift")
+
+
 @app.get("/monitoring/report/{report_name}")
 async def get_report(report_name: str) -> HTMLResponse:
     """Get a specific monitoring report."""

@@ -34,6 +34,7 @@ const MonitoringDashboard: React.FC = () => {
   const [dataQualityResults, setDataQualityResults] = useState<DataQualityResults | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [latestReportPath, setLatestReportPath] = useState<string | null>(null);
 
   const fetchDashboardData = async () => {
     try {
@@ -66,10 +67,11 @@ const MonitoringDashboard: React.FC = () => {
   const generateDriftReport = async () => {
     try {
       setLoading(true);
+      setLatestReportPath(null); // Reset before new request
       const response = await fetch('http://localhost:8000/monitoring/drift-report?days=7');
       if (!response.ok) throw new Error('Failed to generate drift report');
       const data = await response.json();
-      alert(`Brain tumor drift report generated: ${data.report_path}`);
+      setLatestReportPath(data.report_path);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
@@ -119,6 +121,16 @@ const MonitoringDashboard: React.FC = () => {
           <Button onClick={generateDriftReport} disabled={loading}>
             Generate Drift Report
           </Button>
+          {latestReportPath && (
+            <a
+              href={`http://localhost:8000/monitoring/report/${latestReportPath.split('/').pop()}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Open Latest Drift Report
+            </a>
+          )}
         </div>
       </div>
 
