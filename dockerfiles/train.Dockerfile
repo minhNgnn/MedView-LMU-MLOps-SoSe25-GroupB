@@ -22,4 +22,3 @@ COPY ml/ ./ml/
 
 # 7) When someone runs the image, execute your training script
 ENTRYPOINT ["python", "-u", "ml/train.py"]
- 

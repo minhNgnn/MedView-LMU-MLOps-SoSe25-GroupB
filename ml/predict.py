@@ -1,10 +1,12 @@
 import numpy as np
 from ultralytics import YOLO
+
 from ml.utils import resize_image
 
 BEST_MODEL_PATH = "ml/models/yolov8n/weights/epoch10_yolov8n.pt"
 
-def get_prediction_from_array(image: np.ndarray) -> 'np.ndarray | None':
+
+def get_prediction_from_array(image: np.ndarray) -> "np.ndarray | None":
     """
     Run YOLO prediction on an input image array and return the annotated image.
 
@@ -27,4 +29,3 @@ def get_prediction_from_array(image: np.ndarray) -> 'np.ndarray | None':
         return annotated_image
     else:
         return None
-    

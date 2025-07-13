@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 import backend.src.api as api_module
-from backend.src.api import normalize_image, resize_image, get_prediction
+from backend.src.api import get_prediction, normalize_image, resize_image
 
 
 # -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ def test_normalize_image_scales_to_0_1():
     assert np.isclose(norm.min(), 0.0)
     assert np.isclose(norm.max(), 1.0)
     # a middle value should be roughly 128/255
-    assert np.isclose(norm[1,0], 128/255, atol=1e-6)
+    assert np.isclose(norm[1, 0], 128 / 255, atol=1e-6)
 
 
 def test_resize_image_changes_shape():
@@ -36,14 +36,18 @@ class DummyYOLO:
         # record that we got the right path
         self.weights_path = weights_path
 
-    def predict(self, *, source, imgsz, conf, project, name,
-                save, save_txt, save_conf, line_width):
+    def predict(self, *, source, imgsz, conf, project, name, save, save_txt, save_conf, line_width):
         # record that we were called
         self.call_args = {
-            "source": source, "imgsz": imgsz, "conf": conf,
-            "project": project, "name": name,
-            "save": save, "save_txt": save_txt,
-            "save_conf": save_conf, "line_width": line_width
+            "source": source,
+            "imgsz": imgsz,
+            "conf": conf,
+            "project": project,
+            "name": name,
+            "save": save,
+            "save_txt": save_txt,
+            "save_conf": save_conf,
+            "line_width": line_width,
         }
         # return a dummy result list (the same structure Ultralytics would)
         return [{"label": "glioma", "boxes": []}]
@@ -57,8 +61,7 @@ def patch_io_and_yolo(monkeypatch):
       - api_module.YOLO      → our DummyYOLO
     """
     # fake image read: a 100×100 gray image
-    monkeypatch.setattr(api_module.cv2, "imread",
-                        lambda path: np.full((100, 100, 3), 128, dtype=np.uint8))
+    monkeypatch.setattr(api_module.cv2, "imread", lambda path: np.full((100, 100, 3), 128, dtype=np.uint8))
     # patch the YOLO constructor
     monkeypatch.setattr(api_module, "YOLO", DummyYOLO)
     return DummyYOLO
@@ -75,8 +78,7 @@ def test_get_prediction_calls_yolo_and_returns_list(monkeypatch):
     model_path = "models/simple.pt"
     image_path = "data/foo.jpg"
 
-    results = get_prediction(best_model_path=model_path,
-                             test_image_path=image_path)
+    results = get_prediction(best_model_path=model_path, test_image_path=image_path)
 
     # must get back our dummy list
     assert isinstance(results, list)

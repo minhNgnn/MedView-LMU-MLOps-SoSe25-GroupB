@@ -4,4 +4,3 @@ test: ../../../data/Simple/test/images
 
 nc: 3
 names: ['glioma', 'meningioma', 'pituitary']
-

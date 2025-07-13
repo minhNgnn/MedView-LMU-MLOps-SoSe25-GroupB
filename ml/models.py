@@ -14,9 +14,9 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
     """Trains the machine learning model."""
 
     print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
-    T_Model = YOLO(f"ml/models/{model_name}.pt")
+    t_model = YOLO(f"ml/models/{model_name}.pt")
 
-    if wandb_logging == True:
+    if wandb_logging:
         print("Initializing Weights & Biases for logging...")
         wandb.login()
         os.system("yolo settings wandb=True")
@@ -25,9 +25,9 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
             job_type="training",
             #    config={"model_name": model_name, "batch_size": batch_size, "epochs": epochs},
         )
-        add_wandb_callback(T_Model)
+        add_wandb_callback(t_model)
 
-    results = T_Model.train(
+    results = t_model.train(
         data="ml/configs/data_config/data.yaml",
         epochs=epochs,
         patience=20,
@@ -37,7 +37,6 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
         name=model_name,
     )
     return results
-
 
 
 # def export_model_to_onnx():

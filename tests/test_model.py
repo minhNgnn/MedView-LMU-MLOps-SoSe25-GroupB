@@ -1,9 +1,10 @@
 # tests/test_models_wandb.py  #to be tested after models.py is fixed
-import pytest
-from typing import Any, Dict
 import os
+from typing import Any, Dict
 
-import src.ml_backend.models as M
+import pytest
+import src.ml_backend.models as models
+
 
 # -------------------------------------------------------------------------
 # Fixtures to stub out external dependencies: YOLO, wandb, add_wandb_callback,
@@ -15,7 +16,7 @@ class DummyYOLO:
         self.trained = False
         self.train_kwargs = {}
 
-    def train(self, **kwargs) -> Dict[str,Any]:
+    def train(self, **kwargs) -> Dict[str, Any]:
         self.trained = True
         self.train_kwargs = kwargs
         return {"success": True, "received": kwargs}
@@ -23,8 +24,8 @@ class DummyYOLO:
 
 @pytest.fixture(autouse=True)
 def patch_yolo(monkeypatch):
-    """Replace M.YOLO with DummyYOLO in every test."""
-    monkeypatch.setattr(M, "YOLO", DummyYOLO)
+    """Replace models.YOLO with DummyYOLO in every test."""
+    monkeypatch.setattr(models, "YOLO", DummyYOLO)
 
 
 @pytest.fixture
@@ -56,16 +57,18 @@ def patch_wandb_and_system(monkeypatch):
         calls["system"] = cmd
         return 0
 
-    monkeypatch.setattr(M.wandb, "login", fake_login)
-    monkeypatch.setattr(M.wandb, "init", fake_init)
-    monkeypatch.setattr(M, "add_wandb_callback", fake_add_cb)
-    monkeypatch.setattr(M.os, "system", fake_system)
+    monkeypatch.setattr(models.wandb, "login", fake_login)
+    monkeypatch.setattr(models.wandb, "init", fake_init)
+    monkeypatch.setattr(models, "add_wandb_callback", fake_add_cb)
+    monkeypatch.setattr(models.os, "system", fake_system)
 
     return calls
+
 
 # -------------------------------------------------------------------------
 # TESTS
 # -------------------------------------------------------------------------
+
 
 def test_train_model_plain_path(monkeypatch):
     """
@@ -74,7 +77,7 @@ def test_train_model_plain_path(monkeypatch):
     and kwargs should reflect the function signature.
     """
     # call without wandb
-    res = M.train_model(model_name="simple", batch_size=16, epochs=5, wandb_logging=False)
+    res = models.train_model(model_name="simple", batch_size=16, epochs=5, wandb_logging=False)
 
     # verify return
     assert isinstance(res, dict)
@@ -105,7 +108,7 @@ def test_train_model_with_wandb(patch_wandb_and_system):
     calls = patch_wandb_and_system
 
     # invoke with wandb Logging enabled
-    res = M.train_model(model_name="simple", batch_size=8, epochs=3, wandb_logging=True)
+    res = models.train_model(model_name="simple", batch_size=8, epochs=3, wandb_logging=True)
 
     # verify training still returns success
     assert res["success"] is True
@@ -125,20 +128,23 @@ def test_train_model_uses_correct_data_path():
     Ensure that each model_name picks its own data.yaml entry.
     """
     # for each key in yaml_data_path_dict, check that DummyYOLO.train saw it
-    for name, path in M.train_model.__defaults__[0:3]:  # not super reliable—better to inspect the dict
+    for name, path in models.train_model.__defaults__[0:3]:  # not super reliable—better to inspect the dict
         # Instead, just test two examples explicitly:
         pass  # we'll write two explicit subtests below
 
 
-@pytest.mark.parametrize("model_name,expected_yaml", [
-    ("yolov8n",  "data/BrainTumor/BrainTumorYolov8/data.yaml"),
-    ("simple",  "configs/data/data.yaml"),
-])
+@pytest.mark.parametrize(
+    "model_name,expected_yaml",
+    [
+        ("yolov8n", "data/BrainTumor/BrainTumorYolov8/data.yaml"),
+        ("simple", "configs/data/data.yaml"),
+    ],
+)
 def test_train_model_data_path_passed(model_name, expected_yaml):
     dummy = DummyYOLO(weights="unused")
     # patch YOLO to return our dummy
-    M.YOLO = lambda w: dummy
+    models.YOLO = lambda w: dummy
 
-    _ = M.train_model(model_name=model_name, wandb_logging=False)
+    _ = models.train_model(model_name=model_name, wandb_logging=False)
     # check that the train() kwargs included the correct data path
     assert dummy.train_kwargs["data"] == expected_yaml
