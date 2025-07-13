@@ -225,10 +225,14 @@ class BrainTumorImageMonitor:
 
             # Log the split details for debugging
             logger.info(
-                f"Reference data: {len(reference_data)} samples, timestamp range: {reference_data['timestamp'].min()} to {reference_data['timestamp'].max()}"
+                f"Reference data: {len(reference_data)} samples, "
+                f"timestamp range: {reference_data['timestamp'].min()} to "
+                f"{reference_data['timestamp'].max()}"
             )
             logger.info(
-                f"Current data: {len(current_data)} samples, timestamp range: {current_data['timestamp'].min()} to {current_data['timestamp'].max()}"
+                f"Current data: {len(current_data)} samples, "
+                f"timestamp range: {current_data['timestamp'].min()} to "
+                f"{current_data['timestamp'].max()}"
             )
 
             # Check for overlap
@@ -270,10 +274,14 @@ class BrainTumorImageMonitor:
 
             # Log the split details for debugging
             logger.info(
-                f"Reference data: {len(reference_data)} samples, timestamp range: {reference_data['timestamp'].min()} to {reference_data['timestamp'].max()}"
+                f"Reference data: {len(reference_data)} samples, "
+                f"timestamp range: {reference_data['timestamp'].min()} to "
+                f"{reference_data['timestamp'].max()}"
             )
             logger.info(
-                f"Current data: {len(current_data)} samples, timestamp range: {current_data['timestamp'].min()} to {current_data['timestamp'].max()}"
+                f"Current data: {len(current_data)} samples, "
+                f"timestamp range: {current_data['timestamp'].min()} to "
+                f"{current_data['timestamp'].max()}"
             )
 
             # Check for overlap

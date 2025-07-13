@@ -51,7 +51,8 @@ class DriftDetector:
                     }
 
                     logger.info(
-                        f"Feature {feature}: ref_mean={ref_mean:.2f}, curr_mean={curr_mean:.2f}, drift_score={drift_score:.2f}"
+                        f"Feature {feature}: ref_mean={ref_mean:.2f}, "
+                        f"curr_mean={curr_mean:.2f}, drift_score={drift_score:.2f}"
                     )
 
             return analysis
