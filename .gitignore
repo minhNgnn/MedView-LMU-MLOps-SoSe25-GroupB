@@ -27,17 +27,22 @@ bun.lockb
 .vscode/
 !.vscode/extensions.json
 .idea
-.dvc
+
+# Ignore all data by default
 data/
 tests/data/
 
-# But allow .dvc files inside data/
+# --- DVC FIX START ---
+
+# Allow DVC metadata files (explicitly)
+!*.dvc
 !data/**/
 !data/**/*.dvc
-!*.dvc
 
-# Track the .dvc internal state directory
+# Allow the .dvc internal directory (important for pipelines)
 !.dvc/
+
+# --- DVC FIX END ---
 
 
 # Vim editor files
