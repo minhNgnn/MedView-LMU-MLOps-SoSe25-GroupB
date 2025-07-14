@@ -28,6 +28,17 @@ bun.lockb
 !.vscode/extensions.json
 .idea
 .dvc
+data/
+tests/data/
+
+# But allow .dvc files inside data/
+!data/**/
+!data/**/*.dvc
+!*.dvc
+
+# Track the .dvc internal state directory
+!.dvc/
+
 
 # Vim editor files
 *.swp
@@ -65,8 +76,6 @@ share/python-wheels/
 MANIFEST
 *.manifest
 *.spec
-data/
-BrainTumor/
 outputs/
 wandb/
 
