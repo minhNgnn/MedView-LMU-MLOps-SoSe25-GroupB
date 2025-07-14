@@ -1,4 +1,3 @@
-# .github/workflows/pre-commit-autoupdate.yml
 name: Pre-commit auto-update
 
 on:
@@ -8,7 +7,6 @@ on:
 
 jobs:
   auto-update:
-    # Run on all supported OS & Python versions for compatibility
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -24,8 +22,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-          cache-dependency-path: requirements.txt,requirements_tests.txt
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements_dev.txt
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
