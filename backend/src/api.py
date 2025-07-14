@@ -23,7 +23,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
 from ml.predict import get_prediction_from_array
-from monitoring.core.monitor import BrainTumorImageMonitor
 
 load_dotenv()
 
@@ -83,9 +82,6 @@ if not DATABASE_URL:
 
 engine = create_engine(DATABASE_URL)
 
-# Initialize monitoring system
-monitor = BrainTumorImageMonitor(DATABASE_URL)
-
 
 @app.get("/health")
 def health_check() -> Dict[str, str]:
@@ -140,7 +136,7 @@ async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...
                 "class": "medical_condition",  # Placeholder
                 "num_detections": 1,  # Placeholder
             }
-            background_tasks.add_task(monitor.log_prediction, image, prediction_info)
+            # background_tasks.add_task(monitor.log_prediction, image, prediction_info) # Removed as per edit hint
         except Exception as e:
             logger.warning(f"Failed to schedule logging for monitoring: {e}")
 
@@ -160,80 +156,7 @@ async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...
         )
 
 
-# Monitoring endpoints
-@app.get("/monitoring/dashboard")
-async def get_monitoring_dashboard() -> JSONResponse:
-    """Get brain tumor monitoring dashboard data."""
-    try:
-        dashboard_data = monitor.get_brain_tumor_dashboard_data()
-        return JSONResponse(content=dashboard_data)
-    except Exception as e:
-        logger.error(f"Error getting dashboard data: {e}")
-        raise HTTPException(status_code=500, detail="Error getting dashboard data")
-
-
-@app.get("/monitoring/drift-report")
-async def generate_drift_report(days: int = 7) -> JSONResponse:
-    """Generate brain tumor image drift report."""
-    try:
-        report_path = monitor.generate_brain_tumor_drift_report(days)
-        return JSONResponse(
-            content={
-                "message": "Brain tumor drift report generated successfully",
-                "report_path": report_path,
-                "days_analyzed": days,
-            }
-        )
-    except Exception as e:
-        logger.error(f"Error generating drift report: {e}")
-        raise HTTPException(status_code=500, detail="Error generating drift report")
-
-
-@app.get("/monitoring/data-quality")
-async def run_data_quality_tests() -> JSONResponse:
-    """Run brain tumor image quality tests."""
-    try:
-        # Placeholder for data quality tests
-        results = {
-            "data_quality": True,
-            "missing_values_test": True,
-            "outliers_test": True,
-            "drift_test": True,
-            "timestamp": "2025-07-13T20:00:00",
-        }
-        return JSONResponse(content=results)
-    except Exception as e:
-        logger.error(f"Error running data quality tests: {e}")
-        raise HTTPException(status_code=500, detail="Error running data quality tests")
-
-
-@app.get("/monitoring/feature-analysis")
-async def analyze_feature_drift(days: int = 7) -> JSONResponse:
-    """Analyze feature distributions and drift indicators."""
-    try:
-        analysis = monitor.analyze_feature_drift(days)
-        return JSONResponse(content=analysis)
-    except Exception as e:
-        logger.error(f"Error analyzing feature drift: {e}")
-        raise HTTPException(status_code=500, detail="Error analyzing feature drift")
-
-
-@app.get("/monitoring/report/{report_name}")
-async def get_report(report_name: str) -> HTMLResponse:
-    """Get a specific monitoring report."""
-    try:
-        report_path = monitor.reports_dir / report_name
-
-        if not report_path.exists():
-            raise HTTPException(status_code=404, detail="Report not found")
-
-        with open(report_path, "r") as f:
-            content = f.read()
-
-        return HTMLResponse(content=content)
-    except Exception as e:
-        logger.error(f"Error getting report: {e}")
-        raise HTTPException(status_code=500, detail="Error getting report")
+# Remove all @app.get("/monitoring/...") endpoints
 
 
 @app.get("/patients", status_code=status.HTTP_200_OK)
