@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Stethoscope, Users, Brain } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center p-6">
       <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -55,11 +57,13 @@ const Index = () => {
         </div>
 
         <div className="pt-8">
-          <Link to="/medical">
-            <Button size="lg" className="text-lg px-8 py-3">
-              Access Medical Dashboard
-            </Button>
-          </Link>
+          <Button
+            className="mt-8 mx-auto block"
+            size="lg"
+            onClick={() => navigate('/patients')}
+          >
+            Access Medical Dashboard
+          </Button>
         </div>
       </div>
     </div>

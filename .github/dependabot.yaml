@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Keep Python deps in sync
+  - package-ecosystem: "pip"
+    directory: "/"                      # Location of your requirements.txt files
+    schedule:
+      interval: "weekly"               # Check for updates once a week
+    open-pull-requests-limit: 5        # (optional) max PRs to open at once
+    labels:
+      - dependencies
+      - automation
+
+  # Keep your GitHub Actions workflows up to date
+  - package-ecosystem: "github-actions"
+    directory: "/"                      # Scans all .github/workflows/*.yml
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - automation

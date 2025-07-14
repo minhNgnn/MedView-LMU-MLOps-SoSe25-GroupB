@@ -1,0 +1,8 @@
+[run]
+# any run-time settings
+
+[report]
+# omit any historical drop-outs
+omit =
+    */config-3.py
+    */config.py

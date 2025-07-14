@@ -1,3 +1,6 @@
+# Profilling files
+*.prof
+
 #OS stuff
 .DS_Store
 *Zone.Identifier
@@ -63,6 +66,9 @@ MANIFEST
 *.manifest
 *.spec
 data/
+BrainTumor/
+outputs/
+wandb/
 
 # Installer logs
 pip-log.txt
@@ -149,3 +155,7 @@ dmypy.json
 .pytype/
 cython_debug/
 #.idea/ # Uncomment if you want to ignore the entire PyCharm idea folder
+
+
+# Ignore transient test data files
+tests/test_data.py

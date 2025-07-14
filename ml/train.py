@@ -1,5 +1,7 @@
 import os
-from models import train_model
+from typing import Any
+
+from ml.models import train_model
 from typing import Annotated
 import typer
 import hydra
@@ -11,7 +13,7 @@ def run_training_typer(model_name: Annotated[str, typer.Option("--model_name", "
                           batch_size: Annotated[int, typer.Option("--batch_size", "-b")] = -1,
                           epochs: Annotated[int, typer.Option("--epochs")] = 10,
                           wandb_logging: Annotated[bool, typer.Option("--wandb", "-w")] = False,
-                          ):
+                          ) -> Any: 
     print("Starting training pipeline...")
     
     train_model(model_name, batch_size, epochs, wandb_logging)
@@ -19,8 +21,8 @@ def run_training_typer(model_name: Annotated[str, typer.Option("--model_name", "
     print("Training pipeline completed.")
 
 
-@hydra.main(config_name="config.yaml", config_path=f"configs/model")
-def run_training_hydra(cfg):
+@hydra.main(version_base=None, config_name="config.yaml", config_path=f"configs/model")
+def run_training_hydra(cfg) -> Any:
     print("Starting training pipeline...")
     
     os.chdir(hydra.utils.get_original_cwd())

@@ -21,6 +21,10 @@ classifiers = [
 ]
 dynamic = ["dependencies", "optional-dependencies"]
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ml*"]
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["ml/requirements.txt"]}
 
@@ -35,3 +39,6 @@ select = ["I", "N", "E", "W", ]
 
 [tool.coverage.run]
 omit = ["tests/*"]
+
+[project.scripts]
+train = "ml.train:run_training_hydra"

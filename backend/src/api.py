@@ -10,6 +10,16 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
 from ml.models import get_prediction_from_array
+from ultralytics import YOLO
+import matplotlib.pyplot as plt
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import create_engine, text
+from fastapi.responses import JSONResponse
+from fastapi import HTTPException
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = FastAPI()
 
@@ -36,6 +46,9 @@ async def global_exception_handler(request: Request, exc: Exception):
     logger.exception(f"Unhandled exception: {exc}")
     return JSONResponse(status_code=500, content=format_error("Internal server error"))
 
+# PostgreSQL connection (adjust user/password/host as needed)
+DATABASE_URL = os.getenv("DATABASE_URL")
+engine = create_engine(DATABASE_URL)
 
 class PatientData(BaseModel):
     age: int
@@ -70,3 +83,21 @@ async def predict(file: UploadFile = File(...)):
     _, img_encoded = cv2.imencode(".jpg", annotated_image)
     logger.info("Returning annotated image, size: %d bytes", len(img_encoded))
     return StreamingResponse(io.BytesIO(img_encoded.tobytes()), media_type="image/jpeg")
+
+
+@app.get("/patients")
+def get_patients():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT id, first_name, last_name, age, gender, phone_number, email, address, blood_pressure, blood_sugar, cholesterol, smoking_status, alcohol_consumption, exercise_frequency, activity_level FROM patients LIMIT 10"))
+        patients = [dict(row) for row in result]
+    return JSONResponse(content=patients)
+
+@app.get("/patients/{id}")
+def get_patient(id: int):
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT id, first_name, last_name, age, gender, phone_number, email, address, blood_pressure, blood_sugar, cholesterol, smoking_status, alcohol_consumption, exercise_frequency, activity_level FROM patients WHERE id = :id"), {"id": id})
+        row = result.fetchone()
+        if row is None:
+            raise HTTPException(status_code=404, detail="Patient not found")
+        return dict(row)
+
