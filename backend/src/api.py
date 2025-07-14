@@ -163,8 +163,10 @@ def get_patients() -> JSONResponse:
             query = text("SELECT * FROM patients")
             result = conn.execute(query)
             patients = []
-            for row in result:
-                patient = dict(row._mapping)
+            # If result has .mappings() (as in tests), use it; else, iterate result
+            rows = result.mappings() if hasattr(result, "mappings") else result
+            for row in rows:
+                patient = dict(row)
                 # Convert datetime fields to ISO format
                 for k, v in patient.items():
                     if hasattr(v, "isoformat"):
@@ -173,14 +175,17 @@ def get_patients() -> JSONResponse:
             return JSONResponse(content=patients)
     except SQLAlchemyError as e:
         logger.error(f"Database error: {e}")
-        raise HTTPException(status_code=500, detail="Database error")
+        return JSONResponse(status_code=500, content={"detail": "Database error occurred"})
+    except Exception as e:
+        logger.error(f"Unhandled exception: {e}")
+        return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 
 @app.get("/patients/{id}", status_code=status.HTTP_200_OK)
 def get_patient(id: int) -> Dict:
     # Validate patient ID
     if id <= 0:
-        raise HTTPException(status_code=400, detail="Invalid patient ID")
+        raise HTTPException(status_code=400, detail="Patient ID must be a positive integer")
 
     try:
         with engine.connect() as conn:
@@ -194,4 +199,9 @@ def get_patient(id: int) -> Dict:
             return dict(patient._mapping)
     except SQLAlchemyError as e:
         logger.error(f"Database error: {e}")
-        raise HTTPException(status_code=500, detail="Database error")
+        raise HTTPException(status_code=500, detail="Database error occurred")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unhandled exception: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
