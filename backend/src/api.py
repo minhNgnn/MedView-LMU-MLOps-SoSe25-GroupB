@@ -242,7 +242,14 @@ def get_patients() -> JSONResponse:
         with engine.connect() as conn:
             query = text("SELECT * FROM patients")
             result = conn.execute(query)
-            patients = [dict(row._mapping) for row in result]
+            patients = []
+            for row in result:
+                patient = dict(row._mapping)
+                # Convert datetime fields to ISO format
+                for k, v in patient.items():
+                    if hasattr(v, "isoformat"):
+                        patient[k] = v.isoformat()
+                patients.append(patient)
             return JSONResponse(content=patients)
     except SQLAlchemyError as e:
         logger.error(f"Database error: {e}")
