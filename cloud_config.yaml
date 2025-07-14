@@ -3,4 +3,4 @@ workerPoolSpecs:
         machineType: n1-highmem-2
     replicaCount: 1
     containerSpec:
-        imageUri: europe-central2-docker.pkg.dev/health-care-465520/medview-app-registry/image1:latest
+        imageUri: europe-west1-docker.pkg.dev/health-care-465520/train-registry/image1:latest

@@ -5,9 +5,8 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-COPY src/ml/requirements.txt src/ml/requirements.txt
-COPY src/ml/ src/ml/
+COPY ml/ ml/
 WORKDIR /
-RUN pip install -r src/ml/requirements.txt --no-cache-dir
+RUN pip install -r ml/requirements.txt --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "src/ml/train.py"]
+ENTRYPOINT ["python", "-u", "ml/train.py"]

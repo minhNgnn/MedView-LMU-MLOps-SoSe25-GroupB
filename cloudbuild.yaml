@@ -5,7 +5,7 @@ steps:
     'build',
     '.',
     '-t',
-    'europe-west1-docker.pkg.dev/$PROJECT_ID/medview-app-registry/image1',
+    'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/image1',
     '-f',
     '.'
   ]
@@ -13,7 +13,7 @@ steps:
   id: 'Push container image'
   args: [
     'push',
-    'europe-west1-docker.pkg.dev/$PROJECT_ID/medview-app-registry/image1'
+    'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/image1'
   ]
 options:
   logging: CLOUD_LOGGING_ONLY
