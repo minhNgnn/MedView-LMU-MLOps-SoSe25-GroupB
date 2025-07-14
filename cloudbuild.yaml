@@ -9,6 +9,7 @@ steps:
     '-f',
     '.'
   ]
+  dir: 'dockerfiles'
 - name: 'gcr.io/cloud-builders/docker'
   id: 'Push container image'
   args: [
