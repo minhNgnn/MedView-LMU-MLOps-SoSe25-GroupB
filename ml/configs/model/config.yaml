@@ -3,3 +3,4 @@ hyperparameters:
   batch_size: -1
   epochs: 5
   wandb_logging: False
+  num_workers:    -1  
