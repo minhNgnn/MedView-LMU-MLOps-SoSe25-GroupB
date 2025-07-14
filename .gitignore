@@ -1,3 +1,4 @@
+# Profilling files
 *.prof
 backend/migrations
 
@@ -166,3 +167,7 @@ dmypy.json
 .pytype/
 cython_debug/
 #.idea/ # Uncomment if you want to ignore the entire PyCharm idea folder
+
+
+# Ignore transient test data files
+tests/test_data.py

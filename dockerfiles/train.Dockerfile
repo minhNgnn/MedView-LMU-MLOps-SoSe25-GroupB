@@ -9,6 +9,12 @@ ENV PIP_RESUME_RETRIES=5
 # 3) Set working directory
 WORKDIR /app
 
+# 2) Install system deps for OpenCV
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 && \
+    rm -rf /var/lib/apt/lists/*
+
 # 4) Copy only the dependency spec first, then install
 COPY ml/requirements.txt ./requirements.txt
 RUN pip install --upgrade pip && \
@@ -21,4 +27,6 @@ COPY ml/ ./ml/
 # RUN pip install --no-deps --no-cache-dir .
 
 # 7) When someone runs the image, execute your training script
-ENTRYPOINT ["python", "-u", "ml/train.py"]
+ENTRYPOINT ["python", "-u", "-m", "ml.train"]
+
+>>>>>>> origin/health-care

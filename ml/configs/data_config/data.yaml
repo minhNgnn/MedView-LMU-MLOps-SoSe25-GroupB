@@ -1,6 +1,6 @@
-train: ../../../data/Simple/train/images
-val: ../../../data/Simple/valid/images
-test: ../../../data/Simple/test/images
+train: ../../../../data/Simple/train
+val:   ../../../../data/Simple/valid
+test: ../../../../data/Simple/test/images
 
 nc: 3
 names: ['glioma', 'meningioma', 'pituitary']

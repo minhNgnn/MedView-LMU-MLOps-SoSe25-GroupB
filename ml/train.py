@@ -3,7 +3,8 @@ from typing import Annotated, Any
 
 import hydra
 import typer
-from models import train_model
+
+from ml.models import train_model
 
 app = typer.Typer()
 
@@ -22,7 +23,7 @@ def run_training_typer(
     print("Training pipeline completed.")
 
 
-@hydra.main(config_name="config.yaml", config_path=f"configs/model")
+@hydra.main(version_base=None, config_name="config.yaml", config_path=f"configs/model")
 def run_training_hydra(cfg) -> Any:
     print("Starting training pipeline...")
 
