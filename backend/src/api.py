@@ -156,9 +156,6 @@ async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...
         )
 
 
-# Remove all @app.get("/monitoring/...") endpoints
-
-
 @app.get("/patients", status_code=status.HTTP_200_OK)
 def get_patients() -> JSONResponse:
     try:
