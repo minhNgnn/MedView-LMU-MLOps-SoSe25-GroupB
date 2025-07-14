@@ -20,7 +20,8 @@ def test_yaml_contents():
 def test_split_dirs_have_files():
     cfg = yaml.safe_load(DATA_YAML.read_text())
     for split in ("train", "val"):
-        img_dir = PROJECT_ROOT / cfg[split]
+        #img_dir = PROJECT_ROOT / cfg[split]
+        img_dir = PROJECT_ROOT / cfg[split].replace("../", "")
         assert img_dir.exists(), f"{split} dir {img_dir} not found"
         images = list(img_dir.glob("images/*.jpg")) + list(img_dir.glob("images/*.png"))
         assert len(images) > 0, f"No images found in {img_dir}/images"
@@ -28,8 +29,8 @@ def test_split_dirs_have_files():
 def test_labels_match_images():
     cfg = yaml.safe_load(DATA_YAML.read_text())
     for split in ("train", "val"):
-        img_dir   = PROJECT_ROOT / cfg[split] / "images"
-        label_dir = PROJECT_ROOT / cfg[split] / "labels"
+        img_dir   = PROJECT_ROOT / cfg[split].replace("../", "") / "images"
+        label_dir = PROJECT_ROOT / cfg[split].replace("../", "") / "labels"
         for img in img_dir.iterdir():
             lbl = label_dir / f"{img.stem}.txt"
             assert lbl.exists(), f"Label missing for image {img.name}"

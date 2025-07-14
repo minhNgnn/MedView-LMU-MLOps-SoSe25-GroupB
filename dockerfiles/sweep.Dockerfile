@@ -15,4 +15,4 @@ COPY ml/configs/data_config/data.yaml ./data.yaml
 
 # 3) Run the sweep
 ENTRYPOINT ["bash","-lc"]
-CMD ["wandb sweep sweep.yaml && wandb agent eunai9/BrainTumorDetection/BrainTumorDetectionSweep"]
+CMD ["wandb sweep ml/configs/sweep.yaml && wandb agent personal-id/project-name/sweep id"]
