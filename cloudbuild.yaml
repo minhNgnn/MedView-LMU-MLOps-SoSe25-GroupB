@@ -16,5 +16,7 @@ steps:
     'push',
     'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/image1'
   ]
+images:
+- 'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/image1'
 options:
   logging: CLOUD_LOGGING_ONLY
