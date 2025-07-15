@@ -2,6 +2,7 @@ import io
 import logging
 import os
 from contextlib import asynccontextmanager
+from datetime import datetime
 from typing import Dict, List, Optional, Union
 
 import cv2
@@ -26,6 +27,8 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from ml.predict import get_prediction_from_array
 from monitoring.core.monitor import BrainTumorImageMonitor
+
+# Remove the import for DataQualityPreset
 
 load_dotenv()
 
@@ -143,23 +146,6 @@ async def analyze_feature_drift(request: Request, days: int = 7):
     except Exception as e:
         logger.error(f"Error analyzing feature drift: {e}")
         raise HTTPException(status_code=500, detail="Error analyzing feature drift")
-
-
-@monitor_router.get("/data-quality")
-async def run_data_quality_tests(request: Request):
-    try:
-        # Placeholder for data quality tests
-        results = {
-            "data_quality": True,
-            "missing_values_test": True,
-            "outliers_test": True,
-            "drift_test": True,
-            "timestamp": "2025-07-13T20:00:00",
-        }
-        return JSONResponse(content=results)
-    except Exception as e:
-        logger.error(f"Error running data quality tests: {e}")
-        raise HTTPException(status_code=500, detail="Error running data quality tests")
 
 
 @monitor_router.get("/report/{report_name}")
@@ -281,7 +267,6 @@ async def predict(
         return StreamingResponse(io.BytesIO(img_encoded.tobytes()), media_type="image/jpeg")
 
     except HTTPException:
-        # Re-raise HTTP exceptions
         raise
     except Exception as e:
         logger.exception("Unexpected error in predict endpoint")
@@ -318,7 +303,6 @@ def get_patients() -> JSONResponse:
 
 @app.get("/patients/{id}", status_code=status.HTTP_200_OK)
 def get_patient(id: int) -> Dict:
-    # Validate patient ID
     if id <= 0:
         raise HTTPException(status_code=400, detail="Patient ID must be a positive integer")
 
