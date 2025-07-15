@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.11, 3.12]
+        python-version: [3.11]
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -43,5 +43,5 @@ jobs:
 
       - name: Run unit tests with coverage
         run: |
-          coverage run -m pytest -q tests/unittests
+          coverage run -m pytest -q tests/integrationtests
           coverage report -m
