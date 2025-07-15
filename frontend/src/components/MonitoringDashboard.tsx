@@ -20,20 +20,22 @@ const MonitoringDashboard: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Brain Tumor Image Monitoring Dashboard</h1>
-        <Button onClick={generateDriftReport} disabled={loading}>
-          Generate Drift Report
-        </Button>
-      </div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minHeight: "100vh", justifyContent: "flex-start" }}>
+      <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+        Brain Tumor Image Monitoring Dashboard
+      </h1>
+      <Button
+        onClick={generateDriftReport}
+        disabled={loading}
+        style={{ margin: "1.5rem 0", alignSelf: "center" }}
+      >
+        {loading ? "Generating..." : "Generate Drift Report"}
+      </Button>
       {reportPath && (
         <iframe
+          title="Drift Report"
           src={`http://localhost:8000/monitoring/report/${reportPath.split("/").pop()}`}
-          width="100%"
-          height="900px"
-          style={{ border: "none" }}
-          title="Evidently Drift Report"
+          style={{ width: "90vw", height: "80vh", border: "1px solid #ccc", marginTop: "2rem" }}
         />
       )}
     </div>
