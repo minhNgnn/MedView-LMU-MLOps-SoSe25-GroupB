@@ -1,13 +1,12 @@
-import os
 import argparse
+import os
+
 import pandas as pd
 from ultralytics import YOLO
 
 # default data-yaml (you can override on the CLI)
-DEFAULT_DATA_YAML = os.path.join(
-    os.path.dirname(__file__),
-    "configs", "data", "data.yaml"
-)
+DEFAULT_DATA_YAML = os.path.join(os.path.dirname(__file__), "configs", "data", "data.yaml")
+
 
 def find_best_weights(model_name: str, project_dir: str = "models") -> str:
     """
@@ -18,10 +17,7 @@ def find_best_weights(model_name: str, project_dir: str = "models") -> str:
     if not os.path.isdir(base):
         raise FileNotFoundError(f"No folder found at {base}")
     # find subdirectories (versions)
-    versions = [
-        d for d in os.listdir(base)
-        if os.path.isdir(os.path.join(base, d))
-    ]
+    versions = [d for d in os.listdir(base) if os.path.isdir(os.path.join(base, d))]
     if not versions:
         raise FileNotFoundError(f"No version subdirs in {base}")
     # pick latest (lexicographically)
@@ -53,24 +49,19 @@ def evaluate_model(
     # 4) build metrics dict just like in your notebook
     results_dict = {
         "Mean Precision": metrics.box.mp,
-        "Mean Recall":    metrics.box.mr,
-        "mAP@0.5":        metrics.box.map50,
-        "mAP@0.5:0.95":   metrics.box.map,
+        "Mean Recall": metrics.box.mr,
+        "mAP@0.5": metrics.box.map50,
+        "mAP@0.5:0.95": metrics.box.map,
     }
 
     # 5) DataFrame for easy viewing / CI
-    df = pd.DataFrame(
-        results_dict.items(),
-        columns=["Metric", "Value"]
-    )
+    df = pd.DataFrame(results_dict.items(), columns=["Metric", "Value"])
     print(df)
     return df
 
 
 if __name__ == "__main__":
-    p = argparse.ArgumentParser(
-        description="Evaluate a trained YOLO model and print mAP / precision / recall"
-    )
+    p = argparse.ArgumentParser(description="Evaluate a trained YOLO model and print mAP / precision / recall")
     p.add_argument(
         "--model_name",
         type=str,
@@ -96,4 +87,3 @@ if __name__ == "__main__":
         data_yaml=args.data_yaml,
         split=args.split,
     )
-
