@@ -69,7 +69,14 @@ def test_run_training_hydra(monkeypatch, tmp_path, stub_train_model):
     monkeypatch.setattr(train_module.hydra.utils, "get_original_cwd", lambda: str(tmp_path))
     # Create dummy config
     cfg = OmegaConf.create(
-        {"hyperparameters": {"model_name": "bar", "batch_size": 7, "epochs": 3, "wandb_logging": True}}
+        {
+            "hyperparameters": {
+                "model_name": "bar",
+                "batch_size": 7,
+                "epochs": 3,
+                "wandb_logging": True,
+            }
+        }
     )
     # Run
     base_fn(cfg)

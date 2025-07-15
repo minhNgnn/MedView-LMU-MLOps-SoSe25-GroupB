@@ -167,7 +167,10 @@ async def get_report(request: Request, report_name: str):
             else:
                 raise HTTPException(status_code=404, detail="Report not found in Supabase Storage")
         else:
-            raise HTTPException(status_code=404, detail="Report not found locally or in Supabase Storage")
+            raise HTTPException(
+                status_code=404,
+                detail="Report not found locally or in Supabase Storage",
+            )
     except Exception as e:
         logger.error(f"Error getting report: {e}")
         raise HTTPException(status_code=500, detail="Error getting report")
