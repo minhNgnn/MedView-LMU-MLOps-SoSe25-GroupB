@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 class BrainTumorImageMonitor:
     """Data drift monitoring system specifically for brain tumor image classification."""
 
-    def __init__(self, database_url: str, reports_dir: str = "reports/monitoring"):
+    def __init__(self, database_url: str, reports_dir: str = "monitoring/reports"):
         self.database_url = database_url
         self.engine = create_engine(database_url)
         self.reports_dir = Path(reports_dir)
