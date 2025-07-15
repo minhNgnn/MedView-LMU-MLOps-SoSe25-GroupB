@@ -25,17 +25,15 @@ from supabase import Client, create_client
 from .drift_detector import DriftDetector
 from .feature_extractor import ImageFeatureExtractor
 
+load_dotenv()  # Ensure .env is loaded before any os.getenv
+
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 SUPABASE_BUCKET = "reports"
 
-load_dotenv()
-
 supabase: Client = None
 if SUPABASE_URL and SUPABASE_KEY:
     supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-else:
-    pass
 
 logger = logging.getLogger(__name__)
 
