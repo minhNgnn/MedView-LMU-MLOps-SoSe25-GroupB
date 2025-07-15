@@ -47,7 +47,7 @@ monitor_router = APIRouter(prefix="/monitoring", tags=["monitoring"])
 
 
 @asynccontextmanager
-async def lifespan(app):
+async def lifespan(app: FastAPI) -> None:
     app.state.monitor = BrainTumorImageMonitor(DATABASE_URL)
     logger.info("Monitoring system initialized successfully")
     yield
@@ -115,7 +115,7 @@ engine = create_engine(DATABASE_URL)
 # --- Monitoring endpoints ---
 
 
-def get_monitor(request: Request):
+def get_monitor(request: Request) -> BrainTumorImageMonitor:
     monitor = getattr(request.app.state, "monitor", None)
     if monitor is None:
         raise HTTPException(status_code=500, detail="Monitor not initialized")
@@ -123,9 +123,9 @@ def get_monitor(request: Request):
 
 
 @monitor_router.get("/dashboard")
-async def get_monitoring_dashboard(request: Request):
+async def get_monitoring_dashboard(request: Request) -> JSONResponse:
     try:
-        dashboard_data = get_monitor(request).get_brain_tumor_dashboard_data()
+        dashboard_data: Dict = get_monitor(request).get_brain_tumor_dashboard_data()
         return JSONResponse(content=dashboard_data)
     except Exception as e:
         logger.error(f"Error getting dashboard data: {e}")
@@ -133,9 +133,9 @@ async def get_monitoring_dashboard(request: Request):
 
 
 @monitor_router.get("/drift-report")
-async def generate_drift_report(request: Request, days: int = 7):
+async def generate_drift_report(request: Request, days: int = 7) -> JSONResponse:
     try:
-        report_filename = get_monitor(request).generate_brain_tumor_drift_report(days)
+        report_filename: str = get_monitor(request).generate_brain_tumor_drift_report(days)
         # If the returned value is a full URL, extract just the filename
         if report_filename.startswith("http"):
             import os
@@ -154,14 +154,8 @@ async def generate_drift_report(request: Request, days: int = 7):
 
 
 @monitor_router.get("/report/{report_name}")
-async def get_report(request: Request, report_name: str):
+async def get_report(request: Request, report_name: str) -> HTMLResponse:
     try:
-        report_path = get_monitor(request).reports_dir / report_name
-        if report_path.exists():
-            with open(report_path, "r") as f:
-                content = f.read()
-            return HTMLResponse(content=content)
-        # Try to fetch from Supabase Storage if not found locally
         if supabase:
             logger.info(f"Trying to download from Supabase bucket '{SUPABASE_BUCKET}' with object path '{report_name}'")
             response = supabase.storage.from_(SUPABASE_BUCKET).download(report_name)
@@ -173,8 +167,8 @@ async def get_report(request: Request, report_name: str):
                 raise HTTPException(status_code=404, detail="Report not found in Supabase Storage")
         else:
             raise HTTPException(
-                status_code=404,
-                detail="Report not found locally or in Supabase Storage",
+                status_code=500,
+                detail="Supabase client not configured",
             )
     except Exception as e:
         logger.error(f"Error getting report: {e}")
@@ -248,7 +242,7 @@ def get_patients() -> JSONResponse:
 
 
 @app.get("/patients/{id}", status_code=status.HTTP_200_OK)
-def get_patient(id: int) -> Dict:
+def get_patient(id: int) -> Dict[str, Union[str, int, float, None]]:
     if id <= 0:
         raise HTTPException(status_code=400, detail="Patient ID must be a positive integer")
 
@@ -261,7 +255,12 @@ def get_patient(id: int) -> Dict:
             if patient is None:
                 raise HTTPException(status_code=404, detail="Patient not found")
 
-            return dict(patient._mapping)
+            patient_dict = dict(patient._mapping)
+            # Convert all datetime fields to ISO strings
+            for k, v in patient_dict.items():
+                if isinstance(v, datetime):
+                    patient_dict[k] = v.isoformat()
+            return patient_dict
     except SQLAlchemyError as e:
         logger.error(f"Database error: {e}")
         raise HTTPException(status_code=500, detail="Database error occurred")
