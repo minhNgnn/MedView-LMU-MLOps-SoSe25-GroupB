@@ -135,11 +135,16 @@ async def get_monitoring_dashboard(request: Request):
 @monitor_router.get("/drift-report")
 async def generate_drift_report(request: Request, days: int = 7):
     try:
-        report_path = get_monitor(request).generate_brain_tumor_drift_report(days)
+        report_filename = get_monitor(request).generate_brain_tumor_drift_report(days)
+        # If the returned value is a full URL, extract just the filename
+        if report_filename.startswith("http"):
+            import os
+
+            report_filename = os.path.basename(report_filename)
         return JSONResponse(
             content={
                 "message": "Brain tumor drift report generated successfully",
-                "report_path": report_path,
+                "report_path": report_filename,  # <-- just the filename
                 "days_analyzed": days,
             }
         )
