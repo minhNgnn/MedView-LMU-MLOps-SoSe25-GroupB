@@ -109,12 +109,24 @@ class BrainTumorImageMonitor:
         """Get reference brain tumor image data from GCS train images."""
         return self.reference_data
 
+    def _log_data_split_and_overlap(self, reference_data, current_data):
+        logger.info(
+            f"Reference data: {len(reference_data)} samples, "
+            f"timestamp range: {reference_data['timestamp'].min()} to "
+            f"{reference_data['timestamp'].max()}"
+        )
+        logger.info(
+            f"Current data: {len(current_data)} samples, "
+            f"timestamp range: {current_data['timestamp'].min()} to "
+            f"{current_data['timestamp'].max()}"
+        )
+        overlap_info = self.drift_detector.check_overlap(reference_data, current_data)
+        logger.info(f"Timestamp overlap between reference and current: {overlap_info.get('overlap_count', 0)} records")
+
     def get_current_data(self, days: int = 7) -> pd.DataFrame:
         """Get current brain tumor image data from the database."""
         try:
             with self.engine.connect() as conn:
-                # Get recent data for current (last 50 records, ordered by timestamp DESC)
-                # This ensures no overlap with reference data
                 query = text(
                     """
                     SELECT image_width, image_height, image_channels, image_size_bytes,
@@ -131,47 +143,12 @@ class BrainTumorImageMonitor:
                 )
                 result = conn.execute(query)
                 df = pd.DataFrame(result.fetchall(), columns=result.keys())
-
-                # If no data exists, create synthetic current data
                 if df.empty:
-                    df = self._create_synthetic_current_data(days)
-
+                    return self._create_synthetic_current_data(days)
                 return df
-
         except SQLAlchemyError as e:
             logger.error(f"Database error getting current data: {e}")
-            # Return synthetic data if database is not available
             return self._create_synthetic_current_data(days)
-
-    def _create_synthetic_reference_data(self) -> pd.DataFrame:
-        """Create synthetic reference data for brain tumor images."""
-        n_samples = 100
-        data = {
-            "image_width": np.random.normal(512, 50, n_samples),
-            "image_height": np.random.normal(512, 50, n_samples),
-            "image_channels": np.full(n_samples, 1),  # Grayscale
-            "image_size_bytes": np.random.normal(262144, 50000, n_samples),
-            "brightness_mean": np.random.normal(100, 20, n_samples),
-            "brightness_std": np.random.normal(40, 10, n_samples),
-            "contrast_mean": np.random.normal(15, 5, n_samples),
-            "contrast_std": np.random.normal(8, 2, n_samples),
-            "entropy": np.random.normal(7.5, 0.5, n_samples),
-            "skewness": np.random.normal(0.0, 0.5, n_samples),
-            "kurtosis": np.random.normal(3.0, 1.0, n_samples),
-            "mean_intensity": np.random.normal(100, 20, n_samples),
-            "std_intensity": np.random.normal(40, 10, n_samples),
-            "tumor_area_ratio": np.random.uniform(0, 0.15, n_samples),
-            "tumor_detection_confidence": np.random.uniform(0.6, 0.9, n_samples),
-            "num_tumors_detected": np.random.poisson(1.0, n_samples),
-            "largest_tumor_area": np.random.uniform(0, 0.1, n_samples),
-            "tumor_density": np.random.uniform(0.1, 0.8, n_samples),
-            "tumor_location_x": np.random.uniform(100, 412, n_samples),
-            "tumor_location_y": np.random.uniform(100, 412, n_samples),
-            "tumor_shape_regularity": np.random.uniform(0.3, 0.8, n_samples),
-            "prediction_confidence": np.random.uniform(0.6, 0.9, n_samples),
-            "prediction_class": np.random.choice(["benign", "malignant", "normal"], n_samples, p=[0.4, 0.3, 0.3]),
-        }
-        return pd.DataFrame(data)
 
     def _create_synthetic_current_data(self, days: int) -> pd.DataFrame:
         """Create synthetic current data with slight drift."""
@@ -258,49 +235,26 @@ class BrainTumorImageMonitor:
         try:
             reference_data = self.get_reference_data()
             current_data = self.get_current_data(days)
-
             if reference_data.empty or current_data.empty:
                 raise HTTPException(
                     status_code=400,
                     detail="Insufficient data for brain tumor drift analysis",
                 )
-
-            # Log the split details for debugging
-            logger.info(
-                f"Reference data: {len(reference_data)} samples, "
-                f"timestamp range: {reference_data['timestamp'].min()} to "
-                f"{reference_data['timestamp'].max()}"
-            )
-            logger.info(
-                f"Current data: {len(current_data)} samples, "
-                f"timestamp range: {current_data['timestamp'].min()} to "
-                f"{current_data['timestamp'].max()}"
-            )
-
-            # Check for overlap
-            overlap_info = self.drift_detector.check_overlap(reference_data, current_data)
-            logger.info(
-                f"Timestamp overlap between reference and current: {overlap_info.get('overlap_count', 0)} records"
-            )
-
-            # Generate brain tumor specific drift report with more sensitive settings
+            self._log_data_split_and_overlap(reference_data, current_data)
             drift_report = Report(
                 metrics=[
                     DataDriftPreset(
                         columns=self.image_columns + self.tumor_features,
-                        drift_share=0.1,  # Detect drift if 10% of features drift
+                        drift_share=0.1,
                     ),
                     DataSummaryPreset(columns=self.image_columns + self.tumor_features),
                 ]
             )
-
             snapshot = drift_report.run(current_data=current_data, reference_data=reference_data)
-            # Save report
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             report_path = self.reports_dir / f"brain_tumor_drift_report_{timestamp}.html"
             snapshot.save_html(str(report_path))
             return str(report_path)
-
         except Exception as e:
             logger.error(f"Error generating brain tumor drift report: {e}")
             raise HTTPException(status_code=500, detail="Error generating brain tumor drift report")
