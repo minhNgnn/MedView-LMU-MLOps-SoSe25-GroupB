@@ -26,12 +26,13 @@ jobs:
           cache: 'pip'                                  # <-- enable pip caching
           cache-dependency-path: |
             backend/requirements.txt
-            tests/requirements_tests.txt                # <-- cache key changes when these files change
+            ml/requirements.txt
+            tests/requirements_tests.txt
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r backend/requirements.txt -r tests/requirements_tests.txt
+          pip install -r backend/requirements.txt -r tests/requirements_tests.txt -r ml/requirements.txt
 
       - name: Run unit tests with coverage
         run: |
