@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "./ui/button";
+import { useDriftReport } from "../hooks/useDriftReport";
 
 const MonitoringDashboard: React.FC = () => {
-  const [reportPath, setReportPath] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { generateDriftReport, loading, reportPath } = useDriftReport();
 
-  const generateDriftReport = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("http://localhost:8000/monitoring/drift-report?days=7");
-      if (!response.ok) throw new Error("Failed to generate drift report");
-      const data = await response.json();
-      setReportPath(data.report_path);
-    } catch (err) {
-      alert("Error generating drift report");
-    } finally {
-      setLoading(false);
+  // Helper to determine iframe src
+  const getIframeSrc = () => {
+    if (!reportPath) return undefined;
+    // If reportPath is a full URL (starts with http), use it directly
+    if (/^https?:\/\//.test(reportPath)) {
+      return reportPath;
     }
+    // Otherwise, assume it's a backend-relative path
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    return `${API_BASE_URL}/monitoring/report/${reportPath.split("/").pop()}`;
   };
 
   return (
@@ -25,7 +23,7 @@ const MonitoringDashboard: React.FC = () => {
         Brain Tumor Image Monitoring Dashboard
       </h1>
       <Button
-        onClick={generateDriftReport}
+        onClick={() => generateDriftReport(7)}
         disabled={loading}
         style={{ margin: "1.5rem 0", alignSelf: "center" }}
       >
@@ -34,7 +32,7 @@ const MonitoringDashboard: React.FC = () => {
       {reportPath && (
         <iframe
           title="Drift Report"
-          src={`http://localhost:8000/monitoring/report/${reportPath.split("/").pop()}`}
+          src={getIframeSrc()}
           style={{ width: "90vw", height: "80vh", border: "1px solid #ccc", marginTop: "2rem" }}
         />
       )}

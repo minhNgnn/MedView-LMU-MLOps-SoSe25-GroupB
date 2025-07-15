@@ -3,6 +3,9 @@ import logging
 import os
 from contextlib import asynccontextmanager
 from datetime import datetime
+
+# Always load .env from the project root
+from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 import cv2
@@ -33,11 +36,11 @@ from backend.src.predict_helpers import (
     validate_image_file,
 )
 from ml.predict import get_prediction_from_array
-from monitoring.core.monitor import BrainTumorImageMonitor
+from monitoring.core.monitor import SUPABASE_BUCKET, BrainTumorImageMonitor, supabase
 
-# Remove the import for DataQualityPreset
-
-load_dotenv()
+project_root = Path(__file__).resolve().parents[3]
+env_path = project_root / ".env"
+load_dotenv(dotenv_path=env_path)
 
 
 monitor_router = APIRouter(prefix="/monitoring", tags=["monitoring"])
@@ -149,11 +152,22 @@ async def generate_drift_report(request: Request, days: int = 7):
 async def get_report(request: Request, report_name: str):
     try:
         report_path = get_monitor(request).reports_dir / report_name
-        if not report_path.exists():
-            raise HTTPException(status_code=404, detail="Report not found")
-        with open(report_path, "r") as f:
-            content = f.read()
-        return HTMLResponse(content=content)
+        if report_path.exists():
+            with open(report_path, "r") as f:
+                content = f.read()
+            return HTMLResponse(content=content)
+        # Try to fetch from Supabase Storage if not found locally
+        if supabase:
+            logger.info(f"Trying to download from Supabase bucket '{SUPABASE_BUCKET}' with object path '{report_name}'")
+            response = supabase.storage.from_(SUPABASE_BUCKET).download(report_name)
+            if response:
+                # response is bytes
+                content = response.decode("utf-8")
+                return HTMLResponse(content=content)
+            else:
+                raise HTTPException(status_code=404, detail="Report not found in Supabase Storage")
+        else:
+            raise HTTPException(status_code=404, detail="Report not found locally or in Supabase Storage")
     except Exception as e:
         logger.error(f"Error getting report: {e}")
         raise HTTPException(status_code=500, detail="Error getting report")

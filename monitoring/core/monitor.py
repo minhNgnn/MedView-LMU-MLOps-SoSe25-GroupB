@@ -13,15 +13,29 @@ from typing import Dict, List, Optional
 import cv2
 import numpy as np
 import pandas as pd
+from dotenv import load_dotenv
 from evidently import Report
 from evidently.presets import DataDriftPreset, DataSummaryPreset
 from fastapi import HTTPException
 from google.cloud import storage
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
+from supabase import Client, create_client
 
 from .drift_detector import DriftDetector
 from .feature_extractor import ImageFeatureExtractor
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_BUCKET = "reports"
+
+load_dotenv()
+
+supabase: Client = None
+if SUPABASE_URL and SUPABASE_KEY:
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+else:
+    pass
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +60,7 @@ class BrainTumorImageMonitor:
         # Reference data from train images
         self.reference_data = self._load_reference_data_from_gcs()
 
-    def _load_reference_data_from_gcs(self, n_images: int = 100) -> pd.DataFrame:
+    def _load_reference_data_from_gcs(self, n_images: int = 50) -> pd.DataFrame:
         """Download n_images from GCS train/images/ and extract features for reference data."""
         bucket_name = "brain-tumor-data"
         prefix = "BrainTumorYolov8/train/images/"
@@ -231,7 +245,7 @@ class BrainTumorImageMonitor:
             logger.error(f"Error logging brain tumor prediction: {e}")
 
     def generate_brain_tumor_drift_report(self, days: int = 7) -> str:
-        """Generate comprehensive brain tumor image drift report."""
+        """Generate comprehensive brain tumor image drift report and upload to Supabase Storage."""
         try:
             reference_data = self.get_reference_data()
             current_data = self.get_current_data(days)
@@ -251,10 +265,26 @@ class BrainTumorImageMonitor:
                 ]
             )
             snapshot = drift_report.run(current_data=current_data, reference_data=reference_data)
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            report_path = self.reports_dir / f"brain_tumor_drift_report_{timestamp}.html"
-            snapshot.save_html(str(report_path))
-            return str(report_path)
+            import datetime
+            import io
+
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            report_filename = f"brain_tumor_drift_report_{timestamp}.html"
+            # Save directly to file and upload to Supabase
+            import tempfile
+
+            with tempfile.NamedTemporaryFile("w+", suffix=".html", delete=True, encoding="utf-8") as tmp:
+                snapshot.save_html(tmp.name)
+                tmp.seek(0)
+                html_bytes = tmp.read().encode("utf-8")
+                if supabase:
+                    supabase.storage.from_(SUPABASE_BUCKET).upload(
+                        report_filename, html_bytes, {"content-type": "text/html"}
+                    )
+                    public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(report_filename)
+                    return public_url
+                else:
+                    raise HTTPException(status_code=500, detail="Supabase client not configured")
         except Exception as e:
             logger.error(f"Error generating brain tumor drift report: {e}")
             raise HTTPException(status_code=500, detail="Error generating brain tumor drift report")
