@@ -25,6 +25,13 @@ from pydantic import BaseModel, ValidationError
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
+from backend.src.predict_helpers import (
+    create_image_response,
+    decode_image,
+    log_prediction_background,
+    run_model_prediction,
+    validate_image_file,
+)
 from ml.predict import get_prediction_from_array
 from monitoring.core.monitor import BrainTumorImageMonitor
 
@@ -169,74 +176,20 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
 async def predict(
     request: Request, background_tasks: BackgroundTasks, file: UploadFile = File(...)
 ) -> StreamingResponse:
-    # Validate file type
-    if not file.content_type or not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File must be an image")
-
+    validate_image_file(file)
     try:
-        logger.info("Received file: %s", file.filename)
         contents: bytes = await file.read()
-        logger.info("File size: %d bytes", len(contents))
-
         if len(contents) > MAX_FILE_SIZE:
             raise HTTPException(
                 status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
                 detail=f"File size exceeds maximum limit of {MAX_FILE_SIZE // (1024 * 1024)}MB",
             )
-
         if len(contents) == 0:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Empty file received")
-
-        nparr: np.ndarray = np.frombuffer(contents, np.uint8)
-        image: Optional[np.ndarray] = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
-        if image is None:
-            logger.error("cv2.imdecode failed: invalid image file")
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid image file")
-
-        logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
-        annotated_image, yolo_result = get_prediction_from_array(image)
-
-        if annotated_image is None:
-            logger.error("Model did not return an annotated image")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Prediction failed: no annotated image returned",
-            )
-
-        # Log prediction for monitoring as a background task
-        try:
-            # Extract actual model output
-            if yolo_result is not None and hasattr(yolo_result, "boxes"):
-                confidences = yolo_result.boxes.conf.cpu().numpy() if hasattr(yolo_result.boxes, "conf") else []
-                classes = yolo_result.boxes.cls.cpu().numpy() if hasattr(yolo_result.boxes, "cls") else []
-                confidence = float(confidences.max()) if len(confidences) > 0 else 0.0
-                class_idx = int(classes[confidences.argmax()]) if len(classes) > 0 else -1
-                num_detections = len(confidences)
-            else:
-                confidence = 0.0
-                class_idx = -1
-                num_detections = 0
-
-            prediction_info = {
-                "confidence": confidence,
-                "class": str(class_idx),  # Replace with class name if you have a mapping
-                "num_detections": num_detections,
-                "model_version": "yolov8n",
-            }
-            monitor = getattr(request.app.state, "monitor", None)
-            if monitor is not None:
-                background_tasks.add_task(monitor.log_prediction, image, prediction_info)
-            else:
-                logger.warning("Monitor system is not initialized; skipping monitoring log.")
-        except Exception as e:
-            logger.warning(f"Failed to schedule logging for monitoring: {e}")
-
-        result = cv2.imencode(".jpg", annotated_image)
-        _, img_encoded = result
-        logger.info("Returning annotated image, size: %d bytes", len(img_encoded))
-        return StreamingResponse(io.BytesIO(img_encoded.tobytes()), media_type="image/jpeg")
-
+        image = decode_image(contents)
+        annotated_image, yolo_result = run_model_prediction(image)
+        log_prediction_background(request, background_tasks, image, yolo_result)
+        return create_image_response(annotated_image)
     except HTTPException:
         raise
     except Exception as e:
