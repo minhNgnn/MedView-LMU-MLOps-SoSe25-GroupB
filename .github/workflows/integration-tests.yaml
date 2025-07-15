@@ -15,18 +15,6 @@ jobs:
         os: [ubuntu-latest]
         python-version: [3.11, 3.12]
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpass
-          POSTGRES_DB: testdb
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U testuser" --health-interval=10s --health-timeout=5s --health-retries=5
-
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
