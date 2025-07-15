@@ -1,4 +1,4 @@
-name: API Integration Tests
+name: Unit Tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  integration-tests:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -31,13 +31,21 @@ jobs:
       DATABASE_URL: postgresql://testuser:testpass@localhost:5432/testdb
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repo
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
+          cache: 'pip'                                  # <-- enable pip caching
+          cache-dependency-path: |
+            backend/requirements.txt
+            ml/requirements.txt
+            tests/requirements_tests.txt
+
+      - name: Install build tools
+        run: pip install --upgrade pip setuptools wheel
 
       - name: Install dependencies
         run: |
@@ -45,16 +53,7 @@ jobs:
           pip install -r ml/requirements.txt
           pip install -r tests/requirements_tests.txt
 
-      - name: Wait for Postgres to be ready
+      - name: Run unit tests with coverage
         run: |
-          for i in {1..10}; do
-            pg_isready -h localhost -U testuser && break
-            sleep 2
-          done
-
-      - name: Run integration tests with coverage
-        run: |
-          pip install coverage
-          PYTHONPATH=. coverage run -m pytest tests/integrationtests --maxfail=3 --disable-warnings -v
-          coverage report
-          coverage xml
+          coverage run -m pytest -q tests/unittests
+          coverage report -m
