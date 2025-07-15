@@ -9,6 +9,7 @@ import pytest
 import wandb
 
 import ml.models as models
+import ml.predict as predict
 
 # --- Stub external heavy deps to avoid import-time errors ---
 # Stub ultralytics package entirely, including YOLO
@@ -156,78 +157,13 @@ def patch_yolo_predict(monkeypatch):
 
 
 def test_get_prediction_from_array_none():
-    res, ann = models.get_prediction_from_array(None)
-    assert res is None and ann is None
+    ann = predict.get_prediction_from_array(None)
+    assert ann is None
 
 
 def test_get_prediction_from_array_valid():
     img = np.ones((100, 200, 3), dtype=np.uint8)
     float_img = img.astype(np.float32) / 255.0
-    res, ann = models.get_prediction_from_array(float_img)
-    assert isinstance(res, list)
-    assert hasattr(res[0], "plot")
-    assert isinstance(ann, np.ndarray)
-    assert ann.shape == (640, 640, 3)
-
-
-# -------------------------------------------------------------------------
-# Tests for export_model_to_onnx
-# -------------------------------------------------------------------------
-class DummyExport:
-    def __init__(self, path):
-        self.path = path
-        self.export_called = None
-
-    def export(self, format, dynamic, imgsz, opset):
-        self.export_called = {"format": format, "dynamic": dynamic, "imgsz": imgsz, "opset": opset}
-
-
-@pytest.fixture
-def patch_yolo_export(monkeypatch):
-    dummy = DummyExport(None)
-
-    def factory(path):
-        dummy.path = path
-        return dummy
-
-    monkeypatch.setattr(models, "YOLO", factory)
-    return dummy
-
-
-def test_export_model_to_onnx(patch_yolo_export):
-    dummy = patch_yolo_export
-    models.export_model_to_onnx()
-    assert dummy.path == "models/yolov8n/weights/epoch10_yolov8n.pt"
-    assert dummy.export_called == {"format": "onnx", "dynamic": True, "imgsz": 640, "opset": 12}
-
-
-# -------------------------------------------------------------------------
-# Tests for get_prediction_from_onnx_array
-# -------------------------------------------------------------------------
-class DummySession:
-    def __init__(self, path):
-        self.path = path
-        self.inputs = [types.SimpleNamespace(name="input_0")]
-
-    def get_inputs(self):
-        return self.inputs
-
-    def run(self, _, feed):
-        out = np.zeros((1, 1, 85), dtype=float)
-        out[0, 0, 4] = 0.6
-        return [out]
-
-
-@pytest.fixture(autouse=True)
-def patch_onnx(monkeypatch):
-    monkeypatch.setattr(models.ort, "InferenceSession", DummySession)
-
-
-def test_get_prediction_from_onnx_array():
-    img = np.zeros((10, 20, 3), dtype=np.uint8)
-    (boxes, scores, class_ids), ann = models.get_prediction_from_onnx_array(img)
-    assert boxes == [[0, 0, 0, 0]]
-    assert scores == [0.6]
-    assert class_ids == [0]
+    ann = predict.get_prediction_from_array(float_img)
     assert isinstance(ann, np.ndarray)
     assert ann.shape == (640, 640, 3)
