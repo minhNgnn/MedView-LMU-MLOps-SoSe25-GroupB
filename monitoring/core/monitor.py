@@ -4,15 +4,19 @@ Main monitoring orchestrator for brain tumor image drift detection.
 
 import logging
 import os
+import random
+import tempfile
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional
 
+import cv2
 import numpy as np
 import pandas as pd
 from evidently import Report
 from evidently.presets import DataDriftPreset, DataSummaryPreset
 from fastapi import HTTPException
+from google.cloud import storage
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -39,42 +43,71 @@ class BrainTumorImageMonitor:
         self.image_columns = self.feature_extractor.image_columns
         self.tumor_features = self.feature_extractor.tumor_features
 
+        # Reference data from train images
+        self.reference_data = self._load_reference_data_from_gcs()
+
+    def _load_reference_data_from_gcs(self, n_images: int = 100) -> pd.DataFrame:
+        """Download n_images from GCS train/images/ and extract features for reference data."""
+        bucket_name = "brain-tumor-data"
+        prefix = "BrainTumorYolov8/train/images/"
+        label_prefix = "BrainTumorYolov8/train/labels/"
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blobs = list(storage_client.list_blobs(bucket_name, prefix=prefix))
+        image_blobs = [b for b in blobs if b.name.lower().endswith((".jpg", ".jpeg", ".png"))]
+        if len(image_blobs) == 0:
+            raise RuntimeError("No images found in GCS train/images/ for reference data.")
+        selected_blobs = random.sample(image_blobs, min(n_images, len(image_blobs)))
+        features = []
+        for blob in selected_blobs:
+            with tempfile.NamedTemporaryFile(suffix=Path(blob.name).suffix) as tmp:
+                blob.download_to_filename(tmp.name)
+                img = cv2.imread(tmp.name)
+                label_file = blob.name.replace("images/", "labels/").rsplit(".", 1)[0] + ".txt"
+                label_blob = storage_client.bucket(bucket_name).blob(label_file)
+                prediction_class = "unknown"
+                if label_blob.exists():
+                    label_blob.download_to_filename(tmp.name + ".txt")
+                    with open(tmp.name + ".txt", "r") as f:
+                        label_content = f.read().strip()
+                        if label_content:
+                            # Use the first class index in the label file
+                            prediction_class = label_content.split()[0]
+                if img is not None:
+                    feat = self.feature_extractor.extract_features(img)
+                    feat["prediction_confidence"] = 0.0
+                    feat["prediction_class"] = prediction_class
+                    feat["num_detections"] = 0
+                    feat["model_version"] = "reference"
+                    feat["processing_time_ms"] = 0
+                    features.append(feat)
+        if not features:
+            raise RuntimeError("No features extracted from GCS images.")
+        df = pd.DataFrame(features)
+        if "timestamp" not in df.columns:
+            df["timestamp"] = pd.to_datetime("2020-01-01")
+        # Ensure all required columns are present
+        required_columns = [
+            "prediction_confidence",
+            "prediction_class",
+            "num_detections",
+            "model_version",
+            "processing_time_ms",
+        ]
+        for col in required_columns:
+            if col not in df.columns:
+                df[col] = (
+                    0.0 if "confidence" in col or "num_detections" in col or "processing_time" in col else "unknown"
+                )
+        return df
+
     def extract_brain_tumor_features(self, image: np.ndarray) -> Dict[str, float]:
         """Extract comprehensive features from brain tumor images."""
         return self.feature_extractor.extract_features(image)
 
     def get_reference_data(self) -> pd.DataFrame:
-        """Get reference brain tumor image data from the database."""
-        try:
-            with self.engine.connect() as conn:
-                # Get older data for reference (first 50 records, ordered by timestamp ASC)
-                query = text(
-                    """
-                    SELECT image_width, image_height, image_channels, image_size_bytes,
-                           brightness_mean, brightness_std, contrast_mean, contrast_std,
-                           entropy, skewness, kurtosis, mean_intensity, std_intensity,
-                           tumor_area_ratio, tumor_detection_confidence,
-                           num_tumors_detected, largest_tumor_area, tumor_density,
-                           tumor_location_x, tumor_location_y, tumor_shape_regularity,
-                           prediction_confidence, prediction_class, timestamp
-                    FROM predictions_log
-                    ORDER BY timestamp ASC
-                    LIMIT 50
-                """
-                )
-                result = conn.execute(query)
-                df = pd.DataFrame(result.fetchall(), columns=result.keys())
-
-                # If no data exists, create synthetic reference data
-                if df.empty:
-                    df = self._create_synthetic_reference_data()
-
-                return df
-
-        except SQLAlchemyError as e:
-            logger.error(f"Database error getting reference data: {e}")
-            # Return synthetic data if database is not available
-            return self._create_synthetic_reference_data()
+        """Get reference brain tumor image data from GCS train images."""
+        return self.reference_data
 
     def get_current_data(self, days: int = 7) -> pd.DataFrame:
         """Get current brain tumor image data from the database."""

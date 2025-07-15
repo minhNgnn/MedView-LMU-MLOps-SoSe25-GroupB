@@ -1,12 +1,14 @@
 import io
 import logging
 import os
+from contextlib import asynccontextmanager
 from typing import Dict, List, Optional, Union
 
 import cv2
 import numpy as np
 from dotenv import load_dotenv
 from fastapi import (
+    APIRouter,
     BackgroundTasks,
     FastAPI,
     File,
@@ -23,11 +25,23 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
 from ml.predict import get_prediction_from_array
+from monitoring.core.monitor import BrainTumorImageMonitor
 
 load_dotenv()
 
 
-app = FastAPI()
+monitor_router = APIRouter(prefix="/monitoring", tags=["monitoring"])
+
+
+@asynccontextmanager
+async def lifespan(app):
+    app.state.monitor = BrainTumorImageMonitor(DATABASE_URL)
+    logger.info("Monitoring system initialized successfully")
+    yield
+    # (Optional) Add any cleanup code here
+
+
+app = FastAPI(lifespan=lifespan)
 
 # Add this block after creating the app
 app.add_middleware(
@@ -83,6 +97,108 @@ if not DATABASE_URL:
 engine = create_engine(DATABASE_URL)
 
 
+# --- Monitoring system setup ---
+
+# --- Monitoring endpoints ---
+
+
+def get_monitor(request: Request):
+    monitor = getattr(request.app.state, "monitor", None)
+    if monitor is None:
+        raise HTTPException(status_code=500, detail="Monitor not initialized")
+    return monitor
+
+
+@monitor_router.get("/dashboard")
+async def get_monitoring_dashboard(request: Request):
+    try:
+        dashboard_data = get_monitor(request).get_brain_tumor_dashboard_data()
+        return JSONResponse(content=dashboard_data)
+    except Exception as e:
+        logger.error(f"Error getting dashboard data: {e}")
+        raise HTTPException(status_code=500, detail="Error getting dashboard data")
+
+
+@monitor_router.get("/drift-report")
+async def generate_drift_report(request: Request, days: int = 7):
+    try:
+        report_path = get_monitor(request).generate_brain_tumor_drift_report(days)
+        return JSONResponse(
+            content={
+                "message": "Brain tumor drift report generated successfully",
+                "report_path": report_path,
+                "days_analyzed": days,
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error generating drift report: {e}")
+        raise HTTPException(status_code=500, detail="Error generating drift report")
+
+
+@monitor_router.get("/feature-analysis")
+async def analyze_feature_drift(request: Request, days: int = 7):
+    try:
+        analysis = get_monitor(request).analyze_feature_drift(days)
+        return JSONResponse(content=analysis)
+    except Exception as e:
+        logger.error(f"Error analyzing feature drift: {e}")
+        raise HTTPException(status_code=500, detail="Error analyzing feature drift")
+
+
+@monitor_router.get("/data-quality")
+async def run_data_quality_tests(request: Request):
+    try:
+        # Placeholder for data quality tests
+        results = {
+            "data_quality": True,
+            "missing_values_test": True,
+            "outliers_test": True,
+            "drift_test": True,
+            "timestamp": "2025-07-13T20:00:00",
+        }
+        return JSONResponse(content=results)
+    except Exception as e:
+        logger.error(f"Error running data quality tests: {e}")
+        raise HTTPException(status_code=500, detail="Error running data quality tests")
+
+
+@monitor_router.get("/report/{report_name}")
+async def get_report(request: Request, report_name: str):
+    try:
+        report_path = get_monitor(request).reports_dir / report_name
+        if not report_path.exists():
+            raise HTTPException(status_code=404, detail="Report not found")
+        with open(report_path, "r") as f:
+            content = f.read()
+        return HTMLResponse(content=content)
+    except Exception as e:
+        logger.error(f"Error getting report: {e}")
+        raise HTTPException(status_code=500, detail="Error getting report")
+
+
+@monitor_router.get("/reference-sample")
+def get_reference_sample(request: Request, n: int = 5):
+    try:
+        df = get_monitor(request).get_reference_data()
+        return df.head(n).to_dict(orient="records")
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@monitor_router.get("/current-sample")
+def get_current_sample(request: Request, n: int = 5):
+    try:
+        monitor = get_monitor(request)
+        df = monitor.get_current_data()
+        return df.head(n).to_dict(orient="records")
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# Register monitoring router
+app.include_router(monitor_router)
+
+
 @app.get("/health")
 def health_check() -> Dict[str, str]:
     return {"status": "ok", "message": "Backend is running"}
@@ -93,7 +209,9 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
 
 
 @app.post("/predict", status_code=status.HTTP_200_OK)
-async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...)) -> StreamingResponse:
+async def predict(
+    request: Request, background_tasks: BackgroundTasks, file: UploadFile = File(...)
+) -> StreamingResponse:
     # Validate file type
     if not file.content_type or not file.content_type.startswith("image/"):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File must be an image")
@@ -120,7 +238,7 @@ async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid image file")
 
         logger.info("Image shape: %s, dtype: %s", image.shape, image.dtype)
-        annotated_image: Optional[np.ndarray] = get_prediction_from_array(image)
+        annotated_image, yolo_result = get_prediction_from_array(image)
 
         if annotated_image is None:
             logger.error("Model did not return an annotated image")
@@ -131,12 +249,29 @@ async def predict(background_tasks: BackgroundTasks, file: UploadFile = File(...
 
         # Log prediction for monitoring as a background task
         try:
+            # Extract actual model output
+            if yolo_result is not None and hasattr(yolo_result, "boxes"):
+                confidences = yolo_result.boxes.conf.cpu().numpy() if hasattr(yolo_result.boxes, "conf") else []
+                classes = yolo_result.boxes.cls.cpu().numpy() if hasattr(yolo_result.boxes, "cls") else []
+                confidence = float(confidences.max()) if len(confidences) > 0 else 0.0
+                class_idx = int(classes[confidences.argmax()]) if len(classes) > 0 else -1
+                num_detections = len(confidences)
+            else:
+                confidence = 0.0
+                class_idx = -1
+                num_detections = 0
+
             prediction_info = {
-                "confidence": 0.8,  # Placeholder - extract from your model output
-                "class": "medical_condition",  # Placeholder
-                "num_detections": 1,  # Placeholder
+                "confidence": confidence,
+                "class": str(class_idx),  # Replace with class name if you have a mapping
+                "num_detections": num_detections,
+                "model_version": "yolov8n",
             }
-            # background_tasks.add_task(monitor.log_prediction, image, prediction_info) # Removed as per edit hint
+            monitor = getattr(request.app.state, "monitor", None)
+            if monitor is not None:
+                background_tasks.add_task(monitor.log_prediction, image, prediction_info)
+            else:
+                logger.warning("Monitor system is not initialized; skipping monitoring log.")
         except Exception as e:
             logger.warning(f"Failed to schedule logging for monitoring: {e}")
 
