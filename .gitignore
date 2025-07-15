@@ -81,6 +81,7 @@ MANIFEST
 *.spec
 outputs/
 wandb/
+models/
 
 # Installer logs
 pip-log.txt
