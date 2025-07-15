@@ -41,7 +41,7 @@ jobs:
           pip install -r ml/requirements.txt
           pip install -r tests/requirements_tests.txt
 
-      - name: Run unit tests with coverage
+      - name: Run integration tests with coverage
         run: |
           coverage run -m pytest -q tests/integrationtests
           coverage report -m
