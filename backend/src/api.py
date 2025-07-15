@@ -138,16 +138,6 @@ async def generate_drift_report(request: Request, days: int = 7):
         raise HTTPException(status_code=500, detail="Error generating drift report")
 
 
-@monitor_router.get("/feature-analysis")
-async def analyze_feature_drift(request: Request, days: int = 7):
-    try:
-        analysis = get_monitor(request).analyze_feature_drift(days)
-        return JSONResponse(content=analysis)
-    except Exception as e:
-        logger.error(f"Error analyzing feature drift: {e}")
-        raise HTTPException(status_code=500, detail="Error analyzing feature drift")
-
-
 @monitor_router.get("/report/{report_name}")
 async def get_report(request: Request, report_name: str):
     try:
@@ -160,25 +150,6 @@ async def get_report(request: Request, report_name: str):
     except Exception as e:
         logger.error(f"Error getting report: {e}")
         raise HTTPException(status_code=500, detail="Error getting report")
-
-
-@monitor_router.get("/reference-sample")
-def get_reference_sample(request: Request, n: int = 5):
-    try:
-        df = get_monitor(request).get_reference_data()
-        return df.head(n).to_dict(orient="records")
-    except Exception as e:
-        return {"error": str(e)}
-
-
-@monitor_router.get("/current-sample")
-def get_current_sample(request: Request, n: int = 5):
-    try:
-        monitor = get_monitor(request)
-        df = monitor.get_current_data()
-        return df.head(n).to_dict(orient="records")
-    except Exception as e:
-        return {"error": str(e)}
 
 
 # Register monitoring router
