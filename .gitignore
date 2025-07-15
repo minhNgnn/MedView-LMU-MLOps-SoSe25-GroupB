@@ -69,6 +69,7 @@ data/
 BrainTumor/
 outputs/
 wandb/
+models/
 
 # Installer logs
 pip-log.txt
