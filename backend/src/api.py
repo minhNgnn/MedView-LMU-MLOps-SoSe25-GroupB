@@ -24,6 +24,7 @@ from fastapi import (
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
+from prometheus_client import Counter, Histogram, Summary, make_asgi_app
 from pydantic import BaseModel, ValidationError
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
@@ -188,32 +189,44 @@ def health_check() -> Dict[str, str]:
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
 
 
+# Prometheus metrics
+predict_counter = Counter("predict_requests_total", "Total number of prediction requests")
+predict_latency = Histogram("predict_latency_seconds", "Prediction request latency in seconds")
+predict_size_summary = Summary("predict_image_size_bytes", "Summary of uploaded image sizes in bytes")
+
+# Mount /metrics endpoint
+app.mount("/metrics", make_asgi_app())
+
+
 @app.post("/predict", status_code=status.HTTP_200_OK)
 async def predict(
     request: Request, background_tasks: BackgroundTasks, file: UploadFile = File(...)
 ) -> StreamingResponse:
-    validate_image_file(file)
-    try:
-        contents: bytes = await file.read()
-        if len(contents) > MAX_FILE_SIZE:
+    predict_counter.inc()
+    with predict_latency.time():
+        validate_image_file(file)
+        try:
+            contents: bytes = await file.read()
+            predict_size_summary.observe(len(contents))
+            if len(contents) > MAX_FILE_SIZE:
+                raise HTTPException(
+                    status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                    detail=f"File size exceeds maximum limit of {MAX_FILE_SIZE // (1024 * 1024)}MB",
+                )
+            if len(contents) == 0:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Empty file received")
+            image = decode_image(contents)
+            annotated_image, yolo_result = run_model_prediction(image)
+            log_prediction_background(request, background_tasks, image, yolo_result)
+            return create_image_response(annotated_image)
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.exception("Unexpected error in predict endpoint")
             raise HTTPException(
-                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-                detail=f"File size exceeds maximum limit of {MAX_FILE_SIZE // (1024 * 1024)}MB",
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Internal server error during prediction",
             )
-        if len(contents) == 0:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Empty file received")
-        image = decode_image(contents)
-        annotated_image, yolo_result = run_model_prediction(image)
-        log_prediction_background(request, background_tasks, image, yolo_result)
-        return create_image_response(annotated_image)
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.exception("Unexpected error in predict endpoint")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error during prediction",
-        )
 
 
 @app.get("/patients", status_code=status.HTTP_200_OK)
