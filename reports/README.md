@@ -256,7 +256,7 @@ From the cookiecutter template, we set up essential files and folders such as `.
 >
 > Answer:
 
---- question 10 fill here ---
+We used DVC (Data Version Control) in our project to manage our datasets and connected it to a Google Cloud Platform (GCP) bucket for remote storage. By integrating DVC, we were able to version control large data files and track changes efficiently, similar to how git tracks code. The connection to a GCP bucket allowed us to store and share data remotely, making it easy for all team members to access the same datasets regardless of their local environment. This setup improved collaboration, ensured data consistency, and made our experiments reproducible, as each experiment could be linked to a specific version of the data stored in the cloud. Overall, using DVC with a GCP bucket streamlined our workflow and provided transparency and reliability in handling data throughout the project pipeline.
 
 ### Question 11 (Theerdha)
 
@@ -354,11 +354,9 @@ From the cookiecutter template, we set up essential files and folders such as `.
 >
 > Answer:
 
---- question 16 fill here ---
+For debugging, we primarily use the Python debugger, which allows us to set breakpoints, inspect variables, and step through code to identify where things deviate from our expectations. To streamline debugging in our development environment, we also configure a `launch.json` file to ensure the correct Python path is set, making it easier to start debugging sessions directly from our IDE. For small or quick bugs, we often rely on simple logging or printing to the terminal to quickly check values or program flow. When deeper inspection is needed, the debugger is invaluable for examining the state of the application in detail.
 
-## Working in the cloud
-
-> In the following section we would like to know more about your experience when developing in the cloud.
+Regarding profiling, we mainly focused on profiling the prediction and training steps of our machine learning model. However, since our model is based on a pre-trained YOLO implementation from Ultralytics, most of the heavy lifting is handled by the external library. As a result, profiling mainly showed the import and execution of these library functions, and we did not identify significant custom bottlenecks in our own code.
 
 ### Question 17 (Euna, MInh)
 
@@ -432,7 +430,7 @@ From the cookiecutter template, we set up essential files and folders such as `.
 
 ## Deployment
 
-### Question 23 (Mih)
+### Question 23 (Minh)
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -444,6 +442,12 @@ From the cookiecutter template, we set up essential files and folders such as `.
 > *to the API to make it more ...*
 >
 > Answer:
+
+Yes, we managed to write an API for our model and related services. The API includes endpoints for interacting with a tabular database of patients, allowing users to retrieve a list of all patients or fetch details for a specific patient by ID. Due to the scope of the project, we have currently implemented only the read (GET) endpoints for the patient database, but the structure allows for easy extension to full CRUD (Create, Read, Update, Delete) operations in the future.
+
+In addition to the database endpoints, we implemented a `predict` endpoint that calls the model's prediction function. This endpoint accepts an input image, runs the prediction using our machine learning model, and returns the annotated image with the prediction results overlaid. This makes it easy for users to visualize the model's output directly.
+
+We also included a router for the monitoring system, which is designed to support system health checks and future monitoring features. Overall, the API is modular and organized, making it straightforward to extend with additional endpoints or features as the project evolves.
 
 --- question 23 fill here ---
 
@@ -476,6 +480,10 @@ From the cookiecutter template, we set up essential files and folders such as `.
 >
 > Answer:
 
+Yes, we performed both integration and load testing of our API. For integration testing, we created a suite of tests in the `tests/integrationtests/` folder that cover key API endpoints such as `/patients`, `/patients/{id}`, and `/predict`. These tests verify that the endpoints return correct responses, handle edge cases, and maintain stability as the codebase evolves.
+
+For load testing, we used Locust to simulate multiple users interacting with the API concurrently. Our load test script downloads a random image from a GCP bucket and sends it to the `/predict` endpoint, as well as tests the `/patients` endpoint and error handling by sending invalid files. The results showed that our API could handle multiple simultaneous requests without significant slowdowns or failures, and that error handling worked as intended for invalid inputs. Overall, these tests gave us confidence in the reliability and scalability of our API under realistic usage scenarios.
+
 --- question 25 fill here ---
 
 ### Question 26 (Minh)
@@ -491,7 +499,10 @@ From the cookiecutter template, we set up essential files and folders such as `.
 >
 > Answer:
 
---- question 26 fill here ---
+Yes, we implemented a comprehensive monitoring system for our deployed model. When the monitoring app is initialized, it uses the first 50 images from the training dataset stored in our GCP bucket as the reference dataset for drift detection. Each time a new prediction is made, the input image and its extracted features are logged to an external database, which in our case is Supabase. This allows us to track all predictions and monitor for data drift over time.
+
+We also developed a UI for the monitoring system. When a user presses the 'Generate Report' button in the UI, the backend generates a drift report by comparing the current data (recent predictions) to the reference data. This report is generated as an HTML file using Evidently and is then stored in a Supabase bucket for easy access and sharing. The UI can then display the generated report directly to users, providing clear visualizations of data drift and model performance. This setup ensures that our monitoring is automated, transparent, and accessible to all stakeholders.
+
 
 ## Overall discussion of project
 
@@ -526,7 +537,12 @@ From the cookiecutter template, we set up essential files and folders such as `.
 >
 > Answer:
 
---- question 28 fill here ---
+For the frontend, we chose to use React with TypeScript. This combination allows us to build a more scalable and maintainable user interface, following modern best practices in frontend development. TypeScript provides type safety and better tooling, which helps prevent bugs and makes the codebase easier to manage as the project grows.
+
+For data storage, we use Supabase to handle tabular patient data. This choice was made to create a more comprehensive system where doctors and users can easily scroll through and access patient records via the UI. Additionally, we store the generated monitoring reports (HTML files from Evidently) in Supabase buckets. This makes it straightforward to retrieve and display these reports directly in the frontend, ensuring that monitoring insights are easily accessible to users.
+
+For documentation, we used Sphinx, as it is one of the most popular and feature-rich documentation generators in the Python ecosystem. We wanted to try a robust tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.
+
 
 ### Question 29 (Theerdha)
 
@@ -575,14 +591,4 @@ From the cookiecutter template, we set up essential files and folders such as `.
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-fewafewubaofewnafioewnifowf ewafw afew afewafewafionewoanf waf ewonfieownaf fewnaiof newio fweanøf wea fewa
- fweafewa fewiagonwa ognwra'g
- wa
- gwreapig ipweroang w rag
- wa grwa
-  g
-  ew
-  gwea g
-  ew ag ioreabnguorwa bg̈́aw
-   wa
-   gew4igioera giroeahgi0wra gwa
+---Answer here---
