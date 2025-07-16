@@ -159,3 +159,6 @@ cython_debug/
 
 # Ignore transient test data files
 tests/test_data.py
+
+# Multirun distrbuted data loading
+multirun/
