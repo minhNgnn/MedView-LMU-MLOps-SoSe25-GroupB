@@ -46,8 +46,8 @@ will check the repositories and the code to verify your answers.
 
 ### Week 1
 
-* [ ] Create a git repository (M5)
-* [ ] Make sure that all team members have write access to the GitHub repository (M5)
+* [x] Create a git repository (M5)
+* [x] Make sure that all team members have write access to the GitHub repository (M5)
 * [ ] Create a dedicated environment for you project to keep track of your packages (M2)
 * [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
 * [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
@@ -127,7 +127,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 2 fill here ---
+- Minh Nguyen: 13018310
 
 ### Question 3 (Euna)
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -177,7 +177,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template, we set up essential files and folders such as `.gitignore`, `pyproject.toml`, `docs`, `dockerfiles`, `.github`, and `tests` to ensure good project hygiene, documentation, containerization, and CI/CD support. However, we deviated from the standard template by restructuring the project into a monorepo, organizing the codebase into separate top-level folders for each microservice: `backend`, `frontend`, `ml`, and `monitoring`. This means our repository contains all services in a single place (monorepo), while each service is developed as an independent component (microservice architecture). This structure allows each service to be developed, tested, and deployed independently, while sharing a single repository for easier management and collaboration. It supports scalability and modularity, making it easier for our team to work on different parts of the system simultaneously.
 
 ### Question 6 (Minh)
 
