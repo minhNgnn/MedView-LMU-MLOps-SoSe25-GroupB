@@ -1,5 +1,6 @@
 # Profilling files
 *.prof
+backend/migrations
 
 #OS stuff
 .DS_Store
@@ -27,7 +28,20 @@ bun.lockb
 .vscode/
 !.vscode/extensions.json
 .idea
-.dvc
+
+data/**
+tests/data/
+
+# --- DVC FIX START ---
+
+# Allow DVC metadata files (explicitly)
+!*.dvc
+!data/**/
+!data/**/*.dvc
+
+# Allow the .dvc internal directory (important for pipelines)
+!.dvc/
+
 
 # Vim editor files
 *.swp
@@ -65,10 +79,9 @@ share/python-wheels/
 MANIFEST
 *.manifest
 *.spec
-data/
-BrainTumor/
 outputs/
 wandb/
+models/
 
 # Installer logs
 pip-log.txt

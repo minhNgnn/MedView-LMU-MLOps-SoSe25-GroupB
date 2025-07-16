@@ -25,7 +25,7 @@ const PatientListView: React.FC = () => {
           <p className="text-gray-600">Patient Management System</p>
         </div>
         <Button
-          onClick={() => navigate('/')} 
+          onClick={() => navigate('/')}
           variant="outline"
           className="flex items-center gap-2"
         >
