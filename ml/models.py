@@ -9,7 +9,7 @@ from ultralytics import YOLO
 from wandb.integration.ultralytics import add_wandb_callback
 
 
-def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 10, wandb_logging: bool = False) -> Any:
+def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 10, wandb_logging: bool = False, num_workers: int = -1,) -> Any:
     """Trains the machine learning model."""
     
     print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
@@ -26,15 +26,19 @@ def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 
         )
         add_wandb_callback(T_Model)
 
-    results = T_Model.train(
-        data="ml/configs/data_config/data.yaml",
-        epochs=epochs,
-        patience=20,
-        batch=batch_size,
-        optimizer="auto",
-        project="ml/models/",
-        name=model_name,
-    )
+        # if num_workers < 0, pick CPU count minus one
+        if num_workers < 0:
+            import multiprocessing        
+            num_workers = max(1, multiprocessing.cpu_count() - 1)
+
+    results = T_Model.train(data="ml/configs/data_config/data.yaml",
+                            epochs=epochs,patience=20,
+                            batch=batch_size,
+                            optimizer="auto",
+                            project="ml/models/",
+                            name=model_name,
+                            workers=num_workers,                  # ← hand off to Ultralytics
+)
     return results
 
 
