@@ -4,7 +4,7 @@ from typing import Annotated, Any
 import hydra
 import typer
 
-from models import train_model
+from ml.models import train_model
 from typing import Annotated
 import typer
 import hydra
