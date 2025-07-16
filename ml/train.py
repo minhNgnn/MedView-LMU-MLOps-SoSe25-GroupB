@@ -4,7 +4,10 @@ from typing import Annotated, Any
 import hydra
 import typer
 
-from ml.models import train_model
+from models import train_model
+from typing import Annotated
+import typer
+import hydra
 
 app = typer.Typer()
 
