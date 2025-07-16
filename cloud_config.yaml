@@ -3,4 +3,5 @@ workerPoolSpecs:
         machineType: n1-highmem-2
     replicaCount: 1
     containerSpec:
-        imageUri: europe-west1-docker.pkg.dev/health-care-465520/train-registry/image1:latest
+        # imageUri: gcr.io-docker.pkg.dev/health-care-465520/train-registry/train:latest
+        imageUri: europe-west1-docker.pkg.dev/health-care-465520/train-registry/train:latest

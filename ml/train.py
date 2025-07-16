@@ -1,7 +1,7 @@
 import os
 from typing import Any
 
-from ml.models import train_model
+from models import train_model
 from typing import Annotated
 import typer
 import hydra
