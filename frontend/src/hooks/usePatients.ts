@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+console.log("API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
+
 export interface Patient {
   id: number;
   first_name: string;
@@ -24,7 +27,7 @@ export function usePatients() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/patients')
+    fetch(`${API_BASE_URL}/patients`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch patients');
         return res.json();
@@ -40,4 +43,4 @@ export function usePatients() {
   }, []);
 
   return { patients, loading, error };
-} 
+}

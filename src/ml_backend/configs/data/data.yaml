@@ -1,0 +1,7 @@
+train: ../../data/BrainTumor/BrainTumorSimple/train/images
+val: ../../data/BrainTumor/BrainTumorSimple/valid/images
+test: ../../data/BrainTumor/BrainTumorSimple/test/images
+
+nc: 3
+names: ['glioma', 'meningioma', 'pituitary']
+
