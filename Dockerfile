@@ -14,4 +14,4 @@ COPY ml/ ./ml/
 # WORKDIR /
 # RUN pip install -r ml/requirements.txt --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "ml/train.py"]
+ENTRYPOINT ["python", "-u", "./ml/train.py"]

@@ -3,5 +3,5 @@ workerPoolSpecs:
         machineType: n1-highmem-2
     replicaCount: 1
     containerSpec:
-        # imageUri: gcr.io-docker.pkg.dev/health-care-465520/train-registry/train:latest
         imageUri: europe-west1-docker.pkg.dev/health-care-465520/train-registry/train:latest
+        command: ["python3", "ml/train.py"]
