@@ -1,6 +1,7 @@
 # Profilling files
 *.prof
 backend/migrations
+monitoring/reports/
 
 #OS stuff
 .DS_Store
