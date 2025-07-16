@@ -11,24 +11,27 @@ RUN apt-get update && \
 # 3) Work directory
 WORKDIR /app
 
-# Add this so Python can import ml, backend, and monitoring under /app
-ENV PYTHONPATH=/app/backend/src:/app/ml:/app/monitoring
+# Set PYTHONPATH so Python can import backend, ml, and monitoring as top-level packages
+ENV PYTHONPATH=/app
 
 # 4) Copy & install Python deps
 COPY backend/requirements.txt ./
+COPY monitoring/requirements.txt ./monitoring-requirements.txt
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -r monitoring-requirements.txt
+# All monitoring dependencies are included in backend/requirements.txt
 
-# 5) Copy your app code + model weights + configs + monitoring
+# 5) Copy your app code + monitoring system + only necessary ML files
 COPY backend/src/ ./backend/src/
 COPY monitoring/ ./monitoring/
-COPY ml/predict.py /app/backend/src/ml/predict.py
-COPY ml/utils.py /app/backend/src/ml/utils.py
-# Create the weights directory and copy only the ONNX model file
-RUN mkdir -p /app/backend/src/ml/models/yolov8n/weights/
-COPY ml/models/yolov8n/weights/epoch10_yolov8n.pt /app/backend/src/ml/models/yolov8n/weights/epoch10_yolov8n.pt
+COPY ml/predict.py ./ml/predict.py
+COPY ml/utils.py ./ml/utils.py
+# Copy model weights for inference
+RUN mkdir -p /app/ml/models/yolov8n/weights/
+COPY ml/models/yolov8n/weights/epoch10_yolov8n.pt /app/ml/models/yolov8n/weights/epoch10_yolov8n.pt
 # If needed, also copy configs:
-# COPY ml/configs/ /app/ml/configs/
+# COPY ml/configs/ ./ml/configs/
 
 # 6) Expose the HTTP port
 EXPOSE 8000
