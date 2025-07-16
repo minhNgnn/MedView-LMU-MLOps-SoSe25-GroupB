@@ -2,6 +2,7 @@
 *.prof
 backend/migrations
 monitoring/reports/
+monitoring/prometheus.yaml
 
 #OS stuff
 .DS_Store

@@ -28,8 +28,8 @@ COPY monitoring/ ./monitoring/
 COPY ml/predict.py ./ml/predict.py
 COPY ml/utils.py ./ml/utils.py
 # Copy model weights for inference
-RUN mkdir -p /app/ml/models/yolov8n/weights/
-COPY ml/models/yolov8n/weights/epoch10_yolov8n.pt /app/ml/models/yolov8n/weights/epoch10_yolov8n.pt
+RUN mkdir -p /app/backend/src/ml/models/yolov8n/weights/
+COPY ml/models/yolov8n/weights/epoch10_yolov8n.pt /app/backend/src/ml/models/yolov8n/weights/epoch10_yolov8n.pt
 # If needed, also copy configs:
 # COPY ml/configs/ ./ml/configs/
 
