@@ -9,108 +9,137 @@ from ultralytics import YOLO
 from wandb.integration.ultralytics import add_wandb_callback
 
 
-def train_model(model_name: str = "simple", batch_size: int = -1, epochs: int = 10, wandb_logging: bool = False, num_workers: int = -1,) -> Any:
-    """Trains the machine learning model."""
-    
-    print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
-    T_Model = YOLO(f"ml/models/{model_name}.pt")
+def train_model(
+    model_name: str = "simple",
+    batch_size: int = -1,
+    epochs: int = 10,
+    wandb_logging: bool = False,
+    num_workers: int = -1,
+) -> Any:
+    """
+    Trains the YOLO model using the ml/configs/data_config/data.yaml for data splits.
+    `num_workers` controls PyTorch DataLoader workers under the hood.
+    """
+    # 1) Pick a sane default for num_workers
+    if num_workers < 0:
+        import multiprocessing
+        num_workers = max(1, multiprocessing.cpu_count() - 1)
 
-    if wandb_logging == True:
-        print("Initializing Weights & Biases for logging...")
+    print(f"Training model with pretrained weights: ml/models/{model_name}.pt")
+    model = YOLO(f"ml/models/{model_name}.pt")
+
+    # 2) (Optional) W&B logging
+    if wandb_logging:
+        print("Initializing Weights & Biases for logging…")
         wandb.login()
         os.system("yolo settings wandb=True")
         wandb.init(
             project="BrainTumorDetection",
             job_type="training",
-            #    config={"model_name": model_name, "batch_size": batch_size, "epochs": epochs},
+            config={
+                "model_name": model_name,
+                "batch_size": batch_size,
+                "epochs": epochs,
+                "num_workers": num_workers,
+            },
         )
-        add_wandb_callback(T_Model)
+        add_wandb_callback(model)
 
-        # if num_workers < 0, pick CPU count minus one
-        if num_workers < 0:
-            import multiprocessing        
-            num_workers = max(1, multiprocessing.cpu_count() - 1)
+    # 3) Kick off training — Ultralytics will handle dataset loading,
+    #    sharding (if run under DDP), and threading via `workers=...`
+    results = model.train(
+        data="ml/configs/data_config/data.yaml",
+        epochs=epochs,
+        patience=20,
+        batch=batch_size,
+        optimizer="auto",
+        project="ml/models/",
+        name=model_name,
+        save=False,
+        workers=num_workers,
+    )
 
-    results = T_Model.train(data="ml/configs/data_config/data.yaml",
-                            epochs=epochs,patience=20,
-                            batch=batch_size,
-                            optimizer="auto",
-                            project="ml/models/",
-                            name=model_name,
-                            workers=num_workers,                  # ← hand off to Ultralytics
-)
     return results
 
 
-def normalize_image(image):
-    return image / 255.0
+def normalize_image(image: np.ndarray) -> np.ndarray:
+    return image.astype(np.float32) / 255.0
 
 
-def resize_image(image, size=(640, 640)):
+def resize_image(image: np.ndarray, size=(640, 640)) -> np.ndarray:
     return cv2.resize(image, size)
 
 
 def get_prediction_from_array(image: np.ndarray):
+    """
+    Run inference on an already-loaded image array via the best saved model.
+    Returns (results, annotated_image).
+    """
     best_model_path = "ml/models/yolov8n/weights/epoch10_yolov8n.pt"
-    if image is not None:
-        # Ensure image is uint8 BGR and correct size
-        if image.dtype != np.uint8:
-            image = (image * 255).astype(np.uint8)
-        if image.shape[:2] != (640, 640):
-            image = resize_image(image, size=(640, 640))
-        best_model = YOLO(best_model_path)
-        results = best_model.predict(source=image, imgsz=640, conf=0.5)
-        # Get annotated image from results (BGR numpy array)
-        annotated_image = results[0].plot()
-        return results, annotated_image
-    else:
+    if image is None:
         return None, None
+
+    # Ensure BGR uint8 640×640
+    if image.dtype != np.uint8:
+        image = (image * 255).astype(np.uint8)
+    if image.shape[:2] != (640, 640):
+        image = resize_image(image, size=(640, 640))
+
+    model = YOLO(best_model_path)
+    results = model.predict(source=image, imgsz=640, conf=0.5)
+    annotated_image = results[0].plot()
+    return results, annotated_image
 
 
 def export_model_to_onnx():
-    # Export model to ONNX
-    model_path = "models/yolov8n/weights/epoch10_yolov8n.pt"
-    # Load the model
-    model = YOLO(model_path)
-    # Export to ONNX
+    """
+    Export the trained YOLO model to ONNX format.
+    """
+    pt_path = "models/yolov8n/weights/epoch10_yolov8n.pt"
+    model = YOLO(pt_path)
     model.export(format="onnx", dynamic=True, imgsz=640, opset=12)
 
 
 def get_prediction_from_onnx_array(image: np.ndarray):
+    """
+    Run inference on an image via the exported ONNX model.
+    Returns ((boxes, scores, class_ids), annotated_image).
+    """
     onnx_path = "ml/models/yolov8n/weights/epoch10_yolov8n.onnx"
-    session = ort.InferenceSession(onnx_path)
-    input_name = session.get_inputs()[0].name
+    sess = ort.InferenceSession(onnx_path)
+    input_name = sess.get_inputs()[0].name
 
-    # Preprocess: resize, normalize, transpose to CHW, add batch dim
-    img = resize_image(image, size=(640, 640))
-    img = img.astype(np.float32) / 255.0
-    img = np.transpose(img, (2, 0, 1))  # HWC to CHW
-    img = np.expand_dims(img, axis=0)  # Add batch dimension
+    img = resize_image(image, size=(640, 640)).astype(np.float32) / 255.0
+    img = np.transpose(img, (2, 0, 1))[None]  # CHW and batch dim
 
-    # Run inference
-    outputs = session.run(None, {input_name: img})
-    preds = outputs[0]  # YOLOv8 ONNX output: (batch, num_boxes, 85)
+    outputs = sess.run(None, {input_name: img})
+    preds = outputs[0]  # shape (1, num_boxes, 85)
 
-    # Postprocess: get boxes, scores, class_ids
+    # Postprocess YOLO outputs
     conf_thres = 0.5
-    iou_thres = 0.5
-    boxes = []
-    scores = []
-    class_ids = []
+    boxes, scores, class_ids = [], [], []
     for pred in preds[0]:
-        score = pred[4]
+        score = float(pred[4])
         if score > conf_thres:
-            x1, y1, x2, y2 = pred[0:4]
-            class_id = int(np.argmax(pred[5:]))
-            boxes.append([int(x1), int(y1), int(x2), int(y2)])
-            scores.append(float(score))
-            class_ids.append(class_id)
+            x1, y1, x2, y2 = map(int, pred[:4])
+            cls = int(np.argmax(pred[5:]))
+            boxes.append([x1, y1, x2, y2])
+            scores.append(score)
+            class_ids.append(cls)
 
-    # Draw boxes on the image
-    annotated_image = resize_image(image, size=(640, 640)).copy()
-    for box, score, class_id in zip(boxes, scores, class_ids):
-        x1, y1, x2, y2 = box
-        cv2.rectangle(annotated_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        label = f"{class_id}: {score:.2f}"
-        cv2.putText(annotated_image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    return (boxes, scores, class_ids), annotated_image
+    # Draw annotations
+    annotated = resize_image(image, size=(640, 640)).copy()
+    for (x1, y1, x2, y2), s, cid in zip(boxes, scores, class_ids):
+        cv2.rectangle(annotated, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(
+            annotated,
+            f"{cid}: {s:.2f}",
+            (x1, y1 - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (0, 255, 0),
+            2,
+        )
+
+    return (boxes, scores, class_ids), annotated
+
