@@ -1,6 +1,11 @@
 import os
-from typing import Any, Annotated
+from typing import Annotated, Any
 
+import hydra
+import typer
+
+from models import train_model
+from typing import Annotated
 import typer
 import hydra
 
@@ -42,9 +47,11 @@ def run_training_hydra(cfg) -> Any:
         cfg.hyperparameters.wandb_logging,
         cfg.hyperparameters.num_workers,
     )
+
     print("Training pipeline completed.")
 
 
 if __name__ == "__main__":
     # Default to Hydra entrypoint if called as a script
     run_training_hydra()
+

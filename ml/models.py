@@ -3,7 +3,6 @@ from typing import Any, Dict
 
 import cv2
 import numpy as np
-import onnxruntime as ort
 import wandb
 from ultralytics import YOLO
 from wandb.integration.ultralytics import add_wandb_callback
@@ -26,11 +25,12 @@ def train_model(
         num_workers = max(1, multiprocessing.cpu_count() - 1)
 
     print(f"Training model with pretrained weights: ml/models/{model_name}.pt")
-    model = YOLO(f"ml/models/{model_name}.pt")
+    t_model = YOLO(f"ml/models/{model_name}.pt")
 
     # 2) (Optional) W&B logging
     if wandb_logging:
         print("Initializing Weights & Biases for logging…")
+        
         wandb.login()
         os.system("yolo settings wandb=True")
         wandb.init(
@@ -43,11 +43,10 @@ def train_model(
                 "num_workers": num_workers,
             },
         )
-        add_wandb_callback(model)
 
-    # 3) Kick off training — Ultralytics will handle dataset loading,
-    #    sharding (if run under DDP), and threading via `workers=...`
-    results = model.train(
+        add_wandb_callback(t_model)
+
+    results = t_model.train(
         data="ml/configs/data_config/data.yaml",
         epochs=epochs,
         patience=20,
@@ -142,4 +141,5 @@ def get_prediction_from_onnx_array(image: np.ndarray):
         )
 
     return (boxes, scores, class_ids), annotated
+
 

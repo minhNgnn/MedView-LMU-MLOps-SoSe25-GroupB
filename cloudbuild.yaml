@@ -1,0 +1,21 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build container image'
+  args: ['build', '-f', 'Dockerfile', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/train:latest', '.']
+  # args: [
+  #   'build',
+  #   '.',
+  #   '-t',
+  #   'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/train',
+  #   '-f',
+  #   '.'
+  # ]
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Push container image'
+  args: [
+    'push',
+    'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/train:latest'
+  ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY

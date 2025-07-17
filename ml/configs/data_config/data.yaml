@@ -1,7 +1,6 @@
 train: ../../../../data/Simple/train
-val:   ../../../../data/Simple/valid 
+val:   ../../../../data/Simple/valid
 test: ../../../../data/Simple/test/images
 
 nc: 3
 names: ['glioma', 'meningioma', 'pituitary']
-
