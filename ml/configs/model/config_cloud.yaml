@@ -3,4 +3,4 @@ hyperparameters:
   batch_size: -1
   epochs: 5
   wandb_logging: False
-  connect_to_gcs: False
+  connect_to_gcs: True

@@ -4,4 +4,4 @@ workerPoolSpecs:
     replicaCount: 1
     containerSpec:
         imageUri: europe-west1-docker.pkg.dev/health-care-465520/train-registry/train:latest
-        command: ["python3", "ml/train.py"]
+        command: ["python3", "ml/train_cloud.py"]

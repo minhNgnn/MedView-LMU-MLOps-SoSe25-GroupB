@@ -23,7 +23,7 @@ def run_training_typer(
     print("Training pipeline completed.")
 
 
-@hydra.main(version_base=None, config_name="config.yaml", config_path=f"configs/model")
+@hydra.main(version_base=None, config_name="config_cloud.yaml", config_path=f"configs/model")
 def run_training_hydra(cfg) -> Any:
     print("Starting training pipeline...")
 
