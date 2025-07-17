@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start Guide &mdash; Brain Tumor Monitoring System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="System Architecture" href="architecture.html" />
+    <link rel="prev" title="Installation Guide" href="installation.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+
+
+          <a href="index.html" class="icon icon-home">
+            Brain Tumor Monitoring System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#problem-statement">Problem Statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#solution-overview">Solution Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#benefits">Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#local-installation">Local Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#docker-installation">Docker Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cloud-installation">Cloud Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-clone-and-setup">Step 1: Clone and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-database-setup">Step 2: Database Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-start-the-backend">Step 3: Start the Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-start-the-frontend">Step 4: Start the Frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-test-the-system">Step 5: Test the System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-6-explore-the-dashboard">Step 6: Explore the Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-7-generate-sample-data">Step 7: Generate Sample Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-8-test-drift-detection">Step 8: Test Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-9-explore-api-documentation">Step 9: Explore API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-10-next-steps">Step 10: Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#high-level-architecture">High-Level Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#component-details">Component Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#frontend-react-typescript">Frontend (React + TypeScript)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#backend-api-fastapi">Backend API (FastAPI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#monitoring-engine">Monitoring Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#database-design">Database Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#ml-pipeline">ML Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#scalability-design">Scalability Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#monitoring-observability">Monitoring &amp; Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#integration-points">Integration Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#future-architecture">Future Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#health-status-endpoints">Health &amp; Status Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#health-check">Health Check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#root-endpoint">Root Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#prediction-endpoints">Prediction Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#image-prediction">Image Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#monitoring-endpoints">Monitoring Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#dashboard-data">Dashboard Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#drift-report-generation">Drift Report Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#feature-analysis">Feature Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#data-quality-tests">Data Quality Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#report-serving">Report Serving</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#patient-management-endpoints">Patient Management Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-all-patients">Get All Patients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-patient-by-id">Get Patient by ID</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#error-handling">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#response-headers">Response Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#cors-support">CORS Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#websocket-support">WebSocket Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#base-url">Base URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#content-types">Content Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#response-format">Response Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#interactive-documentation">Interactive Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#sdk-examples">SDK Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring/index.html">Monitoring System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#feature-extraction">Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#drift-detection">Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#reporting-system">Reporting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#integration">Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#deployment-options">Deployment Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#local-development-deployment">Local Development Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#docker-deployment">Docker Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#cloud-deployment">Cloud Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#kubernetes-deployment">Kubernetes Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#production-configuration">Production Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#load-balancing">Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#ssl-tls-configuration">SSL/TLS Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#monitoring-logging">Monitoring &amp; Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#backup-recovery">Backup &amp; Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#ci-cd-pipeline">CI/CD Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Brain Tumor Monitoring System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="quick-start-guide">
+<h1>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading"></a></h1>
+<p>This guide will help you get the Brain Tumor Monitoring System up and running quickly.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before starting, ensure you have:</p>
+<ul class="simple">
+<li><p>Python 3.8+ installed</p></li>
+<li><p>PostgreSQL database running</p></li>
+<li><p>Node.js 16+ (for frontend)</p></li>
+<li><p>Git installed</p></li>
+</ul>
+</section>
+<section id="step-1-clone-and-setup">
+<h2>Step 1: Clone and Setup<a class="headerlink" href="#step-1-clone-and-setup" title="Link to this heading"></a></h2>
+<p><strong>Clone the repository:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-org/brain-tumor-monitoring.git
+<span class="nb">cd</span><span class="w"> </span>brain-tumor-monitoring
+</pre></div>
+</div>
+<p><strong>Create virtual environment:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+<span class="nb">source</span><span class="w"> </span>env/bin/activate<span class="w">  </span><span class="c1"># On Windows: env\Scripts\activate</span>
+</pre></div>
+</div>
+<p><strong>Install dependencies:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_dev.txt
+</pre></div>
+</div>
+</section>
+<section id="step-2-database-setup">
+<h2>Step 2: Database Setup<a class="headerlink" href="#step-2-database-setup" title="Link to this heading"></a></h2>
+<p><strong>Create database:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connect to PostgreSQL</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>postgres<span class="w"> </span>psql
+
+<span class="c1"># Create database and user</span>
+CREATE<span class="w"> </span>DATABASE<span class="w"> </span>monitoring<span class="p">;</span>
+CREATE<span class="w"> </span>USER<span class="w"> </span>monitoring_user<span class="w"> </span>WITH<span class="w"> </span>PASSWORD<span class="w"> </span><span class="s1">&#39;your_password&#39;</span><span class="p">;</span>
+GRANT<span class="w"> </span>ALL<span class="w"> </span>PRIVILEGES<span class="w"> </span>ON<span class="w"> </span>DATABASE<span class="w"> </span>monitoring<span class="w"> </span>TO<span class="w"> </span>monitoring_user<span class="p">;</span>
+<span class="se">\q</span>
+</pre></div>
+</div>
+<p><strong>Run migrations:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set environment variable</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql://monitoring_user:your_password@localhost:5432/monitoring&quot;</span>
+
+<span class="c1"># Run the migration script</span>
+psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>monitoring_user<span class="w"> </span>-d<span class="w"> </span>monitoring<span class="w"> </span>-f<span class="w"> </span>backend/migrations/create_monitoring_tables.sql
+</pre></div>
+</div>
+</section>
+<section id="step-3-start-the-backend">
+<h2>Step 3: Start the Backend<a class="headerlink" href="#step-3-start-the-backend" title="Link to this heading"></a></h2>
+<p><strong>Set environment variables:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql://monitoring_user:your_password@localhost:5432/monitoring&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span>True
+</pre></div>
+</div>
+<p><strong>Start the API server:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uvicorn<span class="w"> </span>backend.src.api:app<span class="w"> </span>--reload<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</pre></div>
+</div>
+<p><strong>Verify the backend is running:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:8000/health
+</pre></div>
+</div>
+<p>You should see:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Backend is running&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-start-the-frontend">
+<h2>Step 4: Start the Frontend<a class="headerlink" href="#step-4-start-the-frontend" title="Link to this heading"></a></h2>
+<p><strong>Install Node.js dependencies:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>frontend
+npm<span class="w"> </span>install
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+<p><strong>Start the frontend development server:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>frontend
+npm<span class="w"> </span>start
+</pre></div>
+</div>
+<p>The frontend will open automatically at <cite>http://localhost:3000</cite></p>
+</section>
+<section id="step-5-test-the-system">
+<h2>Step 5: Test the System<a class="headerlink" href="#step-5-test-the-system" title="Link to this heading"></a></h2>
+<p><strong>Upload a test image:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/predict<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@path/to/test/image.jpg&quot;</span>
+</pre></div>
+</div>
+<p><strong>Check monitoring dashboard:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:8000/monitoring/dashboard
+</pre></div>
+</div>
+<p><strong>Generate a drift report:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8000/monitoring/drift-report?days=7&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="step-6-explore-the-dashboard">
+<h2>Step 6: Explore the Dashboard<a class="headerlink" href="#step-6-explore-the-dashboard" title="Link to this heading"></a></h2>
+<p>Open your browser and navigate to <cite>http://localhost:3000</cite></p>
+<p>You should see:
+* <strong>Dashboard</strong>: Real-time monitoring metrics
+* <strong>Upload</strong>: Image upload and prediction interface
+* <strong>Reports</strong>: Generated drift reports
+* <strong>Settings</strong>: System configuration</p>
+</section>
+<section id="step-7-generate-sample-data">
+<h2>Step 7: Generate Sample Data<a class="headerlink" href="#step-7-generate-sample-data" title="Link to this heading"></a></h2>
+<p><strong>Create synthetic data for testing:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">monitoring.core.monitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrainTumorImageMonitor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Initialize monitor</span>
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">BrainTumorImageMonitor</span><span class="p">(</span><span class="s2">&quot;postgresql://monitoring_user:your_password@localhost:5432/monitoring&quot;</span><span class="p">)</span>
+
+<span class="c1"># Generate synthetic images</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="c1"># Create random image</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="c1"># Create prediction data</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span>
+        <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">]),</span>
+        <span class="s2">&quot;num_detections&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Log prediction</span>
+    <span class="n">monitor</span><span class="o">.</span><span class="n">log_prediction</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Verify data generation:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:8000/monitoring/dashboard
+</pre></div>
+</div>
+</section>
+<section id="step-8-test-drift-detection">
+<h2>Step 8: Test Drift Detection<a class="headerlink" href="#step-8-test-drift-detection" title="Link to this heading"></a></h2>
+<p><strong>Generate drifted data:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate data with different characteristics</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="c1"># Create brighter images (drift in brightness)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="n">prediction</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span>
+        <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">]),</span>
+        <span class="s2">&quot;num_detections&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">monitor</span><span class="o">.</span><span class="n">log_prediction</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Check drift analysis:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8000/monitoring/feature-analysis?days=7&quot;</span>
+</pre></div>
+</div>
+<p><strong>Generate drift report:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8000/monitoring/drift-report?days=7&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="step-9-explore-api-documentation">
+<h2>Step 9: Explore API Documentation<a class="headerlink" href="#step-9-explore-api-documentation" title="Link to this heading"></a></h2>
+<p>Open your browser and navigate to:
+* <strong>Swagger UI</strong>: <cite>http://localhost:8000/docs</cite>
+* <strong>ReDoc</strong>: <cite>http://localhost:8000/redoc</cite></p>
+<p>These provide interactive API documentation where you can:
+* Explore all endpoints
+* Test API calls directly
+* View request/response schemas</p>
+</section>
+<section id="step-10-next-steps">
+<h2>Step 10: Next Steps<a class="headerlink" href="#step-10-next-steps" title="Link to this heading"></a></h2>
+<p><strong>Production Deployment:</strong></p>
+<ul class="simple">
+<li><p>Follow the <a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a> guide</p></li>
+<li><p>Set up proper authentication</p></li>
+<li><p>Configure monitoring and alerting</p></li>
+<li><p>Implement backup strategies</p></li>
+</ul>
+<p><strong>Customization:</strong></p>
+<ul class="simple">
+<li><p>Adjust drift detection thresholds</p></li>
+<li><p>Customize feature extraction</p></li>
+<li><p>Modify report templates</p></li>
+<li><p>Add custom monitoring metrics</p></li>
+</ul>
+<p><strong>Integration:</strong></p>
+<ul class="simple">
+<li><p>Integrate with existing ML pipelines</p></li>
+<li><p>Set up automated monitoring</p></li>
+<li><p>Configure alerting systems</p></li>
+<li><p>Implement CI/CD pipelines</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p><strong>Common Issues:</strong></p>
+<p><strong>Backend won’t start:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if port is in use</span>
+lsof<span class="w"> </span>-i<span class="w"> </span>:8000
+
+<span class="c1"># Check environment variables</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$DATABASE_URL</span>
+
+<span class="c1"># Check database connection</span>
+psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>monitoring_user<span class="w"> </span>-d<span class="w"> </span>monitoring<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT 1;&quot;</span>
+</pre></div>
+</div>
+<p><strong>Frontend won’t start:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Node.js version</span>
+node<span class="w"> </span>--version
+
+<span class="c1"># Clear npm cache</span>
+npm<span class="w"> </span>cache<span class="w"> </span>clean<span class="w"> </span>--force
+
+<span class="c1"># Reinstall dependencies</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>node_modules<span class="w"> </span>package-lock.json
+npm<span class="w"> </span>install
+</pre></div>
+</div>
+<p><strong>Database connection issues:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check PostgreSQL status</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>postgresql
+
+<span class="c1"># Test connection</span>
+psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>monitoring_user<span class="w"> </span>-d<span class="w"> </span>monitoring
+
+<span class="c1"># Check logs</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/postgresql/postgresql-*.log
+</pre></div>
+</div>
+<p><strong>No drift detection:</strong></p>
+<ul class="simple">
+<li><p>Ensure sufficient data exists (at least 50 records)</p></li>
+<li><p>Check drift threshold settings</p></li>
+<li><p>Verify feature extraction is working</p></li>
+<li><p>Review database data quality</p></li>
+</ul>
+<p><strong>Getting Help:</strong></p>
+<ul class="simple">
+<li><p>Check the <span class="xref std std-doc">troubleshooting</span> guide</p></li>
+<li><p>Review system logs</p></li>
+<li><p>Test with sample data</p></li>
+<li><p>Contact the development team</p></li>
+</ul>
+</section>
+<section id="configuration-options">
+<h2>Configuration Options<a class="headerlink" href="#configuration-options" title="Link to this heading"></a></h2>
+<p><strong>Environment Variables:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Database</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql://user:password@host:5432/database&quot;</span>
+
+<span class="c1"># API settings</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">API_HOST</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">API_PORT</span><span class="o">=</span><span class="s2">&quot;8000&quot;</span>
+
+<span class="c1"># Monitoring settings</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DRIFT_THRESHOLD</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">REPORTS_DIR</span><span class="o">=</span><span class="s2">&quot;reports/monitoring&quot;</span>
+
+<span class="c1"># Development settings</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="s2">&quot;True&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_LEVEL</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span>
+</pre></div>
+</div>
+<p><strong>Configuration File:</strong>
+Create a <cite>.env</cite> file in the project root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># .env file</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://monitoring_user:your_password@localhost:5432/monitoring
+<span class="nv">API_HOST</span><span class="o">=</span><span class="m">0</span>.0.0.0
+<span class="nv">API_PORT</span><span class="o">=</span><span class="m">8000</span>
+<span class="nv">DRIFT_THRESHOLD</span><span class="o">=</span><span class="m">1</span>.0
+<span class="nv">REPORTS_DIR</span><span class="o">=</span>reports/monitoring
+<span class="nv">DEBUG</span><span class="o">=</span>True
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>INFO
+</pre></div>
+</div>
+<p><strong>Docker Setup (Alternative):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use Docker Compose for easier setup</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Check services</span>
+docker-compose<span class="w"> </span>ps
+
+<span class="c1"># View logs</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
+</pre></div>
+</div>
+</section>
+<section id="what-s-next">
+<h2>What’s Next?<a class="headerlink" href="#what-s-next" title="Link to this heading"></a></h2>
+<p>Now that you have the system running, explore:</p>
+<ol class="arabic simple">
+<li><p><strong>API Documentation</strong>: Test different endpoints</p></li>
+<li><p><strong>Monitoring Dashboard</strong>: Explore real-time metrics</p></li>
+<li><p><strong>Drift Reports</strong>: Generate and analyze reports</p></li>
+<li><p><strong>Customization</strong>: Adjust settings for your needs</p></li>
+<li><p><strong>Production Setup</strong>: Deploy to production environment</p></li>
+</ol>
+<p>For detailed information, see:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - Complete API reference</p></li>
+<li><p><a class="reference internal" href="monitoring/index.html"><span class="doc">Monitoring System</span></a> - Monitoring system details</p></li>
+<li><p><a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a> - Production deployment guide</p></li>
+<li><p><span class="xref std std-doc">troubleshooting</span> - Common issues and solutions</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="System Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, LMU MLOps Group B.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

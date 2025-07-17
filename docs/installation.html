@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation Guide &mdash; Brain Tumor Monitoring System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start Guide" href="quickstart.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+
+
+          <a href="index.html" class="icon icon-home">
+            Brain Tumor Monitoring System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#problem-statement">Problem Statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#solution-overview">Solution Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#benefits">Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-methods">Installation Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-installation">Local Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-installation">Docker Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-installation">Cloud Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-1-clone-and-setup">Step 1: Clone and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-2-database-setup">Step 2: Database Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-3-start-the-backend">Step 3: Start the Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-4-start-the-frontend">Step 4: Start the Frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-5-test-the-system">Step 5: Test the System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-6-explore-the-dashboard">Step 6: Explore the Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-7-generate-sample-data">Step 7: Generate Sample Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-8-test-drift-detection">Step 8: Test Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-9-explore-api-documentation">Step 9: Explore API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-10-next-steps">Step 10: Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-options">Configuration Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#high-level-architecture">High-Level Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#component-details">Component Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#frontend-react-typescript">Frontend (React + TypeScript)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#backend-api-fastapi">Backend API (FastAPI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#monitoring-engine">Monitoring Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#database-design">Database Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture.html#ml-pipeline">ML Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#scalability-design">Scalability Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#monitoring-observability">Monitoring &amp; Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#integration-points">Integration Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#future-architecture">Future Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#health-status-endpoints">Health &amp; Status Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#health-check">Health Check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#root-endpoint">Root Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#prediction-endpoints">Prediction Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#image-prediction">Image Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#monitoring-endpoints">Monitoring Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#dashboard-data">Dashboard Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#drift-report-generation">Drift Report Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#feature-analysis">Feature Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#data-quality-tests">Data Quality Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#report-serving">Report Serving</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#patient-management-endpoints">Patient Management Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-all-patients">Get All Patients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-patient-by-id">Get Patient by ID</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#error-handling">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#response-headers">Response Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#cors-support">CORS Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#websocket-support">WebSocket Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#base-url">Base URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#content-types">Content Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#response-format">Response Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#interactive-documentation">Interactive Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#sdk-examples">SDK Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring/index.html">Monitoring System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#feature-extraction">Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#drift-detection">Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#reporting-system">Reporting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#integration">Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#deployment-options">Deployment Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#local-development-deployment">Local Development Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#docker-deployment">Docker Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#cloud-deployment">Cloud Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#kubernetes-deployment">Kubernetes Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#production-configuration">Production Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#load-balancing">Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#ssl-tls-configuration">SSL/TLS Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#monitoring-logging">Monitoring &amp; Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#backup-recovery">Backup &amp; Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#ci-cd-pipeline">CI/CD Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Brain Tumor Monitoring System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Link to this heading"></a></h1>
+<p>This guide will walk you through installing and setting up the Brain Tumor Monitoring System on your local machine or server.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p><strong>System Requirements</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Python 3.8 or higher</p></li>
+<li><p>Node.js 16 or higher (for frontend)</p></li>
+<li><p>PostgreSQL 12 or higher</p></li>
+<li><p>Docker and Docker Compose (optional, for containerized setup)</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Operating Systems</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Linux (Ubuntu 20.04+, CentOS 8+)</p></li>
+<li><p>macOS (10.15+)</p></li>
+<li><p>Windows 10/11 (with WSL2 recommended)</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Hardware Requirements</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CPU: 4+ cores recommended</p></li>
+<li><p>RAM: 8GB minimum, 16GB recommended</p></li>
+<li><p>Storage: 20GB free space</p></li>
+<li><p>GPU: Optional, for ML model inference acceleration</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="installation-methods">
+<h2>Installation Methods<a class="headerlink" href="#installation-methods" title="Link to this heading"></a></h2>
+<p>Choose the installation method that best fits your needs:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#local-installation"><span class="std std-ref">Local Installation</span></a> - Direct installation on your system</p></li>
+<li><p><a class="reference internal" href="#docker-installation"><span class="std std-ref">Docker Installation</span></a> - Containerized installation with Docker</p></li>
+<li><p><a class="reference internal" href="#cloud-installation"><span class="std std-ref">Cloud Installation</span></a> - Cloud deployment options</p></li>
+</ul>
+</section>
+<section id="local-installation">
+<span id="id1"></span><h2>Local Installation<a class="headerlink" href="#local-installation" title="Link to this heading"></a></h2>
+<p><strong>Step 1: Clone the Repository</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-org/brain-tumor-monitoring.git
+<span class="nb">cd</span><span class="w"> </span>brain-tumor-monitoring
+</pre></div>
+</div>
+<p><strong>Step 2: Set Up Python Environment</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create virtual environment</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+<span class="nb">source</span><span class="w"> </span>env/bin/activate<span class="w">  </span><span class="c1"># On Windows: env\Scripts\activate</span>
+
+<span class="c1"># Install Python dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_dev.txt<span class="w">  </span><span class="c1"># For development</span>
+</pre></div>
+</div>
+<p><strong>Step 3: Install Node.js Dependencies</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>frontend
+npm<span class="w"> </span>install
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+<p><strong>Step 4: Set Up PostgreSQL Database</strong></p>
+<p>Install PostgreSQL on your system:</p>
+<p><strong>Ubuntu/Debian:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>postgresql<span class="w"> </span>postgresql-contrib
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>postgresql
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>postgresql
+</pre></div>
+</div>
+<p><strong>macOS:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>postgresql
+brew<span class="w"> </span>services<span class="w"> </span>start<span class="w"> </span>postgresql
+</pre></div>
+</div>
+<p><strong>Windows:</strong>
+Download and install from <cite>https://www.postgresql.org/download/windows/</cite></p>
+<p><strong>Create Database and User:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>-u<span class="w"> </span>postgres<span class="w"> </span>psql
+
+CREATE<span class="w"> </span>DATABASE<span class="w"> </span>monitoring<span class="p">;</span>
+CREATE<span class="w"> </span>USER<span class="w"> </span>monitoring_user<span class="w"> </span>WITH<span class="w"> </span>PASSWORD<span class="w"> </span><span class="s1">&#39;your_password&#39;</span><span class="p">;</span>
+GRANT<span class="w"> </span>ALL<span class="w"> </span>PRIVILEGES<span class="w"> </span>ON<span class="w"> </span>DATABASE<span class="w"> </span>monitoring<span class="w"> </span>TO<span class="w"> </span>monitoring_user<span class="p">;</span>
+<span class="se">\q</span>
+</pre></div>
+</div>
+<p><strong>Step 5: Run Database Migrations</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set environment variable</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql://monitoring_user:your_password@localhost:5432/monitoring&quot;</span>
+
+<span class="c1"># Run migrations</span>
+python<span class="w"> </span>backend/migrations/create_monitoring_tables.sql
+</pre></div>
+</div>
+<p><strong>Step 6: Configure Environment Variables</strong></p>
+<p>Create a <cite>.env</cite> file in the project root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Database configuration</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://monitoring_user:your_password@localhost:5432/monitoring
+
+<span class="c1"># API configuration</span>
+<span class="nv">API_HOST</span><span class="o">=</span><span class="m">0</span>.0.0.0
+<span class="nv">API_PORT</span><span class="o">=</span><span class="m">8000</span>
+
+<span class="c1"># Monitoring configuration</span>
+<span class="nv">DRIFT_THRESHOLD</span><span class="o">=</span><span class="m">1</span>.0
+<span class="nv">REPORTS_DIR</span><span class="o">=</span>reports/monitoring
+
+<span class="c1"># Development settings</span>
+<span class="nv">DEBUG</span><span class="o">=</span>True
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>INFO
+</pre></div>
+</div>
+<p><strong>Step 7: Verify Installation</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test backend</span>
+uvicorn<span class="w"> </span>backend.src.api:app<span class="w"> </span>--reload<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+
+<span class="c1"># In another terminal, test frontend</span>
+<span class="nb">cd</span><span class="w"> </span>frontend
+npm<span class="w"> </span>start
+</pre></div>
+</div>
+</section>
+<section id="docker-installation">
+<span id="id2"></span><h2>Docker Installation<a class="headerlink" href="#docker-installation" title="Link to this heading"></a></h2>
+<p><strong>Step 1: Install Docker and Docker Compose</strong></p>
+<p><strong>Ubuntu/Debian:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>docker.io<span class="w"> </span>docker-compose
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+newgrp<span class="w"> </span>docker
+</pre></div>
+</div>
+<p><strong>macOS:</strong>
+Download Docker Desktop from <cite>https://www.docker.com/products/docker-desktop</cite></p>
+<p><strong>Windows:</strong>
+Download Docker Desktop from <cite>https://www.docker.com/products/docker-desktop</cite></p>
+<p><strong>Step 2: Clone and Configure</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-org/brain-tumor-monitoring.git
+<span class="nb">cd</span><span class="w"> </span>brain-tumor-monitoring
+
+<span class="c1"># Copy environment file</span>
+cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+
+<span class="c1"># Edit .env file with your configuration</span>
+nano<span class="w"> </span>.env
+</pre></div>
+</div>
+<p><strong>Step 3: Start Services</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start all services</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># View logs</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
+</pre></div>
+</div>
+<p><strong>Step 4: Verify Installation</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check service status</span>
+docker-compose<span class="w"> </span>ps
+
+<span class="c1"># Test API</span>
+curl<span class="w"> </span>http://localhost:8000/health
+
+<span class="c1"># Access frontend</span>
+open<span class="w"> </span>http://localhost:3000
+</pre></div>
+</div>
+</section>
+<section id="cloud-installation">
+<span id="id3"></span><h2>Cloud Installation<a class="headerlink" href="#cloud-installation" title="Link to this heading"></a></h2>
+<p><strong>Google Cloud Platform (GCP)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Google Cloud SDK</span>
+curl<span class="w"> </span>https://sdk.cloud.google.com<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+<span class="nb">exec</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">$SHELL</span>
+gcloud<span class="w"> </span>init
+
+<span class="c1"># Enable required APIs</span>
+gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
+gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>run.googleapis.com
+
+<span class="c1"># Deploy using provided scripts</span>
+./monitoring/deploy.sh<span class="w"> </span>your-project-id<span class="w"> </span>us-central1
+</pre></div>
+</div>
+<p><strong>Amazon Web Services (AWS)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install AWS CLI</span>
+curl<span class="w"> </span><span class="s2">&quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;awscliv2.zip&quot;</span>
+unzip<span class="w"> </span>awscliv2.zip
+sudo<span class="w"> </span>./aws/install
+
+<span class="c1"># Configure AWS credentials</span>
+aws<span class="w"> </span>configure
+
+<span class="c1"># Deploy using AWS ECS or EKS</span>
+</pre></div>
+</div>
+<p><strong>Microsoft Azure</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Azure CLI</span>
+curl<span class="w"> </span>-sL<span class="w"> </span>https://aka.ms/InstallAzureCLIDeb<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>bash
+
+<span class="c1"># Login to Azure</span>
+az<span class="w"> </span>login
+
+<span class="c1"># Deploy using Azure Container Instances or AKS</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p><strong>Database Configuration</strong></p>
+<p>The system supports PostgreSQL with the following configuration options:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example database configuration</span>
+<span class="n">DATABASE_URL</span> <span class="o">=</span> <span class="s2">&quot;postgresql://user:password@host:5432/database&quot;</span>
+
+<span class="c1"># Connection pool settings</span>
+<span class="n">DB_POOL_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">DB_MAX_OVERFLOW</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">DB_POOL_TIMEOUT</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<p><strong>Monitoring Configuration</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drift detection settings</span>
+<span class="n">DRIFT_THRESHOLD</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Sensitivity for drift detection</span>
+<span class="n">REFERENCE_DAYS</span> <span class="o">=</span> <span class="mi">30</span>    <span class="c1"># Days of data for reference set</span>
+<span class="n">CURRENT_DAYS</span> <span class="o">=</span> <span class="mi">7</span>       <span class="c1"># Days of data for current set</span>
+
+<span class="c1"># Feature extraction settings</span>
+<span class="n">IMAGE_MAX_SIZE</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 10MB</span>
+<span class="n">FEATURE_EXTRACTION_TIMEOUT</span> <span class="o">=</span> <span class="mi">30</span>     <span class="c1"># seconds</span>
+</pre></div>
+</div>
+<p><strong>API Configuration</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Server settings</span>
+<span class="n">API_HOST</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+<span class="n">API_PORT</span> <span class="o">=</span> <span class="mi">8000</span>
+<span class="n">API_WORKERS</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># CORS settings</span>
+<span class="n">CORS_ORIGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;http://localhost:3000&quot;</span><span class="p">,</span> <span class="s2">&quot;https://your-domain.com&quot;</span><span class="p">]</span>
+
+<span class="c1"># Rate limiting</span>
+<span class="n">RATE_LIMIT_PER_MINUTE</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p><strong>Frontend Configuration</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// API endpoint configuration</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">API_BASE_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">REACT_APP_API_URL</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;http://localhost:8000&#39;</span><span class="p">;</span>
+
+<span class="c1">// Dashboard refresh interval (seconds)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">REFRESH_INTERVAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">30</span><span class="p">;</span>
+
+<span class="c1">// Chart configuration</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">CHART_COLORS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#2980B9&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">secondary</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#E74C3C&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#27AE60&#39;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Link to this heading"></a></h2>
+<p><strong>Backend Verification</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test health endpoint</span>
+curl<span class="w"> </span>http://localhost:8000/health
+
+<span class="c1"># Test monitoring endpoints</span>
+curl<span class="w"> </span>http://localhost:8000/monitoring/dashboard
+curl<span class="w"> </span>http://localhost:8000/monitoring/feature-analysis
+
+<span class="c1"># Check API documentation</span>
+open<span class="w"> </span>http://localhost:8000/docs
+</pre></div>
+</div>
+<p><strong>Frontend Verification</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start frontend development server</span>
+<span class="nb">cd</span><span class="w"> </span>frontend
+npm<span class="w"> </span>start
+
+<span class="c1"># Open browser and verify dashboard loads</span>
+open<span class="w"> </span>http://localhost:3000
+</pre></div>
+</div>
+<p><strong>Database Verification</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connect to database</span>
+psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>monitoring_user<span class="w"> </span>-d<span class="w"> </span>monitoring
+
+<span class="c1"># Check tables exist</span>
+<span class="se">\d</span>t
+
+<span class="c1"># Verify monitoring tables</span>
+SELECT<span class="w"> </span>COUNT<span class="o">(</span>*<span class="o">)</span><span class="w"> </span>FROM<span class="w"> </span>predictions_log<span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>ML Pipeline Verification</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test image prediction</span>
+python<span class="w"> </span>ml/predict.py<span class="w"> </span>--image<span class="w"> </span>path/to/test/image.jpg
+
+<span class="c1"># Test model training</span>
+python<span class="w"> </span>ml/train.py<span class="w"> </span>--config<span class="w"> </span>ml/configs/model/config.yaml
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p><strong>Common Issues</strong></p>
+<dl class="simple">
+<dt><strong>Database Connection Failed</strong></dt><dd><ul class="simple">
+<li><p>Verify PostgreSQL is running: <cite>sudo systemctl status postgresql</cite></p></li>
+<li><p>Check connection string format</p></li>
+<li><p>Ensure firewall allows connections</p></li>
+<li><p>Verify user permissions</p></li>
+</ul>
+</dd>
+<dt><strong>API Won’t Start</strong></dt><dd><ul class="simple">
+<li><p>Check port availability: <cite>netstat -tulpn | grep 8000</cite></p></li>
+<li><p>Verify environment variables are set</p></li>
+<li><p>Check Python dependencies: <cite>pip list</cite></p></li>
+<li><p>Review logs: <cite>tail -f logs/api.log</cite></p></li>
+</ul>
+</dd>
+<dt><strong>Frontend Build Fails</strong></dt><dd><ul class="simple">
+<li><p>Clear node_modules: <cite>rm -rf node_modules &amp;&amp; npm install</cite></p></li>
+<li><p>Check Node.js version: <cite>node –version</cite></p></li>
+<li><p>Verify npm cache: <cite>npm cache clean –force</cite></p></li>
+</ul>
+</dd>
+<dt><strong>Docker Issues</strong></dt><dd><ul class="simple">
+<li><p>Check Docker service: <cite>sudo systemctl status docker</cite></p></li>
+<li><p>Verify Docker Compose version: <cite>docker-compose –version</cite></p></li>
+<li><p>Clear Docker cache: <cite>docker system prune -a</cite></p></li>
+</ul>
+</dd>
+<dt><strong>Performance Issues</strong></dt><dd><ul class="simple">
+<li><p>Monitor resource usage: <cite>htop</cite> or <cite>top</cite></p></li>
+<li><p>Check database connection pool</p></li>
+<li><p>Verify memory allocation for containers</p></li>
+<li><p>Review API response times</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Getting Help</strong></p>
+<ul class="simple">
+<li><p><strong>Documentation</strong>: Check this documentation for detailed guides</p></li>
+<li><p><strong>Issues</strong>: Report bugs on GitHub Issues</p></li>
+<li><p><strong>Discussions</strong>: Join community discussions</p></li>
+<li><p><strong>Support</strong>: Contact the development team</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>After successful installation:</p>
+<ol class="arabic simple">
+<li><p><strong>Quick Start</strong>: Follow the <a class="reference internal" href="quickstart.html"><span class="doc">Quick Start Guide</span></a> guide</p></li>
+<li><p><strong>API Reference</strong>: Explore the <a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> documentation</p></li>
+<li><p><strong>Monitoring Setup</strong>: Configure monitoring in <a class="reference internal" href="monitoring/index.html"><span class="doc">Monitoring System</span></a></p></li>
+<li><p><strong>Deployment</strong>: Set up production deployment in <a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a></p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, LMU MLOps Group B.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

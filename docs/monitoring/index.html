@@ -1,0 +1,609 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitoring System &mdash; Brain Tumor Monitoring System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deployment Guide" href="../deployment.html" />
+    <link rel="prev" title="API Endpoints" href="../api/endpoints.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+
+
+          <a href="../index.html" class="icon icon-home">
+            Brain Tumor Monitoring System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#problem-statement">Problem Statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#solution-overview">Solution Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#benefits">Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#getting-started">Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-methods">Installation Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#local-installation">Local Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#docker-installation">Docker Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloud-installation">Cloud Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-1-clone-and-setup">Step 1: Clone and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-2-database-setup">Step 2: Database Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-3-start-the-backend">Step 3: Start the Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-4-start-the-frontend">Step 4: Start the Frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-5-test-the-system">Step 5: Test the System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-6-explore-the-dashboard">Step 6: Explore the Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-7-generate-sample-data">Step 7: Generate Sample Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-8-test-drift-detection">Step 8: Test Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-9-explore-api-documentation">Step 9: Explore API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#step-10-next-steps">Step 10: Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#configuration-options">Configuration Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#high-level-architecture">High-Level Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#component-details">Component Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture.html#frontend-react-typescript">Frontend (React + TypeScript)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture.html#backend-api-fastapi">Backend API (FastAPI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture.html#monitoring-engine">Monitoring Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture.html#database-design">Database Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture.html#ml-pipeline">ML Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#scalability-design">Scalability Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#monitoring-observability">Monitoring &amp; Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#integration-points">Integration Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html#future-architecture">Future Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/endpoints.html">API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#health-status-endpoints">Health &amp; Status Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#health-check">Health Check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#root-endpoint">Root Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#prediction-endpoints">Prediction Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#image-prediction">Image Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#monitoring-endpoints">Monitoring Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#dashboard-data">Dashboard Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#drift-report-generation">Drift Report Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#feature-analysis">Feature Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#data-quality-tests">Data Quality Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#report-serving">Report Serving</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#patient-management-endpoints">Patient Management Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#get-all-patients">Get All Patients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/endpoints.html#get-patient-by-id">Get Patient by ID</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#error-handling">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#response-headers">Response Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#cors-support">CORS Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/endpoints.html#websocket-support">WebSocket Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#base-url">Base URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#content-types">Content Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#response-format">Response Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#interactive-documentation">Interactive Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#sdk-examples">SDK Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Monitoring System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-extraction">Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drift-detection">Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reporting-system">Reporting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dashboard">Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment.html">Deployment Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#deployment-options">Deployment Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#local-development-deployment">Local Development Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#docker-deployment">Docker Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#cloud-deployment">Cloud Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#kubernetes-deployment">Kubernetes Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#production-configuration">Production Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#load-balancing">Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#ssl-tls-configuration">SSL/TLS Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#monitoring-logging">Monitoring &amp; Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#backup-recovery">Backup &amp; Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#ci-cd-pipeline">CI/CD Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Brain Tumor Monitoring System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Monitoring System</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/monitoring/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="monitoring-system">
+<h1>Monitoring System<a class="headerlink" href="#monitoring-system" title="Link to this heading"></a></h1>
+<p>The Brain Tumor Monitoring System provides comprehensive monitoring capabilities for detecting data drift and ensuring model reliability in medical AI applications.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The monitoring system is designed to continuously track the performance and data quality of brain tumor classification models. It provides:</p>
+<ul class="simple">
+<li><p><strong>Real-time Monitoring</strong>: Live tracking of model predictions and data quality</p></li>
+<li><p><strong>Drift Detection</strong>: Advanced algorithms to detect data and concept drift</p></li>
+<li><p><strong>Automated Reporting</strong>: HTML reports with visualizations for stakeholders</p></li>
+<li><p><strong>Alerting</strong>: Configurable alerts for significant drift detection</p></li>
+<li><p><strong>Historical Analysis</strong>: Trend analysis and performance tracking over time</p></li>
+</ul>
+</section>
+<section id="key-components">
+<h2>Key Components<a class="headerlink" href="#key-components" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>Monitoring Engine</strong></dt><dd><p>Core monitoring logic that orchestrates feature extraction, drift detection, and reporting.</p>
+</dd>
+<dt><strong>Feature Extractor</strong></dt><dd><p>Extracts comprehensive features from brain tumor images including statistical measures and tumor-specific characteristics.</p>
+</dd>
+<dt><strong>Drift Detector</strong></dt><dd><p>Implements statistical algorithms to detect significant changes in data distributions.</p>
+</dd>
+<dt><strong>Report Generator</strong></dt><dd><p>Creates HTML reports with interactive visualizations using Evidently AI.</p>
+</dd>
+<dt><strong>Dashboard API</strong></dt><dd><p>Provides REST endpoints for real-time monitoring data and alerts.</p>
+</dd>
+</dl>
+</section>
+<section id="system-architecture">
+<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h2>
+<a class="reference internal image-reference" href="monitoring/_static/images/monitoring-architecture.png"><img alt="Monitoring System Architecture" class="align-center" src="monitoring/_static/images/monitoring-architecture.png" style="width: 600px;" />
+</a>
+<p>The monitoring system follows a modular architecture:</p>
+<p><strong>Data Flow:</strong>
+1. <strong>Image Upload</strong>: Images are uploaded through the prediction API
+2. <strong>Feature Extraction</strong>: Comprehensive features are extracted from each image
+3. <strong>Database Storage</strong>: Features and predictions are stored in PostgreSQL
+4. <strong>Drift Analysis</strong>: Regular analysis compares current vs. reference data
+5. <strong>Report Generation</strong>: HTML reports are generated with visualizations
+6. <strong>Dashboard Updates</strong>: Real-time dashboard shows current metrics</p>
+<p><strong>Core Modules:</strong></p>
+<ul class="simple">
+<li><p><strong>monitoring.core.monitor</strong>: Main orchestrator class</p></li>
+<li><p><strong>monitoring.core.drift_detector</strong>: Drift detection algorithms</p></li>
+<li><p><strong>monitoring.core.feature_extractor</strong>: Image feature extraction</p></li>
+<li><p><strong>monitoring.api.endpoints</strong>: REST API endpoints</p></li>
+</ul>
+</section>
+<section id="feature-extraction">
+<h2>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Link to this heading"></a></h2>
+<p>The system extracts 20+ features from brain tumor images:</p>
+<p><strong>Basic Image Features:</strong>
+* Width, height, channels
+* File size in bytes
+* Image format and metadata</p>
+<p><strong>Statistical Features:</strong>
+* Brightness (mean, std)
+* Contrast (mean, std)
+* Entropy (information content)
+* Skewness and kurtosis
+* Mean and standard deviation intensity</p>
+<p><strong>Tumor-Specific Features:</strong>
+* Tumor detection confidence
+* Number of tumors detected
+* Tumor area ratios
+* Largest tumor area
+* Tumor density
+* Tumor location (x, y coordinates)
+* Tumor shape regularity</p>
+<p><strong>Quality Metrics:</strong>
+* Noise levels
+* Artifact detection
+* Image sharpness
+* Compression artifacts</p>
+<p>Example feature extraction:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">monitoring.core.monitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrainTumorImageMonitor</span>
+
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">BrainTumorImageMonitor</span><span class="p">(</span><span class="n">database_url</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">extract_brain_tumor_features</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Brightness mean: </span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;brightness_mean&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tumor confidence: </span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;tumor_detection_confidence&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="drift-detection">
+<h2>Drift Detection<a class="headerlink" href="#drift-detection" title="Link to this heading"></a></h2>
+<p>The system implements multiple drift detection strategies:</p>
+<p><strong>Statistical Drift Detection:</strong></p>
+<ul class="simple">
+<li><p>Compares current data distributions against reference datasets</p></li>
+<li><p>Uses mean, standard deviation, and distribution shape analysis</p></li>
+<li><p>Customizable thresholds for different features</p></li>
+<li><p>Clean dataset splitting to avoid overlap</p></li>
+</ul>
+<p><strong>Drift Scoring:</strong></p>
+<ul class="simple">
+<li><p>Combines mean and standard deviation differences</p></li>
+<li><p>Normalizes by reference standard deviation</p></li>
+<li><p>Provides interpretable drift scores</p></li>
+<li><p>Configurable significance thresholds</p></li>
+</ul>
+<p><strong>Reference Data Management:</strong></p>
+<ul class="simple">
+<li><p>Uses oldest 50 records as reference dataset</p></li>
+<li><p>Current data uses newest 50 records</p></li>
+<li><p>Ensures no temporal overlap</p></li>
+<li><p>Automatic reference data updates</p></li>
+</ul>
+<p>Example drift analysis:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analyze drift for last 7 days</span>
+<span class="n">analysis</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">analyze_feature_drift</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">analysis</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;significant_drift&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drift detected in </span><span class="si">{</span><span class="n">feature</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;drift_score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="reporting-system">
+<h2>Reporting System<a class="headerlink" href="#reporting-system" title="Link to this heading"></a></h2>
+<p>The system generates comprehensive HTML reports using Evidently AI:</p>
+<p><strong>Report Types:</strong></p>
+<ul class="simple">
+<li><p><strong>Drift Reports</strong>: Feature distribution comparisons</p></li>
+<li><p><strong>Data Quality Reports</strong>: Missing values, outliers, completeness</p></li>
+<li><p><strong>Performance Reports</strong>: Model accuracy and confidence trends</p></li>
+<li><p><strong>Summary Reports</strong>: Executive summaries for stakeholders</p></li>
+</ul>
+<p><strong>Report Features:</strong></p>
+<ul class="simple">
+<li><p>Interactive visualizations</p></li>
+<li><p>Statistical summaries</p></li>
+<li><p>Drift score explanations</p></li>
+<li><p>Export capabilities</p></li>
+<li><p>Automated scheduling</p></li>
+</ul>
+<p><strong>Report Generation:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate drift report</span>
+<span class="n">report_path</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">generate_brain_tumor_drift_report</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Report saved to: </span><span class="si">{</span><span class="n">report_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Serve report via API</span>
+<span class="c1"># GET /monitoring/report/{report_name}</span>
+</pre></div>
+</div>
+</section>
+<section id="dashboard">
+<h2>Dashboard<a class="headerlink" href="#dashboard" title="Link to this heading"></a></h2>
+<p>The monitoring dashboard provides real-time insights:</p>
+<p><strong>Key Metrics:</strong></p>
+<ul class="simple">
+<li><p>Total predictions today</p></li>
+<li><p>Average confidence scores</p></li>
+<li><p>Most common prediction classes</p></li>
+<li><p>Drift detection status</p></li>
+<li><p>System health indicators</p></li>
+</ul>
+<p><strong>Real-time Updates:</strong></p>
+<ul class="simple">
+<li><p>WebSocket connections for live updates</p></li>
+<li><p>Automatic refresh every 30 seconds</p></li>
+<li><p>Configurable update intervals</p></li>
+<li><p>Historical trend visualization</p></li>
+</ul>
+<p><strong>Alert System:</strong></p>
+<ul class="simple">
+<li><p>Configurable drift thresholds</p></li>
+<li><p>Email notifications</p></li>
+<li><p>Slack/Teams integration</p></li>
+<li><p>Escalation procedures</p></li>
+</ul>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p><strong>Environment Variables:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Database connection</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://user:password@host:5432/database
+
+<span class="c1"># Drift detection settings</span>
+<span class="nv">DRIFT_THRESHOLD</span><span class="o">=</span><span class="m">1</span>.0
+<span class="nv">REFERENCE_DAYS</span><span class="o">=</span><span class="m">30</span>
+<span class="nv">CURRENT_DAYS</span><span class="o">=</span><span class="m">7</span>
+
+<span class="c1"># Feature extraction</span>
+<span class="nv">IMAGE_MAX_SIZE</span><span class="o">=</span><span class="m">10485760</span><span class="w">  </span><span class="c1"># 10MB</span>
+<span class="nv">FEATURE_EXTRACTION_TIMEOUT</span><span class="o">=</span><span class="m">30</span>
+
+<span class="c1"># Reporting</span>
+<span class="nv">REPORTS_DIR</span><span class="o">=</span>reports/monitoring
+<span class="nv">REPORT_RETENTION_DAYS</span><span class="o">=</span><span class="m">30</span>
+</pre></div>
+</div>
+<p><strong>Drift Detection Configuration:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Customize drift detection</span>
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">BrainTumorImageMonitor</span><span class="p">(</span>
+    <span class="n">database_url</span><span class="o">=</span><span class="n">database_url</span><span class="p">,</span>
+    <span class="n">drift_threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>  <span class="c1"># More sensitive</span>
+    <span class="n">reference_days</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>    <span class="c1"># More reference data</span>
+    <span class="n">current_days</span><span class="o">=</span><span class="mi">14</span>       <span class="c1"># Longer current period</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Feature Selection:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Focus on specific features</span>
+<span class="n">key_features</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;brightness_mean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;contrast_mean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;entropy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tumor_detection_confidence&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># Custom drift analysis</span>
+<span class="n">analysis</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">analyze_feature_drift</span><span class="p">(</span>
+    <span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">features</span><span class="o">=</span><span class="n">key_features</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-monitoring">
+<h2>Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Link to this heading"></a></h2>
+<p><strong>System Metrics:</strong></p>
+<ul class="simple">
+<li><p>API response times</p></li>
+<li><p>Database query performance</p></li>
+<li><p>Memory usage</p></li>
+<li><p>CPU utilization</p></li>
+<li><p>Disk I/O</p></li>
+</ul>
+<p><strong>Application Metrics:</strong></p>
+<ul class="simple">
+<li><p>Prediction throughput</p></li>
+<li><p>Feature extraction time</p></li>
+<li><p>Drift analysis duration</p></li>
+<li><p>Report generation time</p></li>
+<li><p>Error rates</p></li>
+</ul>
+<p><strong>Monitoring Tools:</strong></p>
+<ul class="simple">
+<li><p>Built-in logging</p></li>
+<li><p>Prometheus metrics</p></li>
+<li><p>Grafana dashboards</p></li>
+<li><p>Health checks</p></li>
+</ul>
+</section>
+<section id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Link to this heading"></a></h2>
+<p><strong>ML Pipeline Integration:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In your prediction pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">monitoring.core.monitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrainTumorImageMonitor</span>
+
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">BrainTumorImageMonitor</span><span class="p">(</span><span class="n">database_url</span><span class="p">)</span>
+
+<span class="c1"># Log prediction for monitoring</span>
+<span class="n">monitor</span><span class="o">.</span><span class="n">log_prediction</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">prediction_result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>API Integration:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># Get dashboard data</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://localhost:8000/monitoring/dashboard&quot;</span><span class="p">)</span>
+<span class="n">dashboard_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c1"># Generate drift report</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://localhost:8000/monitoring/drift-report?days=7&quot;</span><span class="p">)</span>
+<span class="n">report_info</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>WebSocket Integration:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ws</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8000/ws&#39;</span><span class="p">);</span>
+
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;drift_alert&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Drift detected:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">feature</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p><strong>Common Issues:</strong></p>
+<p><strong>No Drift Detection:</strong></p>
+<ul class="simple">
+<li><p>Check if sufficient data exists</p></li>
+<li><p>Verify reference/current data split</p></li>
+<li><p>Review drift threshold settings</p></li>
+<li><p>Check feature extraction</p></li>
+</ul>
+<p><strong>High Memory Usage:</strong></p>
+<ul class="simple">
+<li><p>Reduce batch sizes</p></li>
+<li><p>Optimize database queries</p></li>
+<li><p>Implement data retention policies</p></li>
+<li><p>Monitor memory leaks</p></li>
+</ul>
+<p><strong>Slow Report Generation:</strong></p>
+<ul class="simple">
+<li><p>Increase timeout settings</p></li>
+<li><p>Optimize Evidently configuration</p></li>
+<li><p>Use background processing</p></li>
+<li><p>Implement caching</p></li>
+</ul>
+<p><strong>Database Connection Issues:</strong></p>
+<ul class="simple">
+<li><p>Verify connection string</p></li>
+<li><p>Check database permissions</p></li>
+<li><p>Monitor connection pool</p></li>
+<li><p>Review query performance</p></li>
+</ul>
+<p><strong>Getting Help:</strong></p>
+<ul class="simple">
+<li><p>Check logs: <cite>tail -f logs/monitoring.log</cite></p></li>
+<li><p>Review configuration</p></li>
+<li><p>Test with sample data</p></li>
+<li><p>Contact support team</p></li>
+</ul>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<p><strong>Data Management:</strong></p>
+<ul class="simple">
+<li><p>Regular backup of monitoring data</p></li>
+<li><p>Implement data retention policies</p></li>
+<li><p>Monitor database size</p></li>
+<li><p>Optimize query performance</p></li>
+</ul>
+<p><strong>Drift Detection:</strong></p>
+<ul class="simple">
+<li><p>Start with conservative thresholds</p></li>
+<li><p>Monitor drift patterns over time</p></li>
+<li><p>Adjust thresholds based on domain knowledge</p></li>
+<li><p>Document drift events and responses</p></li>
+</ul>
+<p><strong>Reporting:</strong></p>
+<ul class="simple">
+<li><p>Schedule regular report generation</p></li>
+<li><p>Archive old reports</p></li>
+<li><p>Share reports with stakeholders</p></li>
+<li><p>Track report usage and feedback</p></li>
+</ul>
+<p><strong>Performance:</strong></p>
+<ul class="simple">
+<li><p>Monitor system resources</p></li>
+<li><p>Optimize feature extraction</p></li>
+<li><p>Use background processing for heavy tasks</p></li>
+<li><p>Implement caching where appropriate</p></li>
+</ul>
+<p><strong>Security:</strong></p>
+<ul class="simple">
+<li><p>Secure database connections</p></li>
+<li><p>Implement access controls</p></li>
+<li><p>Monitor for suspicious activity</p></li>
+<li><p>Regular security updates</p></li>
+</ul>
+<p>For detailed configuration options, see <span class="xref std std-doc">configuration</span>.</p>
+<p>For troubleshooting guides, see <span class="xref std std-doc">troubleshooting</span>.</p>
+<p>For API reference, see <a class="reference internal" href="../api/index.html"><span class="doc">API Reference</span></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api/endpoints.html" class="btn btn-neutral float-left" title="API Endpoints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../deployment.html" class="btn btn-neutral float-right" title="Deployment Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, LMU MLOps Group B.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

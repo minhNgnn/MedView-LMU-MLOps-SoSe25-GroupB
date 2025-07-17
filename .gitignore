@@ -1,3 +1,7 @@
+# Docs
+docs/.doctrees/
+docs/_static/fonts/
+
 # Profilling files
 *.prof
 backend/migrations

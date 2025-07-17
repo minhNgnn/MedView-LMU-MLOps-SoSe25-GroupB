@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Architecture &mdash; Brain Tumor Monitoring System 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+
+
+          <a href="index.html" class="icon icon-home">
+            Brain Tumor Monitoring System
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#problem-statement">Problem Statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#solution-overview">Solution Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#benefits">Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#local-installation">Local Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#docker-installation">Docker Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cloud-installation">Cloud Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-1-clone-and-setup">Step 1: Clone and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-2-database-setup">Step 2: Database Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-3-start-the-backend">Step 3: Start the Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-4-start-the-frontend">Step 4: Start the Frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-5-test-the-system">Step 5: Test the System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-6-explore-the-dashboard">Step 6: Explore the Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-7-generate-sample-data">Step 7: Generate Sample Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-8-test-drift-detection">Step 8: Test Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-9-explore-api-documentation">Step 9: Explore API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-10-next-steps">Step 10: Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-options">Configuration Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#high-level-architecture">High-Level Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#component-details">Component Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#frontend-react-typescript">Frontend (React + TypeScript)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backend-api-fastapi">Backend API (FastAPI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-engine">Monitoring Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-design">Database Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ml-pipeline">ML Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scalability-design">Scalability Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-observability">Monitoring &amp; Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-points">Integration Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#future-architecture">Future Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#health-status-endpoints">Health &amp; Status Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#health-check">Health Check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#root-endpoint">Root Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#prediction-endpoints">Prediction Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#image-prediction">Image Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#monitoring-endpoints">Monitoring Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#dashboard-data">Dashboard Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#drift-report-generation">Drift Report Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#feature-analysis">Feature Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#data-quality-tests">Data Quality Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#report-serving">Report Serving</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#patient-management-endpoints">Patient Management Endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-all-patients">Get All Patients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-patient-by-id">Get Patient by ID</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#error-handling">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#response-headers">Response Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#cors-support">CORS Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#websocket-support">WebSocket Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#base-url">Base URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#content-types">Content Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#response-format">Response Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#interactive-documentation">Interactive Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#sdk-examples">SDK Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring/index.html">Monitoring System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#feature-extraction">Feature Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#drift-detection">Drift Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#reporting-system">Reporting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#integration">Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#deployment-options">Deployment Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#local-development-deployment">Local Development Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#docker-deployment">Docker Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#cloud-deployment">Cloud Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#kubernetes-deployment">Kubernetes Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#production-configuration">Production Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#load-balancing">Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#ssl-tls-configuration">SSL/TLS Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#monitoring-logging">Monitoring &amp; Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#backup-recovery">Backup &amp; Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#ci-cd-pipeline">CI/CD Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Brain Tumor Monitoring System</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">System Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="system-architecture">
+<h1>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h1>
+<p>This document provides a detailed overview of the Brain Tumor Monitoring System architecture, including components, data flow, and design decisions.</p>
+<section id="high-level-architecture">
+<h2>High-Level Architecture<a class="headerlink" href="#high-level-architecture" title="Link to this heading"></a></h2>
+<a class="reference internal image-reference" href="_static/images/system-architecture.png"><img alt="System Architecture Overview" class="align-center" src="_static/images/system-architecture.png" style="width: 800px;" />
+</a>
+<p>The system follows a microservices architecture with the following key components:</p>
+<dl class="simple">
+<dt><strong>Frontend Layer</strong></dt><dd><p>React-based dashboard providing real-time monitoring interface</p>
+</dd>
+<dt><strong>API Gateway</strong></dt><dd><p>FastAPI-based REST API handling all client requests</p>
+</dd>
+<dt><strong>Monitoring Engine</strong></dt><dd><p>Core monitoring logic for drift detection and feature extraction</p>
+</dd>
+<dt><strong>Database Layer</strong></dt><dd><p>PostgreSQL database storing predictions, features, and monitoring data</p>
+</dd>
+<dt><strong>ML Pipeline</strong></dt><dd><p>YOLOv8-based brain tumor detection and classification</p>
+</dd>
+<dt><strong>Reporting System</strong></dt><dd><p>Evidently AI-powered HTML report generation</p>
+</dd>
+</dl>
+</section>
+<section id="component-details">
+<h2>Component Details<a class="headerlink" href="#component-details" title="Link to this heading"></a></h2>
+<section id="frontend-react-typescript">
+<h3>Frontend (React + TypeScript)<a class="headerlink" href="#frontend-react-typescript" title="Link to this heading"></a></h3>
+<p><strong>Technology Stack:</strong>
+* React 18+ with TypeScript
+* Tailwind CSS for styling
+* Chart.js for visualizations
+* React Router for navigation
+* Axios for API communication</p>
+<p><strong>Key Features:</strong>
+* Real-time dashboard updates
+* Interactive charts and graphs
+* Image upload interface
+* Report viewer
+* Responsive design</p>
+<p><strong>Architecture:</strong></p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Component structure</span>
+<span class="nx">src</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">components</span><span class="o">/</span><span class="w">          </span><span class="err">#</span><span class="w"> </span><span class="nx">Reusable</span><span class="w"> </span><span class="nx">UI</span><span class="w"> </span><span class="nx">components</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">Dashboard</span><span class="p">.</span><span class="nx">tsx</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="nx">Main</span><span class="w"> </span><span class="nx">dashboard</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">Upload</span><span class="p">.</span><span class="nx">tsx</span><span class="w">      </span><span class="err">#</span><span class="w"> </span><span class="nx">Image</span><span class="w"> </span><span class="nx">upload</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">Reports</span><span class="p">.</span><span class="nx">tsx</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="nx">Report</span><span class="w"> </span><span class="nx">viewer</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">hooks</span><span class="o">/</span><span class="w">              </span><span class="err">#</span><span class="w"> </span><span class="nx">Custom</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="nx">hooks</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">pages</span><span class="o">/</span><span class="w">              </span><span class="err">#</span><span class="w"> </span><span class="nx">Page</span><span class="w"> </span><span class="nx">components</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">types</span><span class="o">/</span><span class="w">              </span><span class="err">#</span><span class="w"> </span><span class="nx">TypeScript</span><span class="w"> </span><span class="nx">definitions</span>
+<span class="err">└──</span><span class="w"> </span><span class="nx">utils</span><span class="o">/</span><span class="w">              </span><span class="err">#</span><span class="w"> </span><span class="nx">Utility</span><span class="w"> </span><span class="nx">functions</span>
+</pre></div>
+</div>
+</section>
+<section id="backend-api-fastapi">
+<h3>Backend API (FastAPI)<a class="headerlink" href="#backend-api-fastapi" title="Link to this heading"></a></h3>
+<p><strong>Technology Stack:</strong></p>
+<ul class="simple">
+<li><p>FastAPI for REST API</p></li>
+<li><p>SQLAlchemy for ORM</p></li>
+<li><p>PostgreSQL for database</p></li>
+<li><p>Pydantic for data validation</p></li>
+<li><p>Uvicorn for ASGI server</p></li>
+</ul>
+<p><strong>API Structure:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">backend</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">src</span><span class="o">/</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">api</span><span class="o">.</span><span class="n">py</span>         <span class="c1"># Main FastAPI application</span>
+<span class="err">├──</span> <span class="n">migrations</span><span class="o">/</span>         <span class="c1"># Database migrations</span>
+<span class="err">└──</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>    <span class="c1"># Python dependencies</span>
+</pre></div>
+</div>
+<p><strong>Key Endpoints:</strong></p>
+<ul class="simple">
+<li><p><cite>/health</cite> - Health checks</p></li>
+<li><p><cite>/predict</cite> - Image prediction</p></li>
+<li><p><cite>/monitoring/*</cite> - Monitoring endpoints</p></li>
+<li><p><cite>/patients/*</cite> - Patient management</p></li>
+</ul>
+</section>
+<section id="monitoring-engine">
+<h3>Monitoring Engine<a class="headerlink" href="#monitoring-engine" title="Link to this heading"></a></h3>
+<p><strong>Core Components:</strong></p>
+<ul class="simple">
+<li><p><strong>BrainTumorImageMonitor</strong>: Main orchestrator</p></li>
+<li><p><strong>DriftDetector</strong>: Statistical drift detection</p></li>
+<li><p><strong>FeatureExtractor</strong>: Image feature extraction</p></li>
+<li><p><strong>ReportGenerator</strong>: HTML report creation</p></li>
+</ul>
+<p><strong>Architecture:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monitoring</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">core</span><span class="o">/</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">monitor</span><span class="o">.</span><span class="n">py</span>        <span class="c1"># Main monitor class</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">drift_detector</span><span class="o">.</span><span class="n">py</span> <span class="c1"># Drift detection logic</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">feature_extractor</span><span class="o">.</span><span class="n">py</span> <span class="c1"># Feature extraction</span>
+<span class="err">├──</span> <span class="n">api</span><span class="o">/</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># Standalone monitoring API</span>
+<span class="err">└──</span> <span class="n">tests</span><span class="o">/</span>               <span class="c1"># Unit tests</span>
+</pre></div>
+</div>
+</section>
+<section id="database-design">
+<h3>Database Design<a class="headerlink" href="#database-design" title="Link to this heading"></a></h3>
+<p><strong>PostgreSQL Schema:</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Main predictions table</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">predictions_log</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">prediction_confidence</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">prediction_class</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<span class="w">    </span><span class="n">num_detections</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">model_version</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<span class="w">    </span><span class="n">processing_time_ms</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- Image features</span>
+<span class="w">    </span><span class="n">image_width</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">image_height</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">image_channels</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">image_size_bytes</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brightness_mean</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brightness_std</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">contrast_mean</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">contrast_std</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">entropy</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">skewness</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">kurtosis</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">mean_intensity</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std_intensity</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- Tumor-specific features</span>
+<span class="w">    </span><span class="n">tumor_area_ratio</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tumor_detection_confidence</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">num_tumors_detected</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">largest_tumor_area</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tumor_density</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tumor_location_x</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tumor_location_y</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tumor_shape_regularity</span><span class="w"> </span><span class="nb">FLOAT</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Indexes:</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Performance indexes</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_predictions_timestamp</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">predictions_log</span><span class="p">(</span><span class="k">timestamp</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_predictions_class</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">predictions_log</span><span class="p">(</span><span class="n">prediction_class</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_predictions_confidence</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">predictions_log</span><span class="p">(</span><span class="n">prediction_confidence</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="ml-pipeline">
+<h3>ML Pipeline<a class="headerlink" href="#ml-pipeline" title="Link to this heading"></a></h3>
+<p><strong>Technology Stack:</strong></p>
+<ul class="simple">
+<li><p>YOLOv8 for object detection</p></li>
+<li><p>OpenCV for image processing</p></li>
+<li><p>NumPy/Pandas for data manipulation</p></li>
+<li><p>PyTorch for deep learning</p></li>
+</ul>
+<p><strong>Pipeline Components:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ml</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">train</span><span class="o">.</span><span class="n">py</span>           <span class="c1"># Model training</span>
+<span class="err">├──</span> <span class="n">predict</span><span class="o">.</span><span class="n">py</span>         <span class="c1"># Model inference</span>
+<span class="err">├──</span> <span class="n">models</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># Model definitions</span>
+<span class="err">├──</span> <span class="n">configs</span><span class="o">/</span>           <span class="c1"># Configuration files</span>
+<span class="err">└──</span> <span class="n">utils</span><span class="o">.</span><span class="n">py</span>           <span class="c1"># Utility functions</span>
+</pre></div>
+</div>
+<p><strong>Training Process:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Data Preparation</strong>: Image preprocessing and annotation</p></li>
+<li><p><strong>Model Training</strong>: YOLOv8 training with custom dataset</p></li>
+<li><p><strong>Validation</strong>: Model evaluation on test set</p></li>
+<li><p><strong>Export</strong>: Model export for production</p></li>
+</ol>
+<p><strong>Inference Process:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Image Preprocessing</strong>: Resize, normalize, format conversion</p></li>
+<li><p><strong>Model Inference</strong>: YOLOv8 prediction</p></li>
+<li><p><strong>Post-processing</strong>: NMS, confidence filtering</p></li>
+<li><p><strong>Feature Extraction</strong>: Statistical and tumor-specific features</p></li>
+</ol>
+</section>
+</section>
+<section id="data-flow">
+<h2>Data Flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h2>
+<p><strong>Image Upload Flow:</strong>
+.. mermaid:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">User</span> <span class="n">Uploads</span> <span class="n">Image</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">API</span> <span class="n">Gateway</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">C</span><span class="p">[</span><span class="n">Image</span> <span class="n">Validation</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">ML</span> <span class="n">Model</span> <span class="n">Inference</span><span class="p">]</span>
+    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">[</span><span class="n">Feature</span> <span class="n">Extraction</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">--&gt;</span> <span class="n">F</span><span class="p">[</span><span class="n">Database</span> <span class="n">Storage</span><span class="p">]</span>
+    <span class="n">F</span> <span class="o">--&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">Response</span> <span class="n">to</span> <span class="n">User</span><span class="p">]</span>
+    <span class="n">G</span> <span class="o">--&gt;</span> <span class="n">H</span><span class="p">[</span><span class="n">Background</span> <span class="n">Monitoring</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Monitoring Flow:</strong>
+.. mermaid:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">New</span> <span class="n">Prediction</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">Feature</span> <span class="n">Extraction</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">C</span><span class="p">[</span><span class="n">Database</span> <span class="n">Storage</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">Drift</span> <span class="n">Analysis</span><span class="p">]</span>
+    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">[</span><span class="n">Report</span> <span class="n">Generation</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">--&gt;</span> <span class="n">F</span><span class="p">[</span><span class="n">Dashboard</span> <span class="n">Update</span><span class="p">]</span>
+    <span class="n">F</span> <span class="o">--&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">Alert</span> <span class="n">System</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Drift Detection Flow:</strong>
+.. mermaid:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">Reference</span> <span class="n">Data</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">Statistical</span> <span class="n">Analysis</span><span class="p">]</span>
+    <span class="n">C</span><span class="p">[</span><span class="n">Current</span> <span class="n">Data</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span>
+    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">Drift</span> <span class="n">Scoring</span><span class="p">]</span>
+    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">[</span><span class="n">Threshold</span> <span class="n">Check</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">--&gt;</span> <span class="n">F</span><span class="p">[</span><span class="n">Alert</span> <span class="n">Generation</span><span class="p">]</span>
+    <span class="n">F</span> <span class="o">--&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">Report</span> <span class="n">Creation</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="security-architecture">
+<h2>Security Architecture<a class="headerlink" href="#security-architecture" title="Link to this heading"></a></h2>
+<p><strong>Authentication &amp; Authorization:</strong></p>
+<ul class="simple">
+<li><p>JWT token-based authentication</p></li>
+<li><p>Role-based access control (RBAC)</p></li>
+<li><p>API key management</p></li>
+<li><p>Session management</p></li>
+</ul>
+<p><strong>Data Security:</strong></p>
+<ul class="simple">
+<li><p>HTTPS/TLS encryption</p></li>
+<li><p>Database encryption at rest</p></li>
+<li><p>Secure file upload validation</p></li>
+<li><p>Input sanitization</p></li>
+</ul>
+<p><strong>Network Security:</strong></p>
+<ul class="simple">
+<li><p>CORS configuration</p></li>
+<li><p>Rate limiting</p></li>
+<li><p>DDoS protection</p></li>
+<li><p>Firewall rules</p></li>
+</ul>
+<p><strong>Compliance:</strong></p>
+<ul class="simple">
+<li><p>HIPAA compliance for medical data</p></li>
+<li><p>GDPR compliance for EU users</p></li>
+<li><p>Data retention policies</p></li>
+<li><p>Audit logging</p></li>
+</ul>
+</section>
+<section id="scalability-design">
+<h2>Scalability Design<a class="headerlink" href="#scalability-design" title="Link to this heading"></a></h2>
+<p><strong>Horizontal Scaling:</strong></p>
+<ul class="simple">
+<li><p>Stateless API design</p></li>
+<li><p>Load balancer support</p></li>
+<li><p>Database connection pooling</p></li>
+<li><p>Microservices architecture</p></li>
+</ul>
+<p><strong>Vertical Scaling:</strong></p>
+<ul class="simple">
+<li><p>Resource monitoring</p></li>
+<li><p>Auto-scaling policies</p></li>
+<li><p>Performance optimization</p></li>
+<li><p>Caching strategies</p></li>
+</ul>
+<p><strong>Database Scaling:</strong></p>
+<ul class="simple">
+<li><p>Read replicas</p></li>
+<li><p>Connection pooling</p></li>
+<li><p>Query optimization</p></li>
+<li><p>Partitioning strategies</p></li>
+</ul>
+<p><strong>Caching Strategy:</strong></p>
+<ul class="simple">
+<li><p>Redis for session storage</p></li>
+<li><p>CDN for static assets</p></li>
+<li><p>Browser caching</p></li>
+<li><p>API response caching</p></li>
+</ul>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<p><strong>API Performance:</strong></p>
+<ul class="simple">
+<li><p>Async/await patterns</p></li>
+<li><p>Background task processing</p></li>
+<li><p>Database query optimization</p></li>
+<li><p>Response compression</p></li>
+</ul>
+<p><strong>Frontend Performance:</strong></p>
+<ul class="simple">
+<li><p>Code splitting</p></li>
+<li><p>Lazy loading</p></li>
+<li><p>Image optimization</p></li>
+<li><p>Bundle optimization</p></li>
+</ul>
+<p><strong>Database Performance:</strong></p>
+<ul class="simple">
+<li><p>Index optimization</p></li>
+<li><p>Query optimization</p></li>
+<li><p>Connection pooling</p></li>
+<li><p>Read/write separation</p></li>
+</ul>
+<p><strong>Monitoring Performance:</strong></p>
+<ul class="simple">
+<li><p>Efficient feature extraction</p></li>
+<li><p>Batch processing</p></li>
+<li><p>Caching strategies</p></li>
+<li><p>Parallel processing</p></li>
+</ul>
+</section>
+<section id="deployment-architecture">
+<h2>Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Link to this heading"></a></h2>
+<p><strong>Development Environment:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># docker-compose.yml</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">api</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./backend</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8000:8000&quot;</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgresql://user:pass@db:5432/monitoring</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db</span>
+
+<span class="w">  </span><span class="nt">frontend</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./frontend</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3000:3000&quot;</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
+
+<span class="w">  </span><span class="nt">db</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:13</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_DB=monitoring</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_USER=user</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_PASSWORD=pass</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres_data:/var/lib/postgresql/data</span>
+</pre></div>
+</div>
+<p><strong>Production Environment:</strong></p>
+<ul class="simple">
+<li><p><strong>Cloud Deployment</strong>: GCP, AWS, Azure support</p></li>
+<li><p><strong>Container Orchestration</strong>: Kubernetes, Docker Swarm</p></li>
+<li><p><strong>Load Balancing</strong>: Nginx, HAProxy, Cloud Load Balancer</p></li>
+<li><p><strong>Monitoring</strong>: Prometheus, Grafana, Cloud Monitoring</p></li>
+</ul>
+<p><strong>CI/CD Pipeline:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># .github/workflows/deploy.yml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to Production</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">pip install -r requirements.txt</span>
+<span class="w">          </span><span class="no">pytest tests/</span>
+
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to Cloud</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no"># Deployment steps</span>
+</pre></div>
+</div>
+</section>
+<section id="error-handling">
+<h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
+<p><strong>API Error Handling:</strong></p>
+<ul class="simple">
+<li><p>Global exception handlers</p></li>
+<li><p>Structured error responses</p></li>
+<li><p>Logging and monitoring</p></li>
+<li><p>Graceful degradation</p></li>
+</ul>
+<p><strong>Database Error Handling:</strong></p>
+<ul class="simple">
+<li><p>Connection retry logic</p></li>
+<li><p>Transaction rollback</p></li>
+<li><p>Deadlock detection</p></li>
+<li><p>Query timeout handling</p></li>
+</ul>
+<p><strong>Monitoring Error Handling:</strong></p>
+<ul class="simple">
+<li><p>Feature extraction fallbacks</p></li>
+<li><p>Drift detection error recovery</p></li>
+<li><p>Report generation error handling</p></li>
+<li><p>Alert system redundancy</p></li>
+</ul>
+<p><strong>Frontend Error Handling:</strong></p>
+<ul class="simple">
+<li><p>Error boundaries</p></li>
+<li><p>Network error handling</p></li>
+<li><p>User-friendly error messages</p></li>
+<li><p>Retry mechanisms</p></li>
+</ul>
+</section>
+<section id="monitoring-observability">
+<h2>Monitoring &amp; Observability<a class="headerlink" href="#monitoring-observability" title="Link to this heading"></a></h2>
+<p><strong>Application Monitoring:</strong></p>
+<ul class="simple">
+<li><p>Request/response logging</p></li>
+<li><p>Performance metrics</p></li>
+<li><p>Error tracking</p></li>
+<li><p>User behavior analytics</p></li>
+</ul>
+<p><strong>Infrastructure Monitoring:</strong></p>
+<ul class="simple">
+<li><p>System resource usage</p></li>
+<li><p>Database performance</p></li>
+<li><p>Network latency</p></li>
+<li><p>Service health checks</p></li>
+</ul>
+<p><strong>Business Metrics:</strong></p>
+<ul class="simple">
+<li><p>Prediction accuracy</p></li>
+<li><p>Drift detection rates</p></li>
+<li><p>User engagement</p></li>
+<li><p>System uptime</p></li>
+</ul>
+<p><strong>Alerting:</strong></p>
+<ul class="simple">
+<li><p>Performance thresholds</p></li>
+<li><p>Error rate alerts</p></li>
+<li><p>Drift detection alerts</p></li>
+<li><p>System health alerts</p></li>
+</ul>
+</section>
+<section id="integration-points">
+<h2>Integration Points<a class="headerlink" href="#integration-points" title="Link to this heading"></a></h2>
+<p><strong>External APIs:</strong></p>
+<ul class="simple">
+<li><p>Medical imaging systems</p></li>
+<li><p>Electronic health records</p></li>
+<li><p>Laboratory information systems</p></li>
+<li><p>Telemedicine platforms</p></li>
+</ul>
+<p><strong>Data Sources:</strong></p>
+<ul class="simple">
+<li><p>PACS systems</p></li>
+<li><p>DICOM servers</p></li>
+<li><p>Cloud storage</p></li>
+<li><p>Local file systems</p></li>
+</ul>
+<p><strong>Third-party Services:</strong></p>
+<ul class="simple">
+<li><p>Authentication providers</p></li>
+<li><p>Email services</p></li>
+<li><p>SMS services</p></li>
+<li><p>Cloud monitoring</p></li>
+</ul>
+<p><strong>ML Pipeline Integration:</strong></p>
+<ul class="simple">
+<li><p>Model training pipelines</p></li>
+<li><p>Feature stores</p></li>
+<li><p>Model registries</p></li>
+<li><p>Experiment tracking</p></li>
+</ul>
+</section>
+<section id="future-architecture">
+<h2>Future Architecture<a class="headerlink" href="#future-architecture" title="Link to this heading"></a></h2>
+<p><strong>Planned Enhancements:</strong></p>
+<ul class="simple">
+<li><p>GraphQL API support</p></li>
+<li><p>Real-time streaming</p></li>
+<li><p>Advanced ML models</p></li>
+<li><p>Mobile applications</p></li>
+</ul>
+<p><strong>Scalability Improvements:</strong></p>
+<ul class="simple">
+<li><p>Event-driven architecture</p></li>
+<li><p>Message queues</p></li>
+<li><p>Distributed caching</p></li>
+<li><p>Multi-region deployment</p></li>
+</ul>
+<p><strong>Security Enhancements:</strong></p>
+<ul class="simple">
+<li><p>Zero-trust architecture</p></li>
+<li><p>Advanced encryption</p></li>
+<li><p>Compliance automation</p></li>
+<li><p>Security monitoring</p></li>
+</ul>
+<p><strong>Performance Optimizations:</strong></p>
+<ul class="simple">
+<li><p>Edge computing</p></li>
+<li><p>CDN integration</p></li>
+<li><p>Database sharding</p></li>
+<li><p>Microservices decomposition</p></li>
+</ul>
+<p>For detailed implementation information, see:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - API architecture details</p></li>
+<li><p><a class="reference internal" href="monitoring/index.html"><span class="doc">Monitoring System</span></a> - Monitoring system architecture</p></li>
+<li><p><a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a> - Deployment architecture</p></li>
+<li><p><span class="xref std std-doc">troubleshooting</span> - Architecture troubleshooting</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, LMU MLOps Group B.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>
