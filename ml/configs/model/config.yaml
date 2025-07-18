@@ -4,3 +4,9 @@ hyperparameters:
   epochs: 5
   wandb_logging: False
   connect_to_gcs: False
+  num_workers:    -1
+
+distributed:
+  backend:     gloo      # or "gloo" for CPU-only
+  world_size:  1         # total processes (will be overridden by torchrun)
+  dist_url:    env://    # use environment variables for rendezvous
