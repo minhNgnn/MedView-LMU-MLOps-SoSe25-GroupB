@@ -1,3 +1,5 @@
+ml/data_changes/
+
 # Profilling files
 *.prof
 backend/migrations
@@ -177,4 +179,3 @@ tests/test_data.py
 
 # Multirun distrbuted data loading
 multirun/
-
