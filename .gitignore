@@ -3,6 +3,7 @@
 backend/migrations
 monitoring/reports/
 monitoring/prometheus.yaml
+ml/data_changes/
 
 #OS stuff
 .DS_Store
@@ -177,4 +178,3 @@ tests/test_data.py
 
 # Multirun distrbuted data loading
 multirun/
-
