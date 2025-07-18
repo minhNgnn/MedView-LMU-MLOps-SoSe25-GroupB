@@ -128,6 +128,7 @@ will check the repositories and the code to verify your answers.
 > Answer:
 
 - Minh Nguyen: 13018310
+- Euna Goo: 12957195
 
 ### Question 3 (Euna)
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -141,9 +142,9 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 3 fill here ---
+We used the third-party framework 'Ultralytics' in our project for Brain Tumor detection using the YOLO model. The Ultralytics package provides a user-friendly interface and tools for implementing object detection YOLO models with minimal setup. We used the functionality for loading pretrained YOLOv8 models, which allowed us to fine-tune the model on our custom dataset of Brain Tumor scan. Additionally, we leveraged built-in training and validation tools offered by the package to evaluate model performance and adjust hyperparameters efficiently. This significantly accelerated the development process and helped us achieve accurate detection of brain tumors in medical images. Overall, the Ultralytics framework was essential to our project, as it provided a powerful and flexible foundation for applying deep learning techniques to a real-world medical imaging task.
 
-## Coding environment 
+## Coding environment
 
 > In the following section we are interested in learning more about you local development environment. This includes
 > how you managed dependencies, the structure of your code and how you managed code quality.
@@ -241,7 +242,7 @@ From the cookiecutter template, we set up essential files and folders such as `.
 >
 > Answer:
 
---- question 9 fill here ---
+Yes, our workflow included using branches and pull requests to manage version control effectively. We created several branches, each assigned to specific tasks such as cloud integration, command-line interface development, API implementation, and so on. Each team member worked independently on their assigned branch, allowing parallel development without interfering with the main codebase. Once a task was completed, the developer created a pull request to merge their changes into the main branch. The rest of the team then read that pull request, checking what was processed in the branch, examining code changes, and ensuring non-confliction. During this review, any conflicts or issues were identified and resolved collaboratively. This process helped maintain a clean and stable main branch, improved code quality through peer reviews, and minimized integration problems.
 
 ### Question 10 (Minh)
 
@@ -292,7 +293,17 @@ We used DVC (Data Version Control) in our project to manage our datasets and con
 >
 > Answer:
 
---- question 12 fill here ---
+Yes, we made a config.yaml file in the following structure:
+|--ml
+|  |--configs
+|     |--model
+|     	 |--config.yaml
+|     	 |--config_cloud.yaml
+|     |--data_config
+|     	 |--data.yaml
+|     	 |--data_cloud.yaml
+|--train.py
+In the train.py, we used a hydra library to call hyperparameter setting written in configs/model/config.yaml file. There are 4 hyperparameters in the config.yaml file, and hydra calls those parameters. In this way, we can edit hyperparameters easily without editing a train.py file directly.
 
 ### Question 13 (Euna)
 
@@ -307,7 +318,7 @@ We used DVC (Data Version Control) in our project to manage our datasets and con
 >
 > Answer:
 
---- question 13 fill here ---
+To ensure our experiments were reproducible and no information was lost, we used a config.yaml file to store all key hyperparameters and settings of our model. This file included values such as learning rate, batch size, number of epochs, model type. Whenever an experiment was run, the script automatically read from the config.yaml file to apply consistent configurations throughout training and evaluation. This made it easy to keep track of experiment setups and reduced the chance of manual errors. Additionally, we saved model checkpoints and evaluation results for each run. To reproduce an experiment, one simply needs to use the same config.yaml file and run the training script again.
 
 ### Question 14 (Euna)
 
@@ -324,7 +335,15 @@ We used DVC (Data Version Control) in our project to manage our datasets and con
 >
 > Answer:
 
---- question 14 fill here ---
+![Alt text](images/Q14_wandb_screenshot1.png)
+In the first image you can see tracking of key metrics such as precision, recall, and mAP (mean Average Precision) over training epochs. Precision and recall provide insight into the model’s ability to correctly detect tumors without generating too many false positives or negatives, while mAP gives an overall measure of detection accuracy across various confidence thresholds. Because of training environment, it was impossible to train with a large dataset and large epoch.
+
+![Alt text](images/Q14_wandb_screenshot2.png)
+In the second image, you can see that at each epoch, predictions was made and it was drawn with ground truth labels. This visual feedback helped us qualitatively assess how well the model was identifying tumors on unseen MRI scans. It allowed us to spot cases where the model either missed a tumor or incorrectly flagged a non-tumor region. Because of training environment, it was impossible to train with a large dataset and large epoch. Therefore the model was not trained well and the model couldn't predict detection.
+
+![Alt text](images/Q14_wandb_screenshot3.png)
+In third image, it shows the loss curves from multiple hyperparameter sweep runs, each representing a different configuration. We monitored distribution focal loss, classification loss and box regression loss to understand how different settings impacted convergence and model stability. In this case, it looks like that tough-sweep-7 setting is performing the best.
+
 
 ### Question 15 (Theerdha)
 
@@ -369,7 +388,18 @@ Regarding profiling, we mainly focused on profiling the prediction and training 
 >
 > Answer:
 
---- question 17 fill here ---
+API Gateway (apigateway.googleapis.com) – This service was used to expose our model as a secure and scalable API endpoint, allowing users to send requests and receive predictions.
+
+Service Management (servicemanagement.googleapis.com) – This handled the configuration and deployment of managed services, ensuring that our APIs were properly registered and discoverable.
+
+Service Control (servicecontrol.googleapis.com) – Used for managing access control, logging, and monitoring of our API usage, helping us keep track of service reliability and performance.
+
+Artifact Registry (artifactregistry.googleapis.com) – This was used to store and manage our Docker container images securely, which we later deployed on GCP.
+
+Cloud Build (cloudbuild.googleapis.com) – Cloud Build automated the process of building and packaging our code into Docker images, streamlining continuous integration.
+
+AI Platform (aiplatform.googleapis.com) – We used this service to deploy and manage our trained machine learning model in a production-ready environment with scalable infrastructure.
+-
 
 ### Question 18 (Euna)
 
@@ -384,7 +414,10 @@ Regarding profiling, we mainly focused on profiling the prediction and training 
 >
 > Answer:
 
---- question 18 fill here ---
+![Alt text](images/Q18_1.png)
+We used the Compute Engine to run our brain tumor detection model and support various backend services during development and testing. Specifically, we used a virtual machine with the type n1-standard-1, which provides 1 vCPU. This configuration was sufficient for lightweight tasks such as hosting our API and performing model inference on smaller test inputs.
+We started the VM using a custom Docker container, which included our trained YOLO model, necessary dependencies, and scripts for handling prediction requests. Using Compute Engine allowed us to have full control over the runtime environment and scale resources when needed.
+
 
 ### Question 19 (Euna)
 
@@ -393,7 +426,9 @@ Regarding profiling, we mainly focused on profiling the prediction and training 
 >
 > Answer:
 
---- question 19 fill here ---
+![Alt text](images/Q19_1.png)
+![Alt text](images/Q19_2.png)
+
 
 ### Question 20 (Euna, Minh)
 
@@ -402,7 +437,11 @@ Regarding profiling, we mainly focused on profiling the prediction and training 
 >
 > Answer:
 
---- question 20 fill here ---
+![Alt text](images/Q20_1.png)
+|--train-registry
+|  |--train: docker image to run train_cloud.py code
+|  |--distributed
+
 
 ### Question 21 (Euna, Minh)
 
@@ -411,7 +450,7 @@ Regarding profiling, we mainly focused on profiling the prediction and training 
 >
 > Answer:
 
---- question 21 fill here ---
+![Alt text](images/Q21_1.png)
 
 ### Question 22 (..)
 
@@ -426,7 +465,11 @@ Regarding profiling, we mainly focused on profiling the prediction and training 
 >
 > Answer:
 
---- question 22 fill here ---
+No, we didn't use cloud to train our model. Our model is composed with very large weights and parameters and used large image dataset, which requires GPU for training. However, it was impossible to use GPU server in GCP. Therefore, we used kaggle notebook instead, where we can use free GPU for limited amount. After training the model in the kaggle notebook, we downloaded the best weights file(.pt) and put it in our repository.
+Link to kaggle notebook: https://www.kaggle.com/code/eunai9/brain-tumor-detection-with-yolov8-de6d81
+![Alt text](images/Q22_1.png)
+But at least, we made a setting to train the model using Vertex AI. In order to confirm if it works well, we create a small subset of data named 'Simple'.
+
 
 ## Deployment
 
