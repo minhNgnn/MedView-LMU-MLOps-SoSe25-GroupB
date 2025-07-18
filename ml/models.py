@@ -3,8 +3,9 @@ from typing import Any, Dict
 
 import cv2
 import numpy as np
-import wandb
 from ultralytics import YOLO
+
+import wandb
 from wandb.integration.ultralytics import add_wandb_callback
 
 
@@ -13,6 +14,7 @@ def train_model(
     batch_size: int = -1,
     epochs: int = 10,
     wandb_logging: bool = False,
+    connect_to_gcs: bool = True,
     num_workers: int = -1,
 ) -> Any:
     """
@@ -22,15 +24,20 @@ def train_model(
     # 1) Pick a sane default for num_workers
     if num_workers < 0:
         import multiprocessing
+
         num_workers = max(1, multiprocessing.cpu_count() - 1)
 
-    print(f"Training model with pretrained weights: ml/models/{model_name}.pt")
-    t_model = YOLO(f"ml/models/{model_name}.pt")
+    pretrained_weights_path = (
+        f"/gcs/brain-tumor-data/models/{model_name}.pt" if connect_to_gcs else f"ml/models/{model_name}.pt"
+    )
+
+    print("Training model with pretrained weights:", pretrained_weights_path)
+    t_model = YOLO(pretrained_weights_path)
 
     # 2) (Optional) W&B logging
     if wandb_logging:
         print("Initializing Weights & Biases for logging…")
-        
+
         wandb.login()
         os.system("yolo settings wandb=True")
         wandb.init(
@@ -47,12 +54,12 @@ def train_model(
         add_wandb_callback(t_model)
 
     results = t_model.train(
-        data="ml/configs/data_config/data.yaml",
+        data="ml/configs/data_config/data_cloud.yaml" if connect_to_gcs else "ml/configs/data_config/data.yaml",
         epochs=epochs,
         patience=20,
         batch=batch_size,
         optimizer="auto",
-        project="ml/models/",
+        project="/gcs/brain-tumor-data/outputs/" if connect_to_gcs else "ml/models/",
         name=model_name,
         save=False,
         workers=num_workers,
@@ -141,5 +148,3 @@ def get_prediction_from_onnx_array(image: np.ndarray):
         )
 
     return (boxes, scores, class_ids), annotated
-
-
