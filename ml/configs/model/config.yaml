@@ -2,4 +2,12 @@ hyperparameters:
   model_name: "simple"
   batch_size: -1
   epochs: 5
-  wandb_logging: False
+  wandb_logging: True
+  num_workers:    -1  
+
+
+distributed:
+  backend:     gloo      # or "gloo" for CPU-only
+  world_size:  1         # total processes (will be overridden by torchrun)
+  dist_url:    env://    # use environment variables for rendezvous
+
