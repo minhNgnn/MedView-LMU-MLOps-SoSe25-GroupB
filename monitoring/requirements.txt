@@ -1,0 +1,18 @@
+# Core dependencies
+fastapi>=0.104.0
+uvicorn>=0.24.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+opencv-python>=4.8.0
+
+# Monitoring and drift detection
+evidently>=0.4.18
+
+# Logging and utilities
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+google-cloud-storage

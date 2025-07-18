@@ -7,6 +7,7 @@ import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 import PatientListView from '@/pages/PatientListView';
 import PatientDetailView from '@/pages/PatientDetailView';
+import MonitoringDashboard from '@/components/MonitoringDashboard';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/patients" element={<PatientListView />} />
           <Route path="/patients/:id" element={<PatientDetailView />} />
+          <Route path="/monitoring/dashboard" element={<MonitoringDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
