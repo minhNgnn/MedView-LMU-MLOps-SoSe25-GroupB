@@ -1,9 +1,10 @@
+ml/data_changes/
+
 # Profilling files
 *.prof
 backend/migrations
 monitoring/reports/
 monitoring/prometheus.yaml
-ml/data_changes/
 
 #OS stuff
 .DS_Store

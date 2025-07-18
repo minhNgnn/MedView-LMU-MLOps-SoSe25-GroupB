@@ -3,9 +3,8 @@ from typing import Any, Dict
 
 import cv2
 import numpy as np
-from ultralytics import YOLO
-
 import wandb
+from ultralytics import YOLO
 from wandb.integration.ultralytics import add_wandb_callback
 
 
@@ -95,56 +94,3 @@ def get_prediction_from_array(image: np.ndarray):
     results = model.predict(source=image, imgsz=640, conf=0.5)
     annotated_image = results[0].plot()
     return results, annotated_image
-
-
-def export_model_to_onnx():
-    """
-    Export the trained YOLO model to ONNX format.
-    """
-    pt_path = "models/yolov8n/weights/epoch10_yolov8n.pt"
-    model = YOLO(pt_path)
-    model.export(format="onnx", dynamic=True, imgsz=640, opset=12)
-
-
-def get_prediction_from_onnx_array(image: np.ndarray):
-    """
-    Run inference on an image via the exported ONNX model.
-    Returns ((boxes, scores, class_ids), annotated_image).
-    """
-    onnx_path = "ml/models/yolov8n/weights/epoch10_yolov8n.onnx"
-    sess = ort.InferenceSession(onnx_path)
-    input_name = sess.get_inputs()[0].name
-
-    img = resize_image(image, size=(640, 640)).astype(np.float32) / 255.0
-    img = np.transpose(img, (2, 0, 1))[None]  # CHW and batch dim
-
-    outputs = sess.run(None, {input_name: img})
-    preds = outputs[0]  # shape (1, num_boxes, 85)
-
-    # Postprocess YOLO outputs
-    conf_thres = 0.5
-    boxes, scores, class_ids = [], [], []
-    for pred in preds[0]:
-        score = float(pred[4])
-        if score > conf_thres:
-            x1, y1, x2, y2 = map(int, pred[:4])
-            cls = int(np.argmax(pred[5:]))
-            boxes.append([x1, y1, x2, y2])
-            scores.append(score)
-            class_ids.append(cls)
-
-    # Draw annotations
-    annotated = resize_image(image, size=(640, 640)).copy()
-    for (x1, y1, x2, y2), s, cid in zip(boxes, scores, class_ids):
-        cv2.rectangle(annotated, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(
-            annotated,
-            f"{cid}: {s:.2f}",
-            (x1, y1 - 10),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.5,
-            (0, 255, 0),
-            2,
-        )
-
-    return (boxes, scores, class_ids), annotated
