@@ -7,7 +7,7 @@ like:
 
 Where you instead should add your answers. Any other changes may have unwanted consequences when your report is
 auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
-to the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
+to the `figures` subfolder (please only use `.JPG`, `.jpg` or `.jpeg`) and then add the following code in your answer:
 
 `![my_image](figures/<image>.<extension>)`
 
@@ -324,7 +324,7 @@ To ensure our experiments were reproducible and no information was lost, we used
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from [this figure](figures/wandb.JPG). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Recommended answer length: 200-300 words + 1 to 3 screenshots.
@@ -335,13 +335,13 @@ To ensure our experiments were reproducible and no information was lost, we used
 >
 > Answer:
 
-![Alt text](images/Q14_wandb_screenshot1.png)
+![Alt text](images/Q14_wandb_screenshot1.JPG)
 In the first image you can see tracking of key metrics such as precision, recall, and mAP (mean Average Precision) over training epochs. Precision and recall provide insight into the model’s ability to correctly detect tumors without generating too many false positives or negatives, while mAP gives an overall measure of detection accuracy across various confidence thresholds. Because of training environment, it was impossible to train with a large dataset and large epoch.
 
-![Alt text](images/Q14_wandb_screenshot2.png)
+![Alt text](images/Q14_wandb_screenshot2.JPG)
 In the second image, you can see that at each epoch, predictions was made and it was drawn with ground truth labels. This visual feedback helped us qualitatively assess how well the model was identifying tumors on unseen MRI scans. It allowed us to spot cases where the model either missed a tumor or incorrectly flagged a non-tumor region. Because of training environment, it was impossible to train with a large dataset and large epoch. Therefore the model was not trained well and the model couldn't predict detection.
 
-![Alt text](images/Q14_wandb_screenshot3.png)
+![Alt text](images/Q14_wandb_screenshot3.JPG)
 In third image, it shows the loss curves from multiple hyperparameter sweep runs, each representing a different configuration. We monitored distribution focal loss, classification loss and box regression loss to understand how different settings impacted convergence and model stability. In this case, it looks like that tough-sweep-7 setting is performing the best.
 
 
@@ -414,7 +414,7 @@ AI Platform (aiplatform.googleapis.com) – We used this service to deploy and m
 >
 > Answer:
 
-![Alt text](images/Q18_1.png)
+![Alt text](images/Q18_1.JPG)
 We used the Compute Engine to run our brain tumor detection model and support various backend services during development and testing. Specifically, we used a virtual machine with the type n1-standard-1, which provides 1 vCPU. This configuration was sufficient for lightweight tasks such as hosting our API and performing model inference on smaller test inputs.
 We started the VM using a custom Docker container, which included our trained YOLO model, necessary dependencies, and scripts for handling prediction requests. Using Compute Engine allowed us to have full control over the runtime environment and scale resources when needed.
 
@@ -422,22 +422,22 @@ We started the VM using a custom Docker container, which included our trained YO
 ### Question 19 (Euna)
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
-> **You can take inspiration from [this figure](figures/bucket.png).**
+> **You can take inspiration from [this figure](figures/bucket.JPG).**
 >
 > Answer:
 
-![Alt text](images/Q19_1.png)
-![Alt text](images/Q19_2.png)
+![Alt text](images/Q19_1.JPG)
+![Alt text](images/Q19_2.JPG)
 
 
 ### Question 20 (Euna, Minh)
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
-> **stored. You can take inspiration from [this figure](figures/registry.png).**
+> **stored. You can take inspiration from [this figure](figures/registry.JPG).**
 >
 > Answer:
 
-![Alt text](images/Q20_1.png)
+![Alt text](images/Q20_1.JPG)
 |--train-registry
 |  |--train: docker image to run train_cloud.py code
 |  |--distributed
@@ -446,11 +446,11 @@ We started the VM using a custom Docker container, which included our trained YO
 ### Question 21 (Euna, Minh)
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
-> **your project. You can take inspiration from [this figure](figures/build.png).**
+> **your project. You can take inspiration from [this figure](figures/build.JPG).**
 >
 > Answer:
 
-![Alt text](images/Q21_1.png)
+![Alt text](images/Q21_1.JPG)
 
 ### Question 22 (..)
 
@@ -467,7 +467,7 @@ We started the VM using a custom Docker container, which included our trained YO
 
 No, we didn't use cloud to train our model. Our model is composed with very large weights and parameters and used large image dataset, which requires GPU for training. However, it was impossible to use GPU server in GCP. Therefore, we used kaggle notebook instead, where we can use free GPU for limited amount. After training the model in the kaggle notebook, we downloaded the best weights file(.pt) and put it in our repository.
 Link to kaggle notebook: https://www.kaggle.com/code/eunai9/brain-tumor-detection-with-yolov8-de6d81
-![Alt text](images/Q22_1.png)
+![Alt text](images/Q22_1.JPG)
 But at least, we made a setting to train the model using Vertex AI. In order to confirm if it works well, we create a small subset of data named 'Simple'.
 
 
@@ -590,7 +590,7 @@ For documentation, we used Sphinx, as it is one of the most popular and feature-
 ### Question 29 (Theerdha)
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
-> **You can take inspiration from [this figure](figures/overview.png). Additionally, in your own words, explain the**
+> **You can take inspiration from [this figure](figures/overview.JPG). Additionally, in your own words, explain the**
 > **overall steps in figure.**
 >
 > Recommended answer length: 200-400 words
