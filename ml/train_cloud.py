@@ -15,6 +15,7 @@ def run_training_typer(
     epochs: Annotated[int, typer.Option("--epochs")] = 10,
     wandb_logging: Annotated[bool, typer.Option("--wandb")] = False,
     connect_to_gcs: Annotated[bool, typer.Option("--gcs")] = True,
+    num_workers: Annotated[int, typer.Option("--num-workers", "-n")] = -1,
 ) -> Any:
     print("Starting training pipeline...")
 
@@ -34,6 +35,7 @@ def run_training_hydra(cfg) -> Any:
         cfg.hyperparameters.epochs,
         cfg.hyperparameters.wandb_logging,
         cfg.hyperparameters.connect_to_gcs,
+        cfg.hyperparameters.num_workers,
     )
 
     print("Training pipeline completed.")
