@@ -299,7 +299,7 @@ We used DVC (Data Version Control) in our project to manage our datasets and con
 > Answer:
 
 Yes, we made a config.yaml file in the following structure:<br>
-<pre> ```bash
+```
 |--ml
 |  |--configs
 |     |--model
@@ -309,7 +309,7 @@ Yes, we made a config.yaml file in the following structure:<br>
 |     	 |--data.yaml
 |     	 |--data_cloud.yaml
 |--train.py
-``` </pre>
+```
 In the train.py, we used a hydra library to call hyperparameter setting written in configs/model/config.yaml file. There are 4 hyperparameters in the config.yaml file, and hydra calls those parameters. In this way, we can edit hyperparameters easily without editing a train.py file directly.
 
 
@@ -449,11 +449,11 @@ We started the VM using a custom Docker container, which included our trained YO
 
 ![Alt text](images/Q20_1.JPG)
 ![Alt text](images/Q20_2.JPG)
-<pre> ```bash
+```
 |--train-registry/
 |  |--train: docker image to run train_cloud.py code
 |  |--distributed
-``` </pre>
+```
 
 
 ### Question 21 (Euna, Minh)
