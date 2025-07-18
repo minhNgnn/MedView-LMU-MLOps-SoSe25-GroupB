@@ -1,0 +1,25 @@
+# cloudbuild.distributed.yaml
+
+steps:
+  # Build the DDP image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: BuildDistributedImage
+    args:
+      [
+        'build',
+        '-f', 'Dockerfile.distributed',
+        '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/distributed:latest',
+        '.'
+      ]
+
+  # Push it to Artifact Registry (or Container Registry)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: PushDistributedImage
+    args:
+      [
+        'push',
+        'europe-west1-docker.pkg.dev/$PROJECT_ID/train-registry/distributed:latest'
+      ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
