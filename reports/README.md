@@ -172,9 +172,11 @@ These practices are especially important in larger projects because they help ma
 
 ### Question 7
 
-> **How many tests did you implement and what are they testing in your code?** (Theerdha, Minh)
+> **How many tests did you implement and what are they testing in your code?**
 >
 In total we have implemented 12 tests. 3 unit tests, 1 performance test and 8 integration tests. The 3 unit tests make sure that the data is in place and have labels (test_data), make sure enabling wandb logging will trigger only one wandb login, if no arguments are given prediction function should return none, and the normalization of images has the expected shape (test_model), validating the training entrypoints without really touching the dependencies (test_train)In total we have implemented 12 tests. 3 unit tests, 1 performance test and 8 integration tests. The 3 unit tests make sure that the data is in place and have labels (test_data), make sure enabling wandb logging will trigger only one wandb login, if no arguments are given prediction function should return none, and the normalization of images has the expected shape (test_model), validating the training entrypoints without really touching the dependencies (test_train)
+
+Our integration tests comprehensively cover the main API endpoints and system behaviors. They include tests for the prediction endpoint (valid/invalid images, file size, model failures), patient endpoints (listing, details, error handling), health checks, CORS headers, environment variable handling, and API exception handling. These tests use FastAPI's TestClient and unittest.mock to simulate real HTTP requests and various scenarios, ensuring the robustness and reliability of the backend system.
 
 ### Question 8
 

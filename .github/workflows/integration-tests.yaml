@@ -47,6 +47,7 @@ jobs:
           pip install -r backend/requirements.txt
           pip install -r ml/requirements.txt
           pip install -r tests/requirements_tests.txt
+          pip install -r monitoring/requirements.txt
 
       - name: Run integration tests with coverage
         run: |
