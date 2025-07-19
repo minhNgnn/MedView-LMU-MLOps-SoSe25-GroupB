@@ -7,30 +7,29 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>System Architecture &mdash; Brain Tumor Monitoring System 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=16dbc406" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=2a85d6f0" />
 
-
+  
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/documentation_options.js?v=1a58e83a"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="api/index.html" />
-    <link rel="prev" title="Quick Start Guide" href="quickstart.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-
-
+          
+          
           <a href="index.html" class="icon icon-home">
             Brain Tumor Monitoring System
           </a>
@@ -50,6 +49,7 @@
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#system-architecture">System Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#deployment">Deployment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use Cases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#benefits">Benefits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
@@ -60,7 +60,6 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#local-installation">Local Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#docker-installation">Docker Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#cloud-installation">Cloud Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
@@ -69,7 +68,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-1-clone-and-setup">Step 1: Clone and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-1-clone-the-repository">Step 1: Clone the Repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-2-database-setup">Step 2: Database Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-3-start-the-backend">Step 3: Start the Backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-4-start-the-frontend">Step 4: Start the Frontend</a></li>
@@ -77,8 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-6-explore-the-dashboard">Step 6: Explore the Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-7-generate-sample-data">Step 7: Generate Sample Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-8-test-drift-detection">Step 8: Test Drift Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-9-explore-api-documentation">Step 9: Explore API Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-10-next-steps">Step 10: Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-9-next-steps">Step 9: Next Steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-options">Configuration Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#what-s-next">What’s Next?</a></li>
@@ -94,91 +92,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#ml-pipeline">ML Pipeline</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#data-flow">Data Flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#security-architecture">Security Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scalability-design">Scalability Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#deployment-architecture">Deployment Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#monitoring-observability">Monitoring &amp; Observability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#integration-points">Integration Points</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#future-architecture">Future Architecture</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#health-status-endpoints">Health &amp; Status Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#health-check">Health Check</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#root-endpoint">Root Endpoint</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#prediction-endpoints">Prediction Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#image-prediction">Image Prediction</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#monitoring-endpoints">Monitoring Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#dashboard-data">Dashboard Data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#drift-report-generation">Drift Report Generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#feature-analysis">Feature Analysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#data-quality-tests">Data Quality Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#report-serving">Report Serving</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#patient-management-endpoints">Patient Management Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-all-patients">Get All Patients</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-patient-by-id">Get Patient by ID</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#error-handling">Error Handling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#rate-limiting">Rate Limiting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#response-headers">Response Headers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#cors-support">CORS Support</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#websocket-support">WebSocket Support</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#base-url">Base URL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#authentication">Authentication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#content-types">Content Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#rate-limiting">Rate Limiting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#error-handling">Error Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#response-format">Response Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#quick-start">Quick Start</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#interactive-documentation">Interactive Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#sdk-examples">SDK Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#testing">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#performance">Performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#monitoring">Monitoring</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="monitoring/index.html">Monitoring System</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#key-components">Key Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#system-architecture">System Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#feature-extraction">Feature Extraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#drift-detection">Drift Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#reporting-system">Reporting System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#dashboard">Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#performance-monitoring">Performance Monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#integration">Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#best-practices">Best Practices</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#deployment-options">Deployment Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#local-development-deployment">Local Development Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#docker-deployment">Docker Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#cloud-deployment">Cloud Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#kubernetes-deployment">Kubernetes Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#production-configuration">Production Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#load-balancing">Load Balancing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#ssl-tls-configuration">SSL/TLS Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#monitoring-logging">Monitoring &amp; Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#backup-recovery">Backup &amp; Recovery</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#ci-cd-pipeline">CI/CD Pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiment-logging">Experiment Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distributed-computing">Distributed Computing</a></li>
 </ul>
 </li>
 </ul>
@@ -206,14 +121,12 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="system-architecture">
 <h1>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h1>
 <p>This document provides a detailed overview of the Brain Tumor Monitoring System architecture, including components, data flow, and design decisions.</p>
 <section id="high-level-architecture">
 <h2>High-Level Architecture<a class="headerlink" href="#high-level-architecture" title="Link to this heading"></a></h2>
-<a class="reference internal image-reference" href="_static/images/system-architecture.png"><img alt="System Architecture Overview" class="align-center" src="_static/images/system-architecture.png" style="width: 800px;" />
-</a>
 <p>The system follows a microservices architecture with the following key components:</p>
 <dl class="simple">
 <dt><strong>Frontend Layer</strong></dt><dd><p>React-based dashboard providing real-time monitoring interface</p>
@@ -296,14 +209,14 @@
 <li><p><strong>ReportGenerator</strong>: HTML report creation</p></li>
 </ul>
 <p><strong>Architecture:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monitoring</span><span class="o">/</span>
-<span class="err">├──</span> <span class="n">core</span><span class="o">/</span>
-<span class="err">│</span>   <span class="err">├──</span> <span class="n">monitor</span><span class="o">.</span><span class="n">py</span>        <span class="c1"># Main monitor class</span>
-<span class="err">│</span>   <span class="err">├──</span> <span class="n">drift_detector</span><span class="o">.</span><span class="n">py</span> <span class="c1"># Drift detection logic</span>
-<span class="err">│</span>   <span class="err">└──</span> <span class="n">feature_extractor</span><span class="o">.</span><span class="n">py</span> <span class="c1"># Feature extraction</span>
-<span class="err">├──</span> <span class="n">api</span><span class="o">/</span>
-<span class="err">│</span>   <span class="err">└──</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span>          <span class="c1"># Standalone monitoring API</span>
-<span class="err">└──</span> <span class="n">tests</span><span class="o">/</span>               <span class="c1"># Unit tests</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>monitoring/
+└── core/
+    ├── monitor.py           # Main monitor class, orchestrates monitoring logic
+    ├── drift_detector.py    # Drift detection logic
+    ├── feature_extractor.py # Feature extraction
+    └── __init__.py          # Core monitoring package init
+
+# Monitoring logic is now integrated into the backend (see backend/src/api.py)
 </pre></div>
 </div>
 </section>
@@ -389,332 +302,54 @@
 </ol>
 </section>
 </section>
-<section id="data-flow">
-<h2>Data Flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h2>
-<p><strong>Image Upload Flow:</strong>
-.. mermaid:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
-    <span class="n">A</span><span class="p">[</span><span class="n">User</span> <span class="n">Uploads</span> <span class="n">Image</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">API</span> <span class="n">Gateway</span><span class="p">]</span>
-    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">C</span><span class="p">[</span><span class="n">Image</span> <span class="n">Validation</span><span class="p">]</span>
-    <span class="n">C</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">ML</span> <span class="n">Model</span> <span class="n">Inference</span><span class="p">]</span>
-    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">[</span><span class="n">Feature</span> <span class="n">Extraction</span><span class="p">]</span>
-    <span class="n">E</span> <span class="o">--&gt;</span> <span class="n">F</span><span class="p">[</span><span class="n">Database</span> <span class="n">Storage</span><span class="p">]</span>
-    <span class="n">F</span> <span class="o">--&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">Response</span> <span class="n">to</span> <span class="n">User</span><span class="p">]</span>
-    <span class="n">G</span> <span class="o">--&gt;</span> <span class="n">H</span><span class="p">[</span><span class="n">Background</span> <span class="n">Monitoring</span><span class="p">]</span>
+<section id="experiment-logging">
+<h2>Experiment Logging<a class="headerlink" href="#experiment-logging" title="Link to this heading"></a></h2>
+<p>Our system provides robust experiment logging and tracking capabilities to ensure reproducibility and facilitate hyperparameter optimization.</p>
+<p><strong>Key Tools and Components:</strong></p>
+<ul class="simple">
+<li><p><strong>Hydra</strong>: Used for flexible configuration management. Training scripts (<cite>ml/train.py</cite>, <cite>ml/train_sweep.py</cite>) can be launched with different configurations using Hydra, allowing for easy experimentation with various hyperparameters and settings. The main configuration is stored in <cite>ml/configs/model/config.yaml</cite>.</p></li>
+<li><p><strong>Weights &amp; Biases (wandb)</strong>: Integrated for experiment tracking and logging. When enabled (via the <cite>–wandb</cite> flag or <cite>wandb_logging: True</cite> in config), all training runs log metrics, hyperparameters, and results to the wandb dashboard. This is implemented in <cite>ml/models.py</cite> and can be toggled in both CLI and config files.</p></li>
+<li><p><strong>Sweep</strong>: Hyperparameter sweeps are managed using a sweep configuration file (<cite>ml/configs/sweep.yaml</cite>) and the sweep training script (<cite>ml/train_sweep.py</cite>). The sweep setup allows for automated exploration of hyperparameter combinations (e.g., model type, batch size, epochs) using Bayesian optimization. The sweep can be run locally or in the cloud using the provided Dockerfile (<cite>dockerfiles/sweep.Dockerfile</cite>).</p></li>
+<li><p><strong>Docker Integration</strong>: The sweep Dockerfile (<cite>dockerfiles/sweep.Dockerfile</cite>) provides a reproducible environment for running sweeps and logging experiments, with environment variables for wandb project/entity and sweep configuration.</p></li>
+</ul>
+<p><strong>How to Use:</strong></p>
+<ul>
+<li><p>To run a single experiment with logging:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>ml/train.py<span class="w"> </span>--wandb
 </pre></div>
 </div>
-<p><strong>Monitoring Flow:</strong>
-.. mermaid:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
-    <span class="n">A</span><span class="p">[</span><span class="n">New</span> <span class="n">Prediction</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">Feature</span> <span class="n">Extraction</span><span class="p">]</span>
-    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">C</span><span class="p">[</span><span class="n">Database</span> <span class="n">Storage</span><span class="p">]</span>
-    <span class="n">C</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">Drift</span> <span class="n">Analysis</span><span class="p">]</span>
-    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">[</span><span class="n">Report</span> <span class="n">Generation</span><span class="p">]</span>
-    <span class="n">E</span> <span class="o">--&gt;</span> <span class="n">F</span><span class="p">[</span><span class="n">Dashboard</span> <span class="n">Update</span><span class="p">]</span>
-    <span class="n">F</span> <span class="o">--&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">Alert</span> <span class="n">System</span><span class="p">]</span>
+</li>
+<li><p>To run a sweep (hyperparameter search):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wandb<span class="w"> </span>sweep<span class="w"> </span>ml/configs/sweep.yaml
+wandb<span class="w"> </span>agent<span class="w"> </span>&lt;entity&gt;/&lt;project&gt;/&lt;sweep_id&gt;
 </pre></div>
 </div>
-<p><strong>Drift Detection Flow:</strong>
-.. mermaid:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="n">TD</span>
-    <span class="n">A</span><span class="p">[</span><span class="n">Reference</span> <span class="n">Data</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">Statistical</span> <span class="n">Analysis</span><span class="p">]</span>
-    <span class="n">C</span><span class="p">[</span><span class="n">Current</span> <span class="n">Data</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span>
-    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">Drift</span> <span class="n">Scoring</span><span class="p">]</span>
-    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">[</span><span class="n">Threshold</span> <span class="n">Check</span><span class="p">]</span>
-    <span class="n">E</span> <span class="o">--&gt;</span> <span class="n">F</span><span class="p">[</span><span class="n">Alert</span> <span class="n">Generation</span><span class="p">]</span>
-    <span class="n">F</span> <span class="o">--&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">Report</span> <span class="n">Creation</span><span class="p">]</span>
+</li>
+<li><p>All experiment logs, metrics, and results are tracked in the wandb dashboard for easy comparison and analysis.</p></li>
+</ul>
+<p><strong>Note:</strong> Faust is not used in this codebase.</p>
+</section>
+<section id="distributed-computing">
+<h2>Distributed Computing<a class="headerlink" href="#distributed-computing" title="Link to this heading"></a></h2>
+<p>Our system supports distributed training to efficiently utilize multiple CPU cores or nodes, enabling scalable and faster model training. This is especially important for large datasets or complex models.</p>
+<p><strong>Key Files and Components:</strong></p>
+<ul class="simple">
+<li><p><cite>ml/train.py</cite>: The main entry point for training. It exposes a CLI (via Typer and Hydra) that allows you to specify the number of workers for distributed data loading and training.</p></li>
+<li><p><cite>ml/models.py</cite>: The <cite>train_model</cite> function accepts a <cite>num_workers</cite> argument, which controls the number of worker processes for data loading and distributed training.</p></li>
+<li><p>Dockerfiles and configuration files: These support launching distributed jobs in both local and cloud environments.</p></li>
+</ul>
+<p><strong>How Distributed Training Works:</strong></p>
+<ul class="simple">
+<li><p>The number of workers can be set via command-line arguments or configuration files, allowing flexible scaling based on available resources.</p></li>
+<li><p>The system can launch multiple processes for data loading and model training, leveraging PyTorch’s distributed and multiprocessing capabilities.</p></li>
+<li><p>This design enables efficient use of cloud resources (e.g., GCP VMs) or local multi-core machines.</p></li>
+</ul>
+<p><strong>Example Usage:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>ml/train.py<span class="w"> </span>--num_workers<span class="w"> </span><span class="m">4</span>
 </pre></div>
 </div>
-</section>
-<section id="security-architecture">
-<h2>Security Architecture<a class="headerlink" href="#security-architecture" title="Link to this heading"></a></h2>
-<p><strong>Authentication &amp; Authorization:</strong></p>
-<ul class="simple">
-<li><p>JWT token-based authentication</p></li>
-<li><p>Role-based access control (RBAC)</p></li>
-<li><p>API key management</p></li>
-<li><p>Session management</p></li>
-</ul>
-<p><strong>Data Security:</strong></p>
-<ul class="simple">
-<li><p>HTTPS/TLS encryption</p></li>
-<li><p>Database encryption at rest</p></li>
-<li><p>Secure file upload validation</p></li>
-<li><p>Input sanitization</p></li>
-</ul>
-<p><strong>Network Security:</strong></p>
-<ul class="simple">
-<li><p>CORS configuration</p></li>
-<li><p>Rate limiting</p></li>
-<li><p>DDoS protection</p></li>
-<li><p>Firewall rules</p></li>
-</ul>
-<p><strong>Compliance:</strong></p>
-<ul class="simple">
-<li><p>HIPAA compliance for medical data</p></li>
-<li><p>GDPR compliance for EU users</p></li>
-<li><p>Data retention policies</p></li>
-<li><p>Audit logging</p></li>
-</ul>
-</section>
-<section id="scalability-design">
-<h2>Scalability Design<a class="headerlink" href="#scalability-design" title="Link to this heading"></a></h2>
-<p><strong>Horizontal Scaling:</strong></p>
-<ul class="simple">
-<li><p>Stateless API design</p></li>
-<li><p>Load balancer support</p></li>
-<li><p>Database connection pooling</p></li>
-<li><p>Microservices architecture</p></li>
-</ul>
-<p><strong>Vertical Scaling:</strong></p>
-<ul class="simple">
-<li><p>Resource monitoring</p></li>
-<li><p>Auto-scaling policies</p></li>
-<li><p>Performance optimization</p></li>
-<li><p>Caching strategies</p></li>
-</ul>
-<p><strong>Database Scaling:</strong></p>
-<ul class="simple">
-<li><p>Read replicas</p></li>
-<li><p>Connection pooling</p></li>
-<li><p>Query optimization</p></li>
-<li><p>Partitioning strategies</p></li>
-</ul>
-<p><strong>Caching Strategy:</strong></p>
-<ul class="simple">
-<li><p>Redis for session storage</p></li>
-<li><p>CDN for static assets</p></li>
-<li><p>Browser caching</p></li>
-<li><p>API response caching</p></li>
-</ul>
-</section>
-<section id="performance-optimization">
-<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
-<p><strong>API Performance:</strong></p>
-<ul class="simple">
-<li><p>Async/await patterns</p></li>
-<li><p>Background task processing</p></li>
-<li><p>Database query optimization</p></li>
-<li><p>Response compression</p></li>
-</ul>
-<p><strong>Frontend Performance:</strong></p>
-<ul class="simple">
-<li><p>Code splitting</p></li>
-<li><p>Lazy loading</p></li>
-<li><p>Image optimization</p></li>
-<li><p>Bundle optimization</p></li>
-</ul>
-<p><strong>Database Performance:</strong></p>
-<ul class="simple">
-<li><p>Index optimization</p></li>
-<li><p>Query optimization</p></li>
-<li><p>Connection pooling</p></li>
-<li><p>Read/write separation</p></li>
-</ul>
-<p><strong>Monitoring Performance:</strong></p>
-<ul class="simple">
-<li><p>Efficient feature extraction</p></li>
-<li><p>Batch processing</p></li>
-<li><p>Caching strategies</p></li>
-<li><p>Parallel processing</p></li>
-</ul>
-</section>
-<section id="deployment-architecture">
-<h2>Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Link to this heading"></a></h2>
-<p><strong>Development Environment:</strong></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># docker-compose.yml</span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
-<span class="nt">services</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">api</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./backend</span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8000:8000&quot;</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgresql://user:pass@db:5432/monitoring</span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db</span>
-
-<span class="w">  </span><span class="nt">frontend</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./frontend</span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3000:3000&quot;</span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
-
-<span class="w">  </span><span class="nt">db</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:13</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_DB=monitoring</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_USER=user</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_PASSWORD=pass</span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres_data:/var/lib/postgresql/data</span>
-</pre></div>
-</div>
-<p><strong>Production Environment:</strong></p>
-<ul class="simple">
-<li><p><strong>Cloud Deployment</strong>: GCP, AWS, Azure support</p></li>
-<li><p><strong>Container Orchestration</strong>: Kubernetes, Docker Swarm</p></li>
-<li><p><strong>Load Balancing</strong>: Nginx, HAProxy, Cloud Load Balancer</p></li>
-<li><p><strong>Monitoring</strong>: Prometheus, Grafana, Cloud Monitoring</p></li>
-</ul>
-<p><strong>CI/CD Pipeline:</strong></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># .github/workflows/deploy.yml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to Production</span>
-<span class="nt">on</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
-
-<span class="nt">jobs</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
-<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
-<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">          </span><span class="no">pip install -r requirements.txt</span>
-<span class="w">          </span><span class="no">pytest tests/</span>
-
-<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
-<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
-<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to Cloud</span>
-<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">          </span><span class="no"># Deployment steps</span>
-</pre></div>
-</div>
-</section>
-<section id="error-handling">
-<h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
-<p><strong>API Error Handling:</strong></p>
-<ul class="simple">
-<li><p>Global exception handlers</p></li>
-<li><p>Structured error responses</p></li>
-<li><p>Logging and monitoring</p></li>
-<li><p>Graceful degradation</p></li>
-</ul>
-<p><strong>Database Error Handling:</strong></p>
-<ul class="simple">
-<li><p>Connection retry logic</p></li>
-<li><p>Transaction rollback</p></li>
-<li><p>Deadlock detection</p></li>
-<li><p>Query timeout handling</p></li>
-</ul>
-<p><strong>Monitoring Error Handling:</strong></p>
-<ul class="simple">
-<li><p>Feature extraction fallbacks</p></li>
-<li><p>Drift detection error recovery</p></li>
-<li><p>Report generation error handling</p></li>
-<li><p>Alert system redundancy</p></li>
-</ul>
-<p><strong>Frontend Error Handling:</strong></p>
-<ul class="simple">
-<li><p>Error boundaries</p></li>
-<li><p>Network error handling</p></li>
-<li><p>User-friendly error messages</p></li>
-<li><p>Retry mechanisms</p></li>
-</ul>
-</section>
-<section id="monitoring-observability">
-<h2>Monitoring &amp; Observability<a class="headerlink" href="#monitoring-observability" title="Link to this heading"></a></h2>
-<p><strong>Application Monitoring:</strong></p>
-<ul class="simple">
-<li><p>Request/response logging</p></li>
-<li><p>Performance metrics</p></li>
-<li><p>Error tracking</p></li>
-<li><p>User behavior analytics</p></li>
-</ul>
-<p><strong>Infrastructure Monitoring:</strong></p>
-<ul class="simple">
-<li><p>System resource usage</p></li>
-<li><p>Database performance</p></li>
-<li><p>Network latency</p></li>
-<li><p>Service health checks</p></li>
-</ul>
-<p><strong>Business Metrics:</strong></p>
-<ul class="simple">
-<li><p>Prediction accuracy</p></li>
-<li><p>Drift detection rates</p></li>
-<li><p>User engagement</p></li>
-<li><p>System uptime</p></li>
-</ul>
-<p><strong>Alerting:</strong></p>
-<ul class="simple">
-<li><p>Performance thresholds</p></li>
-<li><p>Error rate alerts</p></li>
-<li><p>Drift detection alerts</p></li>
-<li><p>System health alerts</p></li>
-</ul>
-</section>
-<section id="integration-points">
-<h2>Integration Points<a class="headerlink" href="#integration-points" title="Link to this heading"></a></h2>
-<p><strong>External APIs:</strong></p>
-<ul class="simple">
-<li><p>Medical imaging systems</p></li>
-<li><p>Electronic health records</p></li>
-<li><p>Laboratory information systems</p></li>
-<li><p>Telemedicine platforms</p></li>
-</ul>
-<p><strong>Data Sources:</strong></p>
-<ul class="simple">
-<li><p>PACS systems</p></li>
-<li><p>DICOM servers</p></li>
-<li><p>Cloud storage</p></li>
-<li><p>Local file systems</p></li>
-</ul>
-<p><strong>Third-party Services:</strong></p>
-<ul class="simple">
-<li><p>Authentication providers</p></li>
-<li><p>Email services</p></li>
-<li><p>SMS services</p></li>
-<li><p>Cloud monitoring</p></li>
-</ul>
-<p><strong>ML Pipeline Integration:</strong></p>
-<ul class="simple">
-<li><p>Model training pipelines</p></li>
-<li><p>Feature stores</p></li>
-<li><p>Model registries</p></li>
-<li><p>Experiment tracking</p></li>
-</ul>
-</section>
-<section id="future-architecture">
-<h2>Future Architecture<a class="headerlink" href="#future-architecture" title="Link to this heading"></a></h2>
-<p><strong>Planned Enhancements:</strong></p>
-<ul class="simple">
-<li><p>GraphQL API support</p></li>
-<li><p>Real-time streaming</p></li>
-<li><p>Advanced ML models</p></li>
-<li><p>Mobile applications</p></li>
-</ul>
-<p><strong>Scalability Improvements:</strong></p>
-<ul class="simple">
-<li><p>Event-driven architecture</p></li>
-<li><p>Message queues</p></li>
-<li><p>Distributed caching</p></li>
-<li><p>Multi-region deployment</p></li>
-</ul>
-<p><strong>Security Enhancements:</strong></p>
-<ul class="simple">
-<li><p>Zero-trust architecture</p></li>
-<li><p>Advanced encryption</p></li>
-<li><p>Compliance automation</p></li>
-<li><p>Security monitoring</p></li>
-</ul>
-<p><strong>Performance Optimizations:</strong></p>
-<ul class="simple">
-<li><p>Edge computing</p></li>
-<li><p>CDN integration</p></li>
-<li><p>Database sharding</p></li>
-<li><p>Microservices decomposition</p></li>
-</ul>
-<p>For detailed implementation information, see:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - API architecture details</p></li>
-<li><p><a class="reference internal" href="monitoring/index.html"><span class="doc">Monitoring System</span></a> - Monitoring system architecture</p></li>
-<li><p><a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a> - Deployment architecture</p></li>
-<li><p><span class="xref std std-doc">troubleshooting</span> - Architecture troubleshooting</p></li>
-</ul>
+<p>This command launches training with 4 worker processes for data loading and distributed computation.</p>
+<p>By supporting distributed computing, our architecture is designed for scalability and efficient resource utilization in both research and production settings.</p>
 </section>
 </section>
 
@@ -723,7 +358,6 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -735,7 +369,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -746,7 +380,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

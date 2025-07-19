@@ -43,11 +43,6 @@ Our Brain Tumor Monitoring System addresses these challenges through:
 System Architecture
 ------------------
 
-.. image:: _static/images/architecture.png
-   :alt: System Architecture
-   :align: center
-   :width: 600px
-
 The system consists of several key components:
 
 **Backend API (FastAPI)**
@@ -122,12 +117,13 @@ Technology Stack
     * YOLOv8: Object detection
     * Custom drift detection algorithms
 
-**Deployment**
+Deployment
+----------
 
-    * Docker: Containerization
-    * Docker Compose: Local development
-    * Kubernetes: Production orchestration
-    * Cloud platforms: GCP, AWS, Azure support
+- Docker: Containerization
+- Docker Compose: Local development
+- GitHub Actions: CI/CD automation
+- GCP: Cloud deployment
 
 Use Cases
 ---------
@@ -173,7 +169,6 @@ To get started with the Brain Tumor Monitoring System:
 1. **Installation**: Follow the :doc:`installation` guide
 2. **Quick Start**: Use the :doc:`quickstart` tutorial
 3. **API Reference**: Explore the :doc:`api/index` documentation
-4. **Deployment**: See :doc:`deployment` for production setup
 
 For detailed technical information, explore the specific component documentation:
 

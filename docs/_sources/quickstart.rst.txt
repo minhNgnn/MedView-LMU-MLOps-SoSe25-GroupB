@@ -13,15 +13,13 @@ Before starting, ensure you have:
 * Node.js 16+ (for frontend)
 * Git installed
 
-Step 1: Clone and Setup
------------------------
-
-**Clone the repository:**
+Step 1: Clone the Repository
+---------------------------
 
 .. code-block:: bash
 
-   git clone https://github.com/your-org/brain-tumor-monitoring.git
-   cd brain-tumor-monitoring
+   git clone https://github.com/minhNgnn/MedView-LMU-MLOps-SoSe25-GroupB.git
+   cd MedView-LMU-MLOps-SoSe25-GroupB
 
 **Create virtual environment:**
 
@@ -34,8 +32,22 @@ Step 1: Clone and Setup
 
 .. code-block:: bash
 
-   pip install -r requirements.txt
    pip install -r requirements_dev.txt
+   # Install backend dependencies
+   cd backend
+   pip install -r requirements.txt
+
+   # Install ML dependencies
+   cd ../ml
+   pip install -r requirements.txt
+
+   # (Optional) Install test dependencies
+   cd ../tests
+   pip install -r requirements_tests.txt
+
+   # (Frontend) Install Node.js dependencies
+   cd ../frontend
+   npm install
 
 Step 2: Database Setup
 ----------------------
@@ -63,6 +75,36 @@ Step 2: Database Setup
    # Run the migration script
    psql -h localhost -U monitoring_user -d monitoring -f backend/migrations/create_monitoring_tables.sql
 
+.. note::
+   The database and user are already provisioned in the cloud. You do **not** need to run the `CREATE DATABASE` or `CREATE USER` commands. You will receive the `DATABASE_URL` from the project maintainer. Add this to your `.env` file as described above.
+
+.. code-block:: bash
+
+   # (No need to run these commands)
+   # sudo -u postgres psql
+   # CREATE DATABASE monitoring;
+   # CREATE USER monitoring_user WITH PASSWORD 'your_password';
+   # GRANT ALL PRIVILEGES ON DATABASE monitoring TO monitoring_user;
+   # \q
+
+**Run migrations:**
+
+.. code-block:: bash
+
+   # Set environment variable
+   export DATABASE_URL="postgresql://monitoring_user:your_password@localhost:5432/monitoring"
+
+   # Run the migration script
+   psql -h localhost -U monitoring_user -d monitoring -f backend/migrations/create_monitoring_tables.sql
+
+.. note::
+   The actual database credentials (including the cloud DATABASE_URL) will be provided to you securely by the project maintainer. Do not share or commit your `.env` file. To set up your environment, copy `.env.example` to `.env` and fill in the real values:
+
+   .. code-block:: bash
+
+      cp .env.example .env
+      # Then edit .env and fill in the real DATABASE_URL
+
 Step 3: Start the Backend
 -------------------------
 
@@ -83,7 +125,7 @@ Step 3: Start the Backend
 
 .. code-block:: bash
 
-   curl http://localhost:8000/health
+   curl https://gcp-test-app-351704569398.europe-west1.run.app/health
 
 You should see:
 
@@ -121,20 +163,20 @@ Step 5: Test the System
 
 .. code-block:: bash
 
-   curl -X POST http://localhost:8000/predict \
+   curl -X POST https://gcp-test-app-351704569398.europe-west1.run.app/predict \
      -F "file=@path/to/test/image.jpg"
 
 **Check monitoring dashboard:**
 
 .. code-block:: bash
 
-   curl http://localhost:8000/monitoring/dashboard
+   curl https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/dashboard
 
 **Generate a drift report:**
 
 .. code-block:: bash
 
-   curl "http://localhost:8000/monitoring/drift-report?days=7"
+   curl "https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/drift-report?days=7"
 
 Step 6: Explore the Dashboard
 ----------------------------
@@ -142,6 +184,7 @@ Step 6: Explore the Dashboard
 Open your browser and navigate to `http://localhost:3000`
 
 You should see:
+
 * **Dashboard**: Real-time monitoring metrics
 * **Upload**: Image upload and prediction interface
 * **Reports**: Generated drift reports
@@ -179,7 +222,7 @@ Step 7: Generate Sample Data
 
 .. code-block:: bash
 
-   curl http://localhost:8000/monitoring/dashboard
+   curl https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/dashboard
 
 Step 8: Test Drift Detection
 ----------------------------
@@ -205,35 +248,17 @@ Step 8: Test Drift Detection
 
 .. code-block:: bash
 
-   curl "http://localhost:8000/monitoring/feature-analysis?days=7"
+   curl "https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/feature-analysis?days=7"
 
 **Generate drift report:**
 
 .. code-block:: bash
 
-   curl "http://localhost:8000/monitoring/drift-report?days=7"
+   curl "https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/drift-report?days=7"
 
-Step 9: Explore API Documentation
---------------------------------
 
-Open your browser and navigate to:
-* **Swagger UI**: `http://localhost:8000/docs`
-* **ReDoc**: `http://localhost:8000/redoc`
-
-These provide interactive API documentation where you can:
-* Explore all endpoints
-* Test API calls directly
-* View request/response schemas
-
-Step 10: Next Steps
+Step 9: Next Steps
 -------------------
-
-**Production Deployment:**
-
-* Follow the :doc:`deployment` guide
-* Set up proper authentication
-* Configure monitoring and alerting
-* Implement backup strategies
 
 **Customization:**
 
@@ -372,5 +397,4 @@ For detailed information, see:
 
 * :doc:`api/index` - Complete API reference
 * :doc:`monitoring/index` - Monitoring system details
-* :doc:`deployment` - Production deployment guide
 * :doc:`troubleshooting` - Common issues and solutions

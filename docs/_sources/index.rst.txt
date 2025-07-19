@@ -15,14 +15,7 @@ Welcome to the comprehensive documentation for the Brain Tumor Monitoring System
    monitoring/index
    ml/index
    frontend/index
-   deployment
-   troubleshooting
    contributing
-
-.. image:: _static/images/system-overview.jpeg
-   :alt: System Architecture Overview
-   :align: center
-   :width: 800px
 
 Overview
 --------
@@ -118,18 +111,6 @@ The React-based frontend provides:
 * **Responsive Design**: Mobile-friendly interface
 
 For frontend documentation, see :doc:`frontend/index`.
-
-Deployment
-----------
-
-The system supports multiple deployment options:
-
-* **Local Development**: Docker Compose setup
-* **Cloud Deployment**: GCP, AWS, Azure support
-* **Kubernetes**: Full K8s deployment manifests
-* **CI/CD**: Automated deployment pipelines
-
-For deployment instructions, see :doc:`deployment`.
 
 Contributing
 -----------

@@ -7,30 +7,30 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quick Start Guide &mdash; Brain Tumor Monitoring System 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=16dbc406" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=2a85d6f0" />
 
-
+  
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/documentation_options.js?v=1a58e83a"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="System Architecture" href="architecture.html" />
-    <link rel="prev" title="Installation Guide" href="installation.html" />
+    <link rel="prev" title="Installation Guide" href="installation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #2980B9" >
 
-
-
+          
+          
           <a href="index.html" class="icon icon-home">
             Brain Tumor Monitoring System
           </a>
@@ -50,6 +50,7 @@
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#system-architecture">System Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#deployment">Deployment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use Cases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#benefits">Benefits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#getting-started">Getting Started</a></li>
@@ -60,7 +61,6 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#local-installation">Local Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#docker-installation">Docker Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#cloud-installation">Cloud Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
@@ -69,7 +69,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#step-1-clone-and-setup">Step 1: Clone and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-clone-the-repository">Step 1: Clone the Repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-2-database-setup">Step 2: Database Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-3-start-the-backend">Step 3: Start the Backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-4-start-the-frontend">Step 4: Start the Frontend</a></li>
@@ -77,8 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#step-6-explore-the-dashboard">Step 6: Explore the Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-7-generate-sample-data">Step 7: Generate Sample Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-8-test-drift-detection">Step 8: Test Drift Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#step-9-explore-api-documentation">Step 9: Explore API Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#step-10-next-steps">Step 10: Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-9-next-steps">Step 9: Next Steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-next">What’s Next?</a></li>
@@ -94,91 +93,6 @@
 <li class="toctree-l3"><a class="reference internal" href="architecture.html#ml-pipeline">ML Pipeline</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">Data Flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#security-architecture">Security Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#scalability-design">Scalability Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#performance-optimization">Performance Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#deployment-architecture">Deployment Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#error-handling">Error Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#monitoring-observability">Monitoring &amp; Observability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#integration-points">Integration Points</a></li>
-<li class="toctree-l2"><a class="reference internal" href="architecture.html#future-architecture">Future Architecture</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/endpoints.html">API Endpoints</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#health-status-endpoints">Health &amp; Status Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#health-check">Health Check</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#root-endpoint">Root Endpoint</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#prediction-endpoints">Prediction Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#image-prediction">Image Prediction</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#monitoring-endpoints">Monitoring Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#dashboard-data">Dashboard Data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#drift-report-generation">Drift Report Generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#feature-analysis">Feature Analysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#data-quality-tests">Data Quality Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#report-serving">Report Serving</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#patient-management-endpoints">Patient Management Endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-all-patients">Get All Patients</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/endpoints.html#get-patient-by-id">Get Patient by ID</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#error-handling">Error Handling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#rate-limiting">Rate Limiting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#response-headers">Response Headers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#cors-support">CORS Support</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/endpoints.html#websocket-support">WebSocket Support</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#base-url">Base URL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#authentication">Authentication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#content-types">Content Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#rate-limiting">Rate Limiting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#error-handling">Error Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#response-format">Response Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#quick-start">Quick Start</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#interactive-documentation">Interactive Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#sdk-examples">SDK Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#testing">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#performance">Performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#monitoring">Monitoring</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="monitoring/index.html">Monitoring System</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#key-components">Key Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#system-architecture">System Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#feature-extraction">Feature Extraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#drift-detection">Drift Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#reporting-system">Reporting System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#dashboard">Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#performance-monitoring">Performance Monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#integration">Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring/index.html#best-practices">Best Practices</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#deployment-options">Deployment Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#local-development-deployment">Local Development Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#docker-deployment">Docker Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#cloud-deployment">Cloud Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#kubernetes-deployment">Kubernetes Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#production-configuration">Production Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#load-balancing">Load Balancing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#ssl-tls-configuration">SSL/TLS Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#monitoring-logging">Monitoring &amp; Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#backup-recovery">Backup &amp; Recovery</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#ci-cd-pipeline">CI/CD Pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deployment.html#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
@@ -206,7 +120,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="quick-start-guide">
 <h1>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading"></a></h1>
 <p>This guide will help you get the Brain Tumor Monitoring System up and running quickly.</p>
@@ -220,11 +134,10 @@
 <li><p>Git installed</p></li>
 </ul>
 </section>
-<section id="step-1-clone-and-setup">
-<h2>Step 1: Clone and Setup<a class="headerlink" href="#step-1-clone-and-setup" title="Link to this heading"></a></h2>
-<p><strong>Clone the repository:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-org/brain-tumor-monitoring.git
-<span class="nb">cd</span><span class="w"> </span>brain-tumor-monitoring
+<section id="step-1-clone-the-repository">
+<h2>Step 1: Clone the Repository<a class="headerlink" href="#step-1-clone-the-repository" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/minhNgnn/MedView-LMU-MLOps-SoSe25-GroupB.git
+<span class="nb">cd</span><span class="w"> </span>MedView-LMU-MLOps-SoSe25-GroupB
 </pre></div>
 </div>
 <p><strong>Create virtual environment:</strong></p>
@@ -233,8 +146,22 @@
 </pre></div>
 </div>
 <p><strong>Install dependencies:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_dev.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_dev.txt
+<span class="c1"># Install backend dependencies</span>
+<span class="nb">cd</span><span class="w"> </span>backend
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c1"># Install ML dependencies</span>
+<span class="nb">cd</span><span class="w"> </span>../ml
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c1"># (Optional) Install test dependencies</span>
+<span class="nb">cd</span><span class="w"> </span>../tests
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_tests.txt
+
+<span class="c1"># (Frontend) Install Node.js dependencies</span>
+<span class="nb">cd</span><span class="w"> </span>../frontend
+npm<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
@@ -259,6 +186,34 @@ GRANT<span class="w"> </span>ALL<span class="w"> </span>PRIVILEGES<span class="w
 psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>monitoring_user<span class="w"> </span>-d<span class="w"> </span>monitoring<span class="w"> </span>-f<span class="w"> </span>backend/migrations/create_monitoring_tables.sql
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The database and user are already provisioned in the cloud. You do <strong>not</strong> need to run the <cite>CREATE DATABASE</cite> or <cite>CREATE USER</cite> commands. You will receive the <cite>DATABASE_URL</cite> from the project maintainer. Add this to your <cite>.env</cite> file as described above.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># (No need to run these commands)</span>
+<span class="c1"># sudo -u postgres psql</span>
+<span class="c1"># CREATE DATABASE monitoring;</span>
+<span class="c1"># CREATE USER monitoring_user WITH PASSWORD &#39;your_password&#39;;</span>
+<span class="c1"># GRANT ALL PRIVILEGES ON DATABASE monitoring TO monitoring_user;</span>
+<span class="c1"># \q</span>
+</pre></div>
+</div>
+<p><strong>Run migrations:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set environment variable</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql://monitoring_user:your_password@localhost:5432/monitoring&quot;</span>
+
+<span class="c1"># Run the migration script</span>
+psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>monitoring_user<span class="w"> </span>-d<span class="w"> </span>monitoring<span class="w"> </span>-f<span class="w"> </span>backend/migrations/create_monitoring_tables.sql
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The actual database credentials (including the cloud DATABASE_URL) will be provided to you securely by the project maintainer. Do not share or commit your <cite>.env</cite> file. To set up your environment, copy <cite>.env.example</cite> to <cite>.env</cite> and fill in the real values:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+<span class="c1"># Then edit .env and fill in the real DATABASE_URL</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="step-3-start-the-backend">
 <h2>Step 3: Start the Backend<a class="headerlink" href="#step-3-start-the-backend" title="Link to this heading"></a></h2>
@@ -272,7 +227,7 @@ psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> 
 </pre></div>
 </div>
 <p><strong>Verify the backend is running:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:8000/health
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>https://gcp-test-app-351704569398.europe-west1.run.app/health
 </pre></div>
 </div>
 <p>You should see:</p>
@@ -301,27 +256,29 @@ npm<span class="w"> </span>start
 <section id="step-5-test-the-system">
 <h2>Step 5: Test the System<a class="headerlink" href="#step-5-test-the-system" title="Link to this heading"></a></h2>
 <p><strong>Upload a test image:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8000/predict<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>https://gcp-test-app-351704569398.europe-west1.run.app/predict<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@path/to/test/image.jpg&quot;</span>
 </pre></div>
 </div>
 <p><strong>Check monitoring dashboard:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:8000/monitoring/dashboard
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/dashboard
 </pre></div>
 </div>
 <p><strong>Generate a drift report:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8000/monitoring/drift-report?days=7&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/drift-report?days=7&quot;</span>
 </pre></div>
 </div>
 </section>
 <section id="step-6-explore-the-dashboard">
 <h2>Step 6: Explore the Dashboard<a class="headerlink" href="#step-6-explore-the-dashboard" title="Link to this heading"></a></h2>
 <p>Open your browser and navigate to <cite>http://localhost:3000</cite></p>
-<p>You should see:
-* <strong>Dashboard</strong>: Real-time monitoring metrics
-* <strong>Upload</strong>: Image upload and prediction interface
-* <strong>Reports</strong>: Generated drift reports
-* <strong>Settings</strong>: System configuration</p>
+<p>You should see:</p>
+<ul class="simple">
+<li><p><strong>Dashboard</strong>: Real-time monitoring metrics</p></li>
+<li><p><strong>Upload</strong>: Image upload and prediction interface</p></li>
+<li><p><strong>Reports</strong>: Generated drift reports</p></li>
+<li><p><strong>Settings</strong>: System configuration</p></li>
+</ul>
 </section>
 <section id="step-7-generate-sample-data">
 <h2>Step 7: Generate Sample Data<a class="headerlink" href="#step-7-generate-sample-data" title="Link to this heading"></a></h2>
@@ -349,7 +306,7 @@ npm<span class="w"> </span>start
 </pre></div>
 </div>
 <p><strong>Verify data generation:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:8000/monitoring/dashboard
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/dashboard
 </pre></div>
 </div>
 </section>
@@ -371,33 +328,16 @@ npm<span class="w"> </span>start
 </pre></div>
 </div>
 <p><strong>Check drift analysis:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8000/monitoring/feature-analysis?days=7&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/feature-analysis?days=7&quot;</span>
 </pre></div>
 </div>
 <p><strong>Generate drift report:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:8000/monitoring/drift-report?days=7&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;https://gcp-test-app-351704569398.europe-west1.run.app/monitoring/drift-report?days=7&quot;</span>
 </pre></div>
 </div>
 </section>
-<section id="step-9-explore-api-documentation">
-<h2>Step 9: Explore API Documentation<a class="headerlink" href="#step-9-explore-api-documentation" title="Link to this heading"></a></h2>
-<p>Open your browser and navigate to:
-* <strong>Swagger UI</strong>: <cite>http://localhost:8000/docs</cite>
-* <strong>ReDoc</strong>: <cite>http://localhost:8000/redoc</cite></p>
-<p>These provide interactive API documentation where you can:
-* Explore all endpoints
-* Test API calls directly
-* View request/response schemas</p>
-</section>
-<section id="step-10-next-steps">
-<h2>Step 10: Next Steps<a class="headerlink" href="#step-10-next-steps" title="Link to this heading"></a></h2>
-<p><strong>Production Deployment:</strong></p>
-<ul class="simple">
-<li><p>Follow the <a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a> guide</p></li>
-<li><p>Set up proper authentication</p></li>
-<li><p>Configure monitoring and alerting</p></li>
-<li><p>Implement backup strategies</p></li>
-</ul>
+<section id="step-9-next-steps">
+<h2>Step 9: Next Steps<a class="headerlink" href="#step-9-next-steps" title="Link to this heading"></a></h2>
 <p><strong>Customization:</strong></p>
 <ul class="simple">
 <li><p>Adjust drift detection thresholds</p></li>
@@ -520,9 +460,8 @@ docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
 </ol>
 <p>For detailed information, see:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> - Complete API reference</p></li>
-<li><p><a class="reference internal" href="monitoring/index.html"><span class="doc">Monitoring System</span></a> - Monitoring system details</p></li>
-<li><p><a class="reference internal" href="deployment.html"><span class="doc">Deployment Guide</span></a> - Production deployment guide</p></li>
+<li><p><span class="xref std std-doc">api/index</span> - Complete API reference</p></li>
+<li><p><span class="xref std std-doc">monitoring/index</span> - Monitoring system details</p></li>
 <li><p><span class="xref std std-doc">troubleshooting</span> - Common issues and solutions</p></li>
 </ul>
 </section>
@@ -545,7 +484,7 @@ docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -556,7 +495,7 @@ docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>
