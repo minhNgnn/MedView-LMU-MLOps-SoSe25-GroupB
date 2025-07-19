@@ -21,10 +21,13 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install DVC and CML first
+        run: |
+          pip install dvc==3.50.2 cml==0.5.1
+
+      - name: Install other dependencies
         run: |
           pip install -r ml/requirements.txt
-          pip install dvc cml matplotlib pillow
 
       - name: Auth with GCP
         uses: google-github-actions/auth@v2
