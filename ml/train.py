@@ -5,8 +5,6 @@ import hydra
 import typer
 from models import train_model
 
-from ml.models import train_model
-
 app = typer.Typer()
 
 
