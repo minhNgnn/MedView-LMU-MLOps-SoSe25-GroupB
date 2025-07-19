@@ -1,37 +1,37 @@
-# name: Code linting
+name: Code linting
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-# jobs:
-#   lint:
-#     runs-on: ${{ matrix.os }}
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
-#         python-version: [ "3.10", "3.11", "3.12" ]
+jobs:
+  lint:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
+        python-version: [ "3.10", "3.11", "3.12" ]
 
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       - name: Set up Python
-#         uses: actions/setup-python@v5
-#         with:
-#           python-version: ${{ matrix.python-version }}
-#           cache: pip
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
 
-#       - name: Install ruff
-#         run: pip install ruff
+      - name: Install ruff
+        run: pip install ruff
 
-#       - name: Run ruff lint
-#         run: ruff check .
+      - name: Run ruff lint
+        run: ruff check .
 
-#       - name: Auto-format with ruff
-#         run: ruff format .
+      - name: Auto-format with ruff
+        run: ruff format .

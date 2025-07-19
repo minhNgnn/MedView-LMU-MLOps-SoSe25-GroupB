@@ -1,5 +1,3 @@
-ml/data_changes/
-
 # Profilling files
 *.prof
 backend/migrations

@@ -6,8 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "MedView"
 version = "0.1.0"
 authors = [
-    { name = "Minh Nguyen", email = "tuan.minh.nguyenn1008@gmaik.com" },
-    { name = "Uyen Nguyen" },
+    { name = "Minh Nguyen", email = "tuan.minh.nguyenn1008@gmail.com" },
     { name = "Euna Goo" },
     { name = "Sara Theerdha" }
 ]

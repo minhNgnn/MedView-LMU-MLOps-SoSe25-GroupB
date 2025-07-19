@@ -1,7 +1,7 @@
 program: ml/train_sweep.py
 name: BrainTumorDetectionSweep
 project: BrainTumorDetection  # change this
-entity: eunai9  # change this
+entity: minh1008-ludwig-maximilianuniversity-of-munich
 method: bayes
 metric:
     goal: minimize

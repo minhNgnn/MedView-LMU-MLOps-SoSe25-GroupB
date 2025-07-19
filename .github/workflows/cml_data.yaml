@@ -1,5 +1,9 @@
 name: CML Data Statistics
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     paths:
@@ -19,12 +23,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install DVC with GCS support
+        run: |
+          pip install 'dvc[gs]==3.50.2'
+
+      - name: Install other dependencies
         run: |
           pip install -r ml/requirements.txt
-          pip install dvc cml matplotlib pillow
 
       - name: Auth with GCP
         uses: google-github-actions/auth@v2
@@ -33,7 +40,7 @@ jobs:
 
       - name: Pull data
         run: |
-          dvc pull --no-run-cache
+          dvc pull
 
       - name: Check data statistics
         run: |
@@ -46,6 +53,9 @@ jobs:
           path: |
             ml/data_changes/train_label_distribution.png
             ml/data_changes/valid_label_distribution.png
+
+      - name: Install CML CLI
+        run: npm install -g @dvcorg/cml
 
       - name: Create CML report
         env:

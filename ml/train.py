@@ -36,7 +36,7 @@ def run_training_hydra(cfg) -> Any:
         cfg.hyperparameters.epochs,
         cfg.hyperparameters.wandb_logging,
         cfg.hyperparameters.connect_to_gcs,
-        cfg.hyperparameters.num_workers,
+        getattr(cfg.hyperparameters, "num_workers", 2),  # Default to 2 if missing
     )
 
     print("Training pipeline completed.")

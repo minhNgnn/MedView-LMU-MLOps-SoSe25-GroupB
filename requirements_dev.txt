@@ -10,3 +10,4 @@ coverage==7.8.0
 
 # linting
 ruff==0.11.6
+dvc==3.50.2
