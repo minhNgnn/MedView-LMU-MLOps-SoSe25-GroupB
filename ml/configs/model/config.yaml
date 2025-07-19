@@ -2,6 +2,7 @@ hyperparameters:
   model_name: "simple"
   batch_size: -1
   epochs: 5
+<<<<<<< Updated upstream
   wandb_logging: True
   num_workers:    -1  
 
@@ -11,3 +12,6 @@ distributed:
   world_size:  1         # total processes (will be overridden by torchrun)
   dist_url:    env://    # use environment variables for rendezvous
 
+=======
+  wandb_logging: False
+>>>>>>> Stashed changes

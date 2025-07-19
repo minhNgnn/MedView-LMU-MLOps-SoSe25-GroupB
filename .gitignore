@@ -1,7 +1,10 @@
 # Profilling files
 *.prof
 backend/migrations
+<<<<<<< Updated upstream
 monitoring/reports/
+=======
+>>>>>>> Stashed changes
 
 #OS stuff
 .DS_Store
@@ -173,7 +176,10 @@ cython_debug/
 
 # Ignore transient test data files
 tests/test_data.py
+<<<<<<< Updated upstream
 
 # Multirun distrbuted data loading
 multirun/
 
+=======
+>>>>>>> Stashed changes

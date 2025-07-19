@@ -7,7 +7,7 @@ like:
 
 Where you instead should add your answers. Any other changes may have unwanted consequences when your report is
 auto-generated at the end of the course. For questions where you are asked to include images, start by adding the image
-to the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
+to the `figures` subfolder (please only use `.JPG`, `.jpg` or `.jpeg`) and then add the following code in your answer:
 
 `![my_image](figures/<image>.<extension>)`
 
@@ -46,8 +46,8 @@ will check the repositories and the code to verify your answers.
 
 ### Week 1
 
-* [ ] Create a git repository (M5)
-* [ ] Make sure that all team members have write access to the GitHub repository (M5)
+* [x] Create a git repository (M5)
+* [x] Make sure that all team members have write access to the GitHub repository (M5)
 * [ ] Create a dedicated environment for you project to keep track of your packages (M2)
 * [ ] Create the initial file structure using cookiecutter with an appropriate template (M6)
 * [ ] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
@@ -127,9 +127,15 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
+<<<<<<< Updated upstream
 - Theerdha Sara Reji: 12971850
 
 --- question 2 fill here ---
+=======
+- Minh Nguyen: 13018310
+- Euna Goo: 12957195
+
+>>>>>>> Stashed changes
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -143,8 +149,12 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 3 fill here ---
+We used the third-party framework 'Ultralytics' in our project for Brain Tumor detection using the YOLO model. The Ultralytics package provides a user-friendly interface and tools for implementing object detection YOLO models with minimal setup. We used the functionality for loading pretrained YOLOv8 models, which allowed us to fine-tune the model on our custom dataset of Brain Tumor scan. Additionally, we leveraged built-in training and validation tools offered by the package to evaluate model performance and adjust hyperparameters efficiently. This significantly accelerated the development process and helped us achieve accurate detection of brain tumors in medical images. Overall, the Ultralytics framework was essential to our project, as it provided a powerful and flexible foundation for applying deep learning techniques to a real-world medical imaging task.
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 ## Coding environment
 
 > In the following section we are interested in learning more about you local development environment. This includes
@@ -179,7 +189,8 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template, we set up essential files and folders such as `.gitignore`, `pyproject.toml`, `docs`, `dockerfiles`, `.github`, and `tests` to ensure good project hygiene, documentation, containerization, and CI/CD support. However, we deviated from the standard template by restructuring the project into a monorepo, organizing the codebase into separate top-level folders for each microservice: `backend`, `frontend`, `ml`, and `monitoring`. This means our repository contains all services in a single place (monorepo), while each service is developed as an independent component (microservice architecture). This structure allows each service to be developed, tested, and deployed independently, while sharing a single repository for easier management and collaboration. It supports scalability and modularity, making it easier for our team to work on different parts of the system simultaneously.
+
 
 ### Question 6
 
@@ -243,7 +254,8 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 9 fill here ---
+Yes, our workflow included using branches and pull requests to manage version control effectively. We created several branches, each assigned to specific tasks such as cloud integration, command-line interface development, API implementation, and so on. Each team member worked independently on their assigned branch, allowing parallel development without interfering with the main codebase. Once a task was completed, the developer created a pull request to merge their changes into the main branch. The rest of the team then read that pull request, checking what was processed in the branch, examining code changes, and ensuring non-confliction. During this review, any conflicts or issues were identified and resolved collaboratively. This process helped maintain a clean and stable main branch, improved code quality through peer reviews, and minimized integration problems.
+
 
 ### Question 10
 
@@ -258,7 +270,8 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 10 fill here ---
+We used DVC (Data Version Control) in our project to manage our datasets and connected it to a Google Cloud Platform (GCP) bucket for remote storage. By integrating DVC, we were able to version control large data files and track changes efficiently, similar to how git tracks code. The connection to a GCP bucket allowed us to store and share data remotely, making it easy for all team members to access the same datasets regardless of their local environment. This setup improved collaboration, ensured data consistency, and made our experiments reproducible, as each experiment could be linked to a specific version of the data stored in the cloud. Overall, using DVC with a GCP bucket streamlined our workflow and provided transparency and reliability in handling data throughout the project pipeline.
+
 
 ### Question 11
 
@@ -275,8 +288,42 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 11 fill here ---
 
+<<<<<<< Updated upstream
+=======
+We have organized our continuous integration into 4 files. 
+- Linting: runs on every push/PR and lints the code with Flake8 and Black, ensuring style consistency.
+- Testing: runs pytest for unit and integration tests on every push and pull requests
+- Precommit: invokes our Pre-commit hooks (e.g. sorting imports, formatting, simple auto‑fixes) to guarantee that all commits adhere to project conventions.
+We run the CI tests on multiple operating systems and Python versions in these files. We have included the possibility of running on multiple systems through code that looks like this: 
+# jobs:
+#   build:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         os: [ ubuntu-latest, windows-latest, macos-latest ]
+#         python-version: [ "3.10", "3.11", "3.12" ]
+
+We have also included caching as it is important for continuous integration steps. We included caching in the 'steps'command:
+#     steps:
+#       - name: Check out repo
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: ${{ matrix.python-version }}
+#           cache: 'pip'                                  # <-- enable pip caching
+#           cache-dependency-path: |
+#             backend/requirements.txt
+#             ml/requirements.txt
+#             tests/requirements_tests.txt
+
+An example of a triggered github action can be seen here: 
+https://github.com/minhNgnn/MedView-LMU-MLOps-SoSe25-GroupB/actions/runs/16289911255
+
+>>>>>>> Stashed changes
 ## Running code and tracking experiments
 
 > In the following section we are interested in learning more about the experimental setup for running your code and
@@ -294,7 +341,20 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 12 fill here ---
+Yes, we made a config.yaml file in the following structure:<br>
+```
+|--ml
+|  |--configs
+|     |--model
+|     	 |--config.yaml
+|     	 |--config_cloud.yaml
+|     |--data_config
+|     	 |--data.yaml
+|     	 |--data_cloud.yaml
+|--train.py
+```
+In the train.py, we used a hydra library to call hyperparameter setting written in configs/model/config.yaml file. There are 4 hyperparameters in the config.yaml file, and hydra calls those parameters. In this way, we can edit hyperparameters easily without editing a train.py file directly.
+
 
 ### Question 13
 
@@ -309,13 +369,14 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 13 fill here ---
+To ensure our experiments were reproducible and no information was lost, we used a config.yaml file to store all key hyperparameters and settings of our model. This file included values such as learning rate, batch size, number of epochs, model type. Whenever an experiment was run, the script automatically read from the config.yaml file to apply consistent configurations throughout training and evaluation. This made it easy to keep track of experiment setups and reduced the chance of manual errors. Additionally, we saved model checkpoints and evaluation results for each run. To reproduce an experiment, one simply needs to use the same config.yaml file and run the training script again.
+
 
 ### Question 14
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from [this figure](figures/wandb.JPG). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Recommended answer length: 200-300 words + 1 to 3 screenshots.
@@ -326,7 +387,17 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 14 fill here ---
+Because of training environment, it was impossible to train with a large dataset and large epoch. You can see the result of training with simple subset of data and only 10 epochs. Therefore, the model was not trained well and the model couldn't predict detection.
+
+![Alt text](images/Q14_wandb_screenshot1.JPG)
+In the first image you can see tracking of key metrics such as precision, recall, and mAP (mean Average Precision) over training epochs. Precision and recall provide insight into the model’s ability to correctly detect tumors without generating too many false positives or negatives, while mAP gives an overall measure of detection accuracy across various confidence thresholds.
+
+![Alt text](images/Q14_wandb_screenshot2.JPG)
+In the second image, you can see that at each epoch, predictions was made and it was drawn with ground truth labels. This visual feedback helped us qualitatively assess how well the model was identifying tumors on unseen MRI scans. It allowed us to spot cases where the model either missed a tumor or incorrectly flagged a non-tumor region.
+
+![Alt text](images/Q14_wandb_screenshot3.JPG)
+In third image, it shows the loss curves from multiple hyperparameter sweep runs, each representing a different configuration. We monitored distribution focal loss, classification loss and box regression loss to understand how different settings impacted convergence and model stability. In this case, it looks like that tough-sweep-7 setting is performing the best.
+
 
 ### Question 15
 
@@ -341,7 +412,20 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 15 fill here ---
+For our project we developed 5 images: 
+-Training: builds training image with all ML libraries and project code.
+-Hyperparameter sweep: uses an entrypoint.sh and uses that as an entrypoint to create the sweep image
+-Inference: creates an image of the prediction in the training and all the processes that go on in the backend of the app
+-Frontend: creates an image of all the processes that go on in the frontend with Nginx to serve the compiled static files
+-Prometheus: creates an image of the processes that go behind finding metrics and how often it scrapes them etc. 
+
+we used docker to build images based on the files copied in dockerfile formats. These images are containers for different parts of the project. 
+Given the docker image for training was mlops_train, the run function would look like: 
+docker build -f docker/Dockerfile.train -t mlops_train .
+docker run --rm \
+  -v $(pwd)/data:/app/data \
+  -e EPOCHS=10 \
+  mlops_train
 
 ### Question 16
 
@@ -356,11 +440,10 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 16 fill here ---
+For debugging, we primarily use the Python debugger, which allows us to set breakpoints, inspect variables, and step through code to identify where things deviate from our expectations. To streamline debugging in our development environment, we also configure a `launch.json` file to ensure the correct Python path is set, making it easier to start debugging sessions directly from our IDE. For small or quick bugs, we often rely on simple logging or printing to the terminal to quickly check values or program flow. When deeper inspection is needed, the debugger is invaluable for examining the state of the application in detail.
 
-## Working in the cloud
+Regarding profiling, we mainly focused on profiling the prediction and training steps of our machine learning model. However, since our model is based on a pre-trained YOLO implementation from Ultralytics, most of the heavy lifting is handled by the external library. As a result, profiling mainly showed the import and execution of these library functions, and we did not identify significant custom bottlenecks in our own code.
 
-> In the following section we would like to know more about your experience when developing in the cloud.
 
 ### Question 17
 
@@ -373,7 +456,18 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 17 fill here ---
+- API Gateway (apigateway.googleapis.com) – This service was used to expose our model as a secure and scalable API endpoint, allowing users to send requests and receive predictions.
+
+- Service Management (servicemanagement.googleapis.com) – This handled the configuration and deployment of managed services, ensuring that our APIs were properly registered and discoverable.
+
+- Service Control (servicecontrol.googleapis.com) – Used for managing access control, logging, and monitoring of our API usage, helping us keep track of service reliability and performance.
+
+- Artifact Registry (artifactregistry.googleapis.com) – This was used to store and manage our Docker container images securely, which we later deployed on GCP.
+
+- Cloud Build (cloudbuild.googleapis.com) – Cloud Build automated the process of building and packaging our code into Docker images, streamlining continuous integration.
+
+- AI Platform (aiplatform.googleapis.com) – We used this service to deploy and manage our trained machine learning model in a production-ready environment with scalable infrastructure.
+
 
 ### Question 18
 
@@ -388,34 +482,45 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 18 fill here ---
+We used the Compute Engine to run our brain tumor detection model and support various backend services during development and testing. Specifically, we used a virtual machine with the type n1-standard-1, which provides 1 vCPU. This configuration was sufficient for lightweight tasks such as hosting our API and performing model inference on smaller test inputs.
+We started the VM using a custom Docker container, which included our trained YOLO model, necessary dependencies, and scripts for handling prediction requests. Using Compute Engine allowed us to have full control over the runtime environment and scale resources when needed.
+
 
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
-> **You can take inspiration from [this figure](figures/bucket.png).**
+> **You can take inspiration from [this figure](figures/bucket.JPG).**
 >
 > Answer:
 
---- question 19 fill here ---
+![Alt text](images/Q19_1.JPG)
+
 
 ### Question 20
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
-> **stored. You can take inspiration from [this figure](figures/registry.png).**
+> **stored. You can take inspiration from [this figure](figures/registry.JPG).**
 >
 > Answer:
 
---- question 20 fill here ---
+![Alt text](images/Q20_1.JPG)
+![Alt text](images/Q20_2.JPG)
+```
+|--train-registry/
+|  |--train: docker image to run train_cloud.py code
+|  |--distributed
+```
+
 
 ### Question 21
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
-> **your project. You can take inspiration from [this figure](figures/build.png).**
+> **your project. You can take inspiration from [this figure](figures/build.JPG).**
 >
 > Answer:
 
---- question 21 fill here ---
+![Alt text](images/Q21_1.JPG)
+
 
 ### Question 22
 
@@ -430,11 +535,19 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 22 fill here ---
+No, we didn't use cloud to train our model. Our model is composed with very large weights and parameters and used large image dataset, which requires GPU for training. However, it was impossible to use GPU server in GCP. Therefore, we used kaggle notebook instead, where we can use free GPU for limited amount. After training the model in the kaggle notebook, we downloaded the best weights file(.pt) and put it in our repository.<br>
+Link to kaggle notebook: https://www.kaggle.com/code/eunai9/brain-tumor-detection-with-yolov8-de6d81<br>
+![Alt text](images/Q22_1.JPG)
+But at least, we made a setting to train the model using Vertex AI. In order to confirm if it works well, we create a small subset of data named 'Simple'.
+
 
 ## Deployment
 
+<<<<<<< Updated upstream
 ### Question 23
+=======
+### Question 23 (Minh)
+>>>>>>> Stashed changes
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -447,7 +560,12 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 23 fill here ---
+Yes, we managed to write an API for our model and related services. The API includes endpoints for interacting with a tabular database of patients, allowing users to retrieve a list of all patients or fetch details for a specific patient by ID. Due to the scope of the project, we have currently implemented only the read (GET) endpoints for the patient database, but the structure allows for easy extension to full CRUD (Create, Read, Update, Delete) operations in the future.
+
+In addition to the database endpoints, we implemented a `predict` endpoint that calls the model's prediction function. This endpoint accepts an input image, runs the prediction using our machine learning model, and returns the annotated image with the prediction results overlaid. This makes it easy for users to visualize the model's output directly.
+
+We also included a router for the monitoring system, which is designed to support system health checks and future monitoring features. Overall, the API is modular and organized, making it straightforward to extend with additional endpoints or features as the project evolves.
+
 
 ### Question 24
 
@@ -478,7 +596,10 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 25 fill here ---
+Yes, we performed both integration and load testing of our API. For integration testing, we created a suite of tests in the `tests/integrationtests/` folder that cover key API endpoints such as `/patients`, `/patients/{id}`, and `/predict`. These tests verify that the endpoints return correct responses, handle edge cases, and maintain stability as the codebase evolves.
+
+For load testing, we used Locust to simulate multiple users interacting with the API concurrently. Our load test script downloads a random image from a GCP bucket and sends it to the `/predict` endpoint, as well as tests the `/patients` endpoint and error handling by sending invalid files. The results showed that our API could handle multiple simultaneous requests without significant slowdowns or failures, and that error handling worked as intended for invalid inputs. Overall, these tests gave us confidence in the reliability and scalability of our API under realistic usage scenarios.
+
 
 ### Question 26
 
@@ -493,7 +614,10 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 26 fill here ---
+Yes, we implemented a comprehensive monitoring system for our deployed model. When the monitoring app is initialized, it uses the first 50 images from the training dataset stored in our GCP bucket as the reference dataset for drift detection. Each time a new prediction is made, the input image and its extracted features are logged to an external database, which in our case is Supabase. This allows us to track all predictions and monitor for data drift over time.
+
+We also developed a UI for the monitoring system. When a user presses the 'Generate Report' button in the UI, the backend generates a drift report by comparing the current data (recent predictions) to the reference data. This report is generated as an HTML file using Evidently and is then stored in a Supabase bucket for easy access and sharing. The UI can then display the generated report directly to users, providing clear visualizations of data drift and model performance. This setup ensures that our monitoring is automated, transparent, and accessible to all stakeholders.
+
 
 ## Overall discussion of project
 
@@ -528,12 +652,19 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 28 fill here ---
+For the frontend, we chose to use React with TypeScript. This combination allows us to build a more scalable and maintainable user interface, following modern best practices in frontend development. TypeScript provides type safety and better tooling, which helps prevent bugs and makes the codebase easier to manage as the project grows.
+
+For data storage, we use Supabase to handle tabular patient data. This choice was made to create a more comprehensive system where doctors and users can easily scroll through and access patient records via the UI. Additionally, we store the generated monitoring reports (HTML files from Evidently) in Supabase buckets. This makes it straightforward to retrieve and display these reports directly in the frontend, ensuring that monitoring insights are easily accessible to users.
+
+For documentation, we used Sphinx, as it is one of the most popular and feature-rich documentation generators in the Python ecosystem. We wanted to try a robust tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.
+
+We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP.
+
 
 ### Question 29
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
-> **You can take inspiration from [this figure](figures/overview.png). Additionally, in your own words, explain the**
+> **You can take inspiration from [this figure](figures/overview.JPG). Additionally, in your own words, explain the**
 > **overall steps in figure.**
 >
 > Recommended answer length: 200-400 words
@@ -559,7 +690,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 30 fill here ---
+Theerdha: The biggest challenge for me was using Vertex AI to train on the docker images we created on the Artifact Registry of the cloud. It took me many rounds of debugging to get the Engine to train on Vertex AI. 
 
 ### Question 31
 
@@ -577,14 +708,5 @@ will check the repositories and the code to verify your answers.
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-fewafewubaofewnafioewnifowf ewafw afew afewafewafionewoanf waf ewonfieownaf fewnaiof newio fweanøf wea fewa
- fweafewa fewiagonwa ognwra'g
- wa
- gwreapig ipweroang w rag
- wa grwa
-  g
-  ew
-  gwea g
-  ew ag ioreabnguorwa bg̈́aw
-   wa
-   gew4igioera giroeahgi0wra gwa
+
+

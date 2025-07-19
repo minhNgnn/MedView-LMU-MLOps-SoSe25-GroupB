@@ -4,12 +4,16 @@ Main monitoring orchestrator for brain tumor image drift detection.
 
 import logging
 import os
+<<<<<<< Updated upstream
 import random
 import tempfile
+=======
+>>>>>>> Stashed changes
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional
 
+<<<<<<< Updated upstream
 import cv2
 import numpy as np
 import pandas as pd
@@ -21,10 +25,20 @@ from google.cloud import storage
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from supabase import Client, create_client
+=======
+import numpy as np
+import pandas as pd
+from evidently import Report
+from evidently.presets import DataDriftPreset, DataSummaryPreset
+from fastapi import HTTPException
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import SQLAlchemyError
+>>>>>>> Stashed changes
 
 from .drift_detector import DriftDetector
 from .feature_extractor import ImageFeatureExtractor
 
+<<<<<<< Updated upstream
 load_dotenv()  # Ensure .env is loaded before any os.getenv
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -35,13 +49,19 @@ supabase: Client = None
 if SUPABASE_URL and SUPABASE_KEY:
     supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+=======
+>>>>>>> Stashed changes
 logger = logging.getLogger(__name__)
 
 
 class BrainTumorImageMonitor:
     """Data drift monitoring system specifically for brain tumor image classification."""
 
+<<<<<<< Updated upstream
     def __init__(self, database_url: str, reports_dir: str = "monitoring/reports"):
+=======
+    def __init__(self, database_url: str, reports_dir: str = "reports/monitoring"):
+>>>>>>> Stashed changes
         self.database_url = database_url
         self.engine = create_engine(database_url)
         self.reports_dir = Path(reports_dir)
@@ -55,6 +75,7 @@ class BrainTumorImageMonitor:
         self.image_columns = self.feature_extractor.image_columns
         self.tumor_features = self.feature_extractor.tumor_features
 
+<<<<<<< Updated upstream
         # Reference data from train images
         self.reference_data = self._load_reference_data_from_gcs()
 
@@ -113,11 +134,14 @@ class BrainTumorImageMonitor:
                 )
         return df
 
+=======
+>>>>>>> Stashed changes
     def extract_brain_tumor_features(self, image: np.ndarray) -> Dict[str, float]:
         """Extract comprehensive features from brain tumor images."""
         return self.feature_extractor.extract_features(image)
 
     def get_reference_data(self) -> pd.DataFrame:
+<<<<<<< Updated upstream
         """Get reference brain tumor image data from GCS train images."""
         return self.reference_data
 
@@ -134,11 +158,49 @@ class BrainTumorImageMonitor:
         )
         overlap_info = self.drift_detector.check_overlap(reference_data, current_data)
         logger.info(f"Timestamp overlap between reference and current: {overlap_info.get('overlap_count', 0)} records")
+=======
+        """Get reference brain tumor image data from the database."""
+        try:
+            with self.engine.connect() as conn:
+                # Get older data for reference (first 50 records, ordered by timestamp ASC)
+                query = text(
+                    """
+                    SELECT image_width, image_height, image_channels, image_size_bytes,
+                           brightness_mean, brightness_std, contrast_mean, contrast_std,
+                           entropy, skewness, kurtosis, mean_intensity, std_intensity,
+                           tumor_area_ratio, tumor_detection_confidence,
+                           num_tumors_detected, largest_tumor_area, tumor_density,
+                           tumor_location_x, tumor_location_y, tumor_shape_regularity,
+                           prediction_confidence, prediction_class, timestamp
+                    FROM predictions_log
+                    ORDER BY timestamp ASC
+                    LIMIT 50
+                """
+                )
+                result = conn.execute(query)
+                df = pd.DataFrame(result.fetchall(), columns=result.keys())
+
+                # If no data exists, create synthetic reference data
+                if df.empty:
+                    df = self._create_synthetic_reference_data()
+
+                return df
+
+        except SQLAlchemyError as e:
+            logger.error(f"Database error getting reference data: {e}")
+            # Return synthetic data if database is not available
+            return self._create_synthetic_reference_data()
+>>>>>>> Stashed changes
 
     def get_current_data(self, days: int = 7) -> pd.DataFrame:
         """Get current brain tumor image data from the database."""
         try:
             with self.engine.connect() as conn:
+<<<<<<< Updated upstream
+=======
+                # Get recent data for current (last 50 records, ordered by timestamp DESC)
+                # This ensures no overlap with reference data
+>>>>>>> Stashed changes
                 query = text(
                     """
                     SELECT image_width, image_height, image_channels, image_size_bytes,
@@ -155,6 +217,7 @@ class BrainTumorImageMonitor:
                 )
                 result = conn.execute(query)
                 df = pd.DataFrame(result.fetchall(), columns=result.keys())
+<<<<<<< Updated upstream
                 if df.empty:
                     return self._create_synthetic_current_data(days)
                 return df
@@ -162,6 +225,50 @@ class BrainTumorImageMonitor:
             logger.error(f"Database error getting current data: {e}")
             return self._create_synthetic_current_data(days)
 
+=======
+
+                # If no data exists, create synthetic current data
+                if df.empty:
+                    df = self._create_synthetic_current_data(days)
+
+                return df
+
+        except SQLAlchemyError as e:
+            logger.error(f"Database error getting current data: {e}")
+            # Return synthetic data if database is not available
+            return self._create_synthetic_current_data(days)
+
+    def _create_synthetic_reference_data(self) -> pd.DataFrame:
+        """Create synthetic reference data for brain tumor images."""
+        n_samples = 100
+        data = {
+            "image_width": np.random.normal(512, 50, n_samples),
+            "image_height": np.random.normal(512, 50, n_samples),
+            "image_channels": np.full(n_samples, 1),  # Grayscale
+            "image_size_bytes": np.random.normal(262144, 50000, n_samples),
+            "brightness_mean": np.random.normal(100, 20, n_samples),
+            "brightness_std": np.random.normal(40, 10, n_samples),
+            "contrast_mean": np.random.normal(15, 5, n_samples),
+            "contrast_std": np.random.normal(8, 2, n_samples),
+            "entropy": np.random.normal(7.5, 0.5, n_samples),
+            "skewness": np.random.normal(0.0, 0.5, n_samples),
+            "kurtosis": np.random.normal(3.0, 1.0, n_samples),
+            "mean_intensity": np.random.normal(100, 20, n_samples),
+            "std_intensity": np.random.normal(40, 10, n_samples),
+            "tumor_area_ratio": np.random.uniform(0, 0.15, n_samples),
+            "tumor_detection_confidence": np.random.uniform(0.6, 0.9, n_samples),
+            "num_tumors_detected": np.random.poisson(1.0, n_samples),
+            "largest_tumor_area": np.random.uniform(0, 0.1, n_samples),
+            "tumor_density": np.random.uniform(0.1, 0.8, n_samples),
+            "tumor_location_x": np.random.uniform(100, 412, n_samples),
+            "tumor_location_y": np.random.uniform(100, 412, n_samples),
+            "tumor_shape_regularity": np.random.uniform(0.3, 0.8, n_samples),
+            "prediction_confidence": np.random.uniform(0.6, 0.9, n_samples),
+            "prediction_class": np.random.choice(["benign", "malignant", "normal"], n_samples, p=[0.4, 0.3, 0.3]),
+        }
+        return pd.DataFrame(data)
+
+>>>>>>> Stashed changes
     def _create_synthetic_current_data(self, days: int) -> pd.DataFrame:
         """Create synthetic current data with slight drift."""
         n_samples = 100
@@ -243,25 +350,61 @@ class BrainTumorImageMonitor:
             logger.error(f"Error logging brain tumor prediction: {e}")
 
     def generate_brain_tumor_drift_report(self, days: int = 7) -> str:
+<<<<<<< Updated upstream
         """Generate comprehensive brain tumor image drift report and upload to Supabase Storage."""
         try:
             reference_data = self.get_reference_data()
             current_data = self.get_current_data(days)
+=======
+        """Generate comprehensive brain tumor image drift report."""
+        try:
+            reference_data = self.get_reference_data()
+            current_data = self.get_current_data(days)
+
+>>>>>>> Stashed changes
             if reference_data.empty or current_data.empty:
                 raise HTTPException(
                     status_code=400,
                     detail="Insufficient data for brain tumor drift analysis",
                 )
+<<<<<<< Updated upstream
             self._log_data_split_and_overlap(reference_data, current_data)
+=======
+
+            # Log the split details for debugging
+            logger.info(
+                f"Reference data: {len(reference_data)} samples, "
+                f"timestamp range: {reference_data['timestamp'].min()} to "
+                f"{reference_data['timestamp'].max()}"
+            )
+            logger.info(
+                f"Current data: {len(current_data)} samples, "
+                f"timestamp range: {current_data['timestamp'].min()} to "
+                f"{current_data['timestamp'].max()}"
+            )
+
+            # Check for overlap
+            overlap_info = self.drift_detector.check_overlap(reference_data, current_data)
+            logger.info(
+                f"Timestamp overlap between reference and current: {overlap_info.get('overlap_count', 0)} records"
+            )
+
+            # Generate brain tumor specific drift report with more sensitive settings
+>>>>>>> Stashed changes
             drift_report = Report(
                 metrics=[
                     DataDriftPreset(
                         columns=self.image_columns + self.tumor_features,
+<<<<<<< Updated upstream
                         drift_share=0.1,
+=======
+                        drift_share=0.1,  # Detect drift if 10% of features drift
+>>>>>>> Stashed changes
                     ),
                     DataSummaryPreset(columns=self.image_columns + self.tumor_features),
                 ]
             )
+<<<<<<< Updated upstream
             snapshot = drift_report.run(current_data=current_data, reference_data=reference_data)
             import datetime
             import io
@@ -283,6 +426,16 @@ class BrainTumorImageMonitor:
                     return public_url
                 else:
                     raise HTTPException(status_code=500, detail="Supabase client not configured")
+=======
+
+            snapshot = drift_report.run(current_data=current_data, reference_data=reference_data)
+            # Save report
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            report_path = self.reports_dir / f"brain_tumor_drift_report_{timestamp}.html"
+            snapshot.save_html(str(report_path))
+            return str(report_path)
+
+>>>>>>> Stashed changes
         except Exception as e:
             logger.error(f"Error generating brain tumor drift report: {e}")
             raise HTTPException(status_code=500, detail="Error generating brain tumor drift report")

@@ -13,6 +13,7 @@ def train_model(
     batch_size: int = -1,
     epochs: int = 10,
     wandb_logging: bool = False,
+<<<<<<< Updated upstream
     num_workers: int = -1,
 ) -> Any:
     """
@@ -31,6 +32,16 @@ def train_model(
     if wandb_logging:
         print("Initializing Weights & Biases for logging…")
         
+=======
+) -> Any:
+    """Trains the machine learning model."""
+
+    print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
+    t_model = YOLO(f"ml/models/{model_name}.pt")
+
+    if wandb_logging:
+        print("Initializing Weights & Biases for logging...")
+>>>>>>> Stashed changes
         wandb.login()
         os.system("yolo settings wandb=True")
         wandb.init(
@@ -43,9 +54,14 @@ def train_model(
                 "num_workers": num_workers,
             },
         )
+<<<<<<< Updated upstream
 
         add_wandb_callback(t_model)
 
+=======
+        add_wandb_callback(t_model)
+
+>>>>>>> Stashed changes
     results = t_model.train(
         data="ml/configs/data_config/data.yaml",
         epochs=epochs,
@@ -59,6 +75,7 @@ def train_model(
     )
 
     return results
+<<<<<<< Updated upstream
 
 
 def normalize_image(image: np.ndarray) -> np.ndarray:
@@ -143,3 +160,5 @@ def get_prediction_from_onnx_array(image: np.ndarray):
     return (boxes, scores, class_ids), annotated
 
 
+=======
+>>>>>>> Stashed changes

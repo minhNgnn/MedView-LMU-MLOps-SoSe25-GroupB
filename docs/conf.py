@@ -105,6 +105,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
+<<<<<<< Updated upstream
 man_pages = [
     (
         master_doc,
@@ -114,6 +115,9 @@ man_pages = [
         1,
     )
 ]
+=======
+man_pages = [(master_doc, "braintumormonitoringsystem", "Brain Tumor Monitoring System Documentation", [author], 1)]
+>>>>>>> Stashed changes
 
 # -- Options for Texinfo output -------------------------------------------
 
