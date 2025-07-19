@@ -184,3 +184,6 @@ Now you can check training status in Vertext AI/Training
 - `tests/` is organized by test type and covers all major components.
 - `data/` is typically managed by DVC and may be empty in the repo.
 - `reports/` is for generated reports and artifacts, not code.
+
+A more extensive version of the project description can also be accessed here:
+https://minhngnn.github.io/MedView-LMU-MLOps-SoSe25-GroupB/
