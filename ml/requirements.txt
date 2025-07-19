@@ -19,3 +19,5 @@ wandb==0.20.1
 
 # imaging for ultralytics import
 Pillow>=9.0.0
+dvc==3.50.2
+matplotlib==3.7.1
