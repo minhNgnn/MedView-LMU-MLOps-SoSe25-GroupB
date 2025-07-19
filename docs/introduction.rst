@@ -43,11 +43,6 @@ Our Brain Tumor Monitoring System addresses these challenges through:
 System Architecture
 ------------------
 
-.. image:: _static/images/architecture.png
-   :alt: System Architecture
-   :align: center
-   :width: 600px
-
 The system consists of several key components:
 
 **Backend API (FastAPI)**

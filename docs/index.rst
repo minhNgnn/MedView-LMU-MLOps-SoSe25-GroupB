@@ -17,11 +17,6 @@ Welcome to the comprehensive documentation for the Brain Tumor Monitoring System
    frontend/index
    contributing
 
-.. image:: _static/images/system-overview.jpeg
-   :alt: System Architecture Overview
-   :align: center
-   :width: 800px
-
 Overview
 --------
 
