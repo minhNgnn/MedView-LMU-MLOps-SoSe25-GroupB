@@ -220,6 +220,11 @@ async def predict(
                 )
             image = decode_image(contents)
             annotated_image, yolo_result = run_model_prediction(image)
+            if annotated_image is None:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail="Prediction failed: no annotated image returned",
+                )
             log_prediction_background(request, background_tasks, image, yolo_result)
             return create_image_response(annotated_image)
         except HTTPException:

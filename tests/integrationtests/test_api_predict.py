@@ -16,8 +16,9 @@ class TestPredictEndpoint:
         img_byte_arr = io.BytesIO()
         test_image.save(img_byte_arr, format="JPEG")
         img_byte_arr.seek(0)
-        with patch("backend.src.api.get_prediction_from_array") as mock_predict:
-            mock_predict.return_value = np.full((100, 100, 3), 128, dtype=np.uint8)
+        with patch("backend.src.predict_helpers.get_prediction_from_array") as mock_predict:
+            # For success
+            mock_predict.return_value = (np.full((100, 100, 3), 128, dtype=np.uint8), "dummy_result")
             response = client.post(
                 "/predict",
                 files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")},
@@ -58,8 +59,9 @@ class TestPredictEndpoint:
         img_byte_arr = io.BytesIO()
         test_image.save(img_byte_arr, format="JPEG")
         img_byte_arr.seek(0)
-        with patch("backend.src.api.get_prediction_from_array") as mock_predict:
-            mock_predict.return_value = None
+        with patch("backend.src.predict_helpers.get_prediction_from_array") as mock_predict:
+            # For failure
+            mock_predict.return_value = (None, None)
             response = client.post(
                 "/predict",
                 files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")},
@@ -67,3 +69,4 @@ class TestPredictEndpoint:
             assert response.status_code == 500
             data = response.json()
             assert "Prediction failed" in data["detail"]
+            mock_predict.assert_called_once()
