@@ -198,3 +198,61 @@ ML Pipeline
 2. **Model Inference**: YOLOv8 prediction
 3. **Post-processing**: NMS, confidence filtering
 4. **Feature Extraction**: Statistical and tumor-specific features
+
+Experiment Logging
+------------------
+
+Our system provides robust experiment logging and tracking capabilities to ensure reproducibility and facilitate hyperparameter optimization.
+
+**Key Tools and Components:**
+
+- **Hydra**: Used for flexible configuration management. Training scripts (`ml/train.py`, `ml/train_sweep.py`) can be launched with different configurations using Hydra, allowing for easy experimentation with various hyperparameters and settings. The main configuration is stored in `ml/configs/model/config.yaml`.
+- **Weights & Biases (wandb)**: Integrated for experiment tracking and logging. When enabled (via the `--wandb` flag or `wandb_logging: True` in config), all training runs log metrics, hyperparameters, and results to the wandb dashboard. This is implemented in `ml/models.py` and can be toggled in both CLI and config files.
+- **Sweep**: Hyperparameter sweeps are managed using a sweep configuration file (`ml/configs/sweep.yaml`) and the sweep training script (`ml/train_sweep.py`). The sweep setup allows for automated exploration of hyperparameter combinations (e.g., model type, batch size, epochs) using Bayesian optimization. The sweep can be run locally or in the cloud using the provided Dockerfile (`dockerfiles/sweep.Dockerfile`).
+- **Docker Integration**: The sweep Dockerfile (`dockerfiles/sweep.Dockerfile`) provides a reproducible environment for running sweeps and logging experiments, with environment variables for wandb project/entity and sweep configuration.
+
+**How to Use:**
+
+- To run a single experiment with logging:
+
+  .. code-block:: bash
+
+     python ml/train.py --wandb
+
+- To run a sweep (hyperparameter search):
+
+  .. code-block:: bash
+
+     wandb sweep ml/configs/sweep.yaml
+     wandb agent <entity>/<project>/<sweep_id>
+
+- All experiment logs, metrics, and results are tracked in the wandb dashboard for easy comparison and analysis.
+
+**Note:** Faust is not used in this codebase.
+
+Distributed Computing
+---------------------
+
+Our system supports distributed training to efficiently utilize multiple CPU cores or nodes, enabling scalable and faster model training. This is especially important for large datasets or complex models.
+
+**Key Files and Components:**
+
+- `ml/train.py`: The main entry point for training. It exposes a CLI (via Typer and Hydra) that allows you to specify the number of workers for distributed data loading and training.
+- `ml/models.py`: The `train_model` function accepts a `num_workers` argument, which controls the number of worker processes for data loading and distributed training.
+- Dockerfiles and configuration files: These support launching distributed jobs in both local and cloud environments.
+
+**How Distributed Training Works:**
+
+- The number of workers can be set via command-line arguments or configuration files, allowing flexible scaling based on available resources.
+- The system can launch multiple processes for data loading and model training, leveraging PyTorch's distributed and multiprocessing capabilities.
+- This design enables efficient use of cloud resources (e.g., GCP VMs) or local multi-core machines.
+
+**Example Usage:**
+
+.. code-block:: bash
+
+   python ml/train.py --num_workers 4
+
+This command launches training with 4 worker processes for data loading and distributed computation.
+
+By supporting distributed computing, our architecture is designed for scalability and efficient resource utilization in both research and production settings.
