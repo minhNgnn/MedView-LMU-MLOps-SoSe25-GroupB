@@ -67,10 +67,12 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+!frontend/src/dist/
 downloads/
 eggs/
 .eggs/
 lib/
+!frontend/src/lib/
 lib64/
 parts/
 sdist/
