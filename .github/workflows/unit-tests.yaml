@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        python-version: [ "3.10", "3.11"]
+        python-version: [ "3.10", "3.11", "3.12"]
 
     steps:
       - name: Check out repo
@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'                                  # <-- enable pip caching
+          cache: 'pip'
           cache-dependency-path: |
             backend/requirements.txt
             ml/requirements.txt
@@ -37,6 +37,12 @@ jobs:
           pip install -r backend/requirements.txt
           pip install -r ml/requirements.txt
           pip install -r tests/requirements_tests.txt
+
+      - name: Set up GCP credentials
+        shell: bash
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" > $HOME/gcp-key.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json" >> $GITHUB_ENV
 
       - name: Run unit tests with coverage
         run: |
