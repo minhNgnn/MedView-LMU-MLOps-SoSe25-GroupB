@@ -475,9 +475,9 @@ For the frontend, we chose to use React with TypeScript. This combination allows
 
 For data storage, we use Supabase to handle tabular patient data. This choice was made to create a more comprehensive system where doctors and users can easily scroll through and access patient records via the UI. Additionally, we store the generated monitoring reports (HTML files from Evidently) in Supabase buckets. This makes it straightforward to retrieve and display these reports directly in the frontend, ensuring that monitoring insights are easily accessible to users.<br>
 
-For documentation, we used MkDocs, as it is a modern and user-friendly static site generator that is well-suited for project documentation. We wanted to try a robust tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with MkDocs, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.<br>
+For documentation, we used Sphinx, as it is the most robust and prevalent documentation generator in the Python ecosystem. We wanted to try a tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.
 
-We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP.
+We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP. We did this to speed up training and efficiently utilize multiple compute resources available in the cloud.
 
 
 ### Question 29 (Theerdha)
@@ -504,6 +504,7 @@ We also did distributed data loading and implemented distributed data parallel i
 >
 - Euna: The biggest challenges in the project was all of works related to Google Cloud. Especially, I was struggled building a docker image and pushing it to the Artifact Registry of GCP. I couldn't understand the role of Dockerfile and cloudbuild.yaml at first, so it was hard to understand errors happening.
 - Theerdha: The biggest challenge for me was using Vertex AI to train on the docker images we created on the Artifact Registry of the cloud. It took me many rounds of debugging to get the Engine to train on Vertex AI.
+- Minh: The most challenging part was enabling the whole backend onto the cloud. This included deploying and integrating our APIs, setting up Evidently's monitoring for data drift, and configuring Prometheus for system monitoring. Coordinating all these components to work seamlessly in a cloud environment required significant effort in terms of configuration, debugging, and ensuring reliable communication between services.
 
 
 ### Question 31
