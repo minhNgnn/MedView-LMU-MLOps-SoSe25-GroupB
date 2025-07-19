@@ -177,8 +177,8 @@ Download Docker Desktop from `https://www.docker.com/products/docker-desktop`
 
 .. code-block:: bash
 
-   git clone https://github.com/your-org/brain-tumor-monitoring.git
-   cd brain-tumor-monitoring
+   git clone https://github.com/minhNgnn/MedView-LMU-MLOps-SoSe25-GroupB.git
+   cd MedView-LMU-MLOps-SoSe25-GroupB
 
    # Copy environment file
    cp .env.example .env
@@ -211,55 +211,6 @@ Download Docker Desktop from `https://www.docker.com/products/docker-desktop`
    # Access frontend
    open http://localhost:3000
 
-.. _cloud-installation:
-
-Cloud Installation
------------------
-
-**Google Cloud Platform (GCP)**
-
-
-.. code-block:: bash
-
-   # Install Google Cloud SDK
-   curl https://sdk.cloud.google.com | bash
-   exec -l $SHELL
-   gcloud init
-
-   # Enable required APIs
-   gcloud services enable cloudbuild.googleapis.com
-   gcloud services enable run.googleapis.com
-
-   # Deploy using provided scripts
-   ./monitoring/deploy.sh your-project-id us-central1
-
-**Amazon Web Services (AWS)**
-
-
-.. code-block:: bash
-
-   # Install AWS CLI
-   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-   unzip awscliv2.zip
-   sudo ./aws/install
-
-   # Configure AWS credentials
-   aws configure
-
-   # Deploy using AWS ECS or EKS
-
-**Microsoft Azure**
-
-
-.. code-block:: bash
-
-   # Install Azure CLI
-   curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-   # Login to Azure
-   az login
-
-   # Deploy using Azure Container Instances or AKS
 
 Configuration
 ------------

@@ -122,12 +122,13 @@ Technology Stack
     * YOLOv8: Object detection
     * Custom drift detection algorithms
 
-**Deployment**
+Deployment
+----------
 
-    * Docker: Containerization
-    * Docker Compose: Local development
-    * Kubernetes: Production orchestration
-    * Cloud platforms: GCP, AWS, Azure support
+- Docker: Containerization
+- Docker Compose: Local development
+- GitHub Actions: CI/CD automation
+- GCP: Cloud deployment
 
 Use Cases
 ---------
