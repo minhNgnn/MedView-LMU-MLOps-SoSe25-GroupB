@@ -139,3 +139,48 @@ gcloud ai custom-jobs create \
 gcloud gcloud ai custom-jobs ...
 ```
 Now you can check training status in Vertext AI/Training
+
+## Codebase Folder Structure
+
+```
+.
+├── backend/           # FastAPI backend API for prediction, patient management, and monitoring endpoints
+│   ├── requirements.txt
+│   └── src/
+│       └── api.py     # Main FastAPI application
+├── frontend/          # React + TypeScript frontend dashboard for real-time monitoring and visualization
+│   ├── package.json
+│   └── src/
+│       └── main.tsx   # Frontend entry point
+├── ml/                # Machine learning pipeline: training, inference, configs, and utilities
+│   ├── requirements.txt
+│   ├── train.py       # Model training script
+│   ├── predict.py     # Model inference script
+│   ├── configs/       # ML and data configuration files
+│   └── models.py      # Model definitions
+├── monitoring/        # Monitoring engine for drift detection, feature extraction, and reporting
+│   ├── requirements.txt
+│   ├── core/          # Core monitoring logic (drift detection, feature extraction)
+│   ├── api/           # Standalone monitoring API
+│   └── reports/       # Generated drift reports
+├── tests/             # Unit, integration, and performance tests for all components
+│   ├── unittests/
+│   ├── integrationtests/
+│   └── performance_tests/
+├── docs/              # Sphinx documentation source files
+├── dockerfiles/       # Dockerfiles for backend, frontend, monitoring, and training services
+├── data/              # (Usually empty, managed by DVC; actual data is in cloud or via DVC)
+├── reports/           # Project reports and generated artifacts
+├── .github/           # GitHub Actions workflows for CI/CD
+├── requirements_dev.txt # Development dependencies
+├── pyproject.toml     # Python project metadata and build configuration
+└── docker-compose.yml # Orchestrates multi-service local development
+```
+
+**Key Points:**
+- Each microservice (backend, frontend, ml, monitoring) is in its own top-level folder for modularity.
+- `docs/` contains all documentation sources (Sphinx).
+- `dockerfiles/` holds Docker build instructions for each service.
+- `tests/` is organized by test type and covers all major components.
+- `data/` is typically managed by DVC and may be empty in the repo.
+- `reports/` is for generated reports and artifacts, not code.
