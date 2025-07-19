@@ -47,11 +47,11 @@ def stub_train_model(monkeypatch):
 
 
 def test_run_training_typer_defaults(stub_train_model):
-    # Use the correct fake_train_model signature
     result = runner.invoke(app, [])
     assert result.exit_code == 0
-    assert "Starting training pipeline..." in result.stdout
-    assert stub_train_model["args"] == ("simple", -1, 10, False)
+    # The output uses a unicode ellipsis (U+2026)
+    assert "Starting training pipeline…" in result.stdout
+    assert stub_train_model["args"] == ("simple", -1, 10, False, False, -1)
 
 
 def test_run_training_typer_with_flags(stub_train_model):
@@ -59,7 +59,7 @@ def test_run_training_typer_with_flags(stub_train_model):
     result = runner.invoke(app, args)
     assert result.exit_code == 0
     assert "Training pipeline completed." in result.stdout
-    assert stub_train_model["args"] == ("foo", 4, 2, True)
+    assert stub_train_model["args"] == ("foo", 4, 2, True, False, -1)
 
 
 def test_run_training_hydra(monkeypatch, tmp_path, stub_train_model):
@@ -78,4 +78,4 @@ def test_run_training_hydra(monkeypatch, tmp_path, stub_train_model):
         }
     )
     base_fn(cfg)
-    assert stub_train_model["args"] == ("bar", 7, 3, True)
+    assert stub_train_model["args"] == ("bar", 7, 3, True, False, 2)
