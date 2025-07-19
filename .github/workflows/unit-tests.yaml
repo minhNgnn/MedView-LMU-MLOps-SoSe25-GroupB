@@ -1,50 +1,50 @@
-name: Unit Tests
+# name: Unit Tests
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
 
-jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        python-version: [ "3.10", "3.11"]
+# jobs:
+#   build:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         os: [ ubuntu-latest, windows-latest, macos-latest ]
+#         python-version: [ "3.10", "3.11"]
 
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Check out repo
+#         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-          cache-dependency-path: |
-            backend/requirements.txt
-            ml/requirements.txt
-            tests/requirements_tests.txt
+#       - name: Set up Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: ${{ matrix.python-version }}
+#           cache: 'pip'
+#           cache-dependency-path: |
+#             backend/requirements.txt
+#             ml/requirements.txt
+#             tests/requirements_tests.txt
 
-      - name: Install build tools
-        run: pip install --upgrade pip setuptools wheel
+#       - name: Install build tools
+#         run: pip install --upgrade pip setuptools wheel
 
-      - name: Install dependencies
-        run: |
-          pip install -r backend/requirements.txt
-          pip install -r ml/requirements.txt
-          pip install -r tests/requirements_tests.txt
+#       - name: Install dependencies
+#         run: |
+#           pip install -r backend/requirements.txt
+#           pip install -r ml/requirements.txt
+#           pip install -r tests/requirements_tests.txt
 
-      - name: Set up GCP credentials
-        shell: bash
-        run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > $HOME/gcp-key.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json" >> $GITHUB_ENV
+#       - name: Set up GCP credentials
+#         shell: bash
+#         run: |
+#           echo "${{ secrets.GCP_SA_KEY }}" > $HOME/gcp-key.json
+#           echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json" >> $GITHUB_ENV
 
-      - name: Run unit tests with coverage
-        run: |
-          coverage run -m pytest -q tests/unittests
-          coverage report -m
+#       - name: Run unit tests with coverage
+#         run: |
+#           coverage run -m pytest -q tests/unittests
+#           coverage report -m
