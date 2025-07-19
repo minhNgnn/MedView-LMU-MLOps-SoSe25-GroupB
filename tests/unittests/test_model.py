@@ -11,34 +11,31 @@ import wandb
 import ml.models as models
 import ml.predict as predict
 
+
 # --- Stub external heavy deps to avoid import-time errors ---
 # Stub ultralytics package entirely, including YOLO
-ultra = types.ModuleType("ultralytics")
-
-
 class DummyYOLOBase:
     def __init__(self, *args, **kwargs):
         pass
 
 
-ultra.YOLO = DummyYOLOBase
-sys.modules["ultralytics"] = ultra
+try:
+    import ultralytics
+except ImportError:
+    ultra = types.ModuleType("ultralytics")
+    ultra.YOLO = DummyYOLOBase
+    sys.modules["ultralytics"] = ultra
 
 # Stub wandb.integration.ultralytics for add_wandb_callback import
 stub_integration = types.ModuleType("wandb.integration.ultralytics")
 stub_integration.add_wandb_callback = lambda m: None
 sys.modules["wandb.integration.ultralytics"] = stub_integration
 
-# Stub PIL modules to satisfy any PIL imports
-sys.modules["PIL"] = types.ModuleType("PIL")
-sys.modules["PIL._imaging"] = types.ModuleType("PIL._imaging")
-sys.modules["PIL.Image"] = types.ModuleType("PIL.Image")
-sys.modules["PIL.Image"].Image = object
-
-# Stub onnxruntime so import succeeds and provide a dummy InferenceSession
-stub_ort = types.ModuleType("onnxruntime")
-stub_ort.InferenceSession = lambda *args, **kwargs: None
-sys.modules["onnxruntime"] = stub_ort
+# Remove the following stubs:
+# sys.modules["PIL"] = types.ModuleType("PIL")
+# sys.modules["PIL._imaging"] = types.ModuleType("PIL._imaging")
+# sys.modules["PIL.Image"] = types.ModuleType("PIL.Image")
+# sys.modules["PIL.Image"].Image = object
 
 
 # -------------------------------------------------------------------------
@@ -92,7 +89,7 @@ def patch_train(monkeypatch):
 # -------------------------------------------------------------------------
 def test_train_model_without_wandb(patch_train):
     dummy, calls = patch_train
-    res = models.train_model(model_name="simple", batch_size=16, epochs=5, wandb_logging=False)
+    res = models.train_model(model_name="simple", batch_size=16, epochs=5, wandb_logging=False, connect_to_gcs=False)
     assert isinstance(res, dict) and res["success"] is True
     assert res["received"]["epochs"] == 5
     assert res["received"]["batch"] == 16
@@ -158,12 +155,15 @@ def patch_yolo_predict(monkeypatch):
 
 def test_get_prediction_from_array_none():
     ann = predict.get_prediction_from_array(None)
-    assert ann is None
+    assert ann == (None, None)
 
 
 def test_get_prediction_from_array_valid():
     img = np.ones((100, 200, 3), dtype=np.uint8)
     float_img = img.astype(np.float32) / 255.0
-    ann = predict.get_prediction_from_array(float_img)
+    try:
+        ann, yolo_result = predict.get_prediction_from_array(float_img)
+    except ModuleNotFoundError:
+        pytest.skip("ultralytics not installed")
     assert isinstance(ann, np.ndarray)
     assert ann.shape == (640, 640, 3)

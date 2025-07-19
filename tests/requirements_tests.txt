@@ -5,8 +5,11 @@ pytest>=8.4.1        # test framework
 coverage>=7.3.1      # coverage reporting
 PyYAML>=6.0.0      # YAML parsing for ultralytics
 fastapi>=0.95.0      # required for TestClient and app
-starlette>=0.27.0    # ensure compatible TestClient for FastAPI
+starlette>=0.27.0,<1.0.0
 httpx>=0.23.0        # required by fastapi.testclient and starlette.testclient
 numpy>=1.23.0        # used in tests for image arrays
 sqlalchemy>=1.4.0    # used for SQLAlchemyError in exception tests
 locust>=2.23.0
+ultralytics==8.3.156
+google-cloud-storage
+typing_extensions>=4.7

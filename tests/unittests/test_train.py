@@ -38,36 +38,33 @@ runner = CliRunner()
 def stub_train_model(monkeypatch):
     calls = {}
 
-    def fake_train(model_name, batch_size, epochs, wandb_logging):
-        calls["args"] = (model_name, batch_size, epochs, wandb_logging)
+    def fake_train_model(model_name, batch_size, epochs, wandb_logging, connect_to_gcs=None, num_workers=None):
+        calls["args"] = (model_name, batch_size, epochs, wandb_logging, connect_to_gcs, num_workers)
+        return {"success": True, "received": {"epochs": epochs, "batch": batch_size, "project": "ml/models/"}}
 
-    monkeypatch.setattr(train_module, "train_model", fake_train)
+    monkeypatch.setattr(train_module, "train_model", fake_train_model)
     return calls
 
 
 def test_run_training_typer_defaults(stub_train_model):
-    # Invoke without any flags
     result = runner.invoke(app, [])
     assert result.exit_code == 0
-    assert "Starting training pipeline..." in result.stdout
-    assert stub_train_model["args"] == ("simple", -1, 10, False)
+    # The output uses a unicode ellipsis (U+2026)
+    assert "Starting training pipeline…" in result.stdout
+    assert stub_train_model["args"] == ("simple", -1, 10, False, False, -1)
 
 
 def test_run_training_typer_with_flags(stub_train_model):
-    # Invoke with all flags
     args = ["--model_name", "foo", "-b", "4", "--epochs", "2", "--wandb"]
     result = runner.invoke(app, args)
     assert result.exit_code == 0
     assert "Training pipeline completed." in result.stdout
-    assert stub_train_model["args"] == ("foo", 4, 2, True)
+    assert stub_train_model["args"] == ("foo", 4, 2, True, False, -1)
 
 
 def test_run_training_hydra(monkeypatch, tmp_path, stub_train_model):
-    # Access the undecorated function
     base_fn = train_module.run_training_hydra.__wrapped__
-    # Stub get_original_cwd so os.chdir works
     monkeypatch.setattr(train_module.hydra.utils, "get_original_cwd", lambda: str(tmp_path))
-    # Create dummy config
     cfg = OmegaConf.create(
         {
             "hyperparameters": {
@@ -75,9 +72,10 @@ def test_run_training_hydra(monkeypatch, tmp_path, stub_train_model):
                 "batch_size": 7,
                 "epochs": 3,
                 "wandb_logging": True,
+                "connect_to_gcs": False,
+                # num_workers intentionally omitted to test default
             }
         }
     )
-    # Run
     base_fn(cfg)
-    assert stub_train_model["args"] == ("bar", 7, 3, True)
+    assert stub_train_model["args"] == ("bar", 7, 3, True, False, 2)

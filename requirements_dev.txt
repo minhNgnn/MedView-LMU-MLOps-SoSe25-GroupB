@@ -16,3 +16,4 @@ sphinx
 sphinx_rtd_theme
 sphinx-autodoc-typehints
 sphinxcontrib-mermaid
+dvc==3.50.2
