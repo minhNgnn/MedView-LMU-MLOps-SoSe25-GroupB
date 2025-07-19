@@ -483,7 +483,7 @@ For documentation, we used Sphinx, as it is the most robust and prevalent docume
 We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP. We did this to speed up training and efficiently utilize multiple compute resources available in the cloud.
 
 
-### Question 29 (Theerdha)
+### Question 29
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
 > **You can take inspiration from [this figure](figures/overview.JPG). Additionally, in your own words, explain the**
@@ -498,7 +498,7 @@ We also did distributed data loading and implemented distributed data parallel i
 >
 > Answer:
 
---- question 29 fill here ---
+[MLOps flow](images/Q29.jpeg)
 
 ### Question 30
 
