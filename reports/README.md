@@ -178,12 +178,28 @@ In total we have implemented 12 tests. 3 unit tests, 1 performance test and 8 in
 
 Our integration tests comprehensively cover the main API endpoints and system behaviors. They include tests for the prediction endpoint (valid/invalid images, file size, model failures), patient endpoints (listing, details, error handling), health checks, CORS headers, environment variable handling, and API exception handling. These tests use FastAPI's TestClient and unittest.mock to simulate real HTTP requests and various scenarios, ensuring the robustness and reliability of the backend system.
 
+
 ### Question 8
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
 >
-Total coverage report of the unit tests are 99%, which includes all source code. We are very close to the optimalcode coverage. But this does not mean that the codes are error free. The tests mostly take care of the fundamental set up before the training can be done. Theere could still be corners in the code that is not covered by the tests and will result in an error.
+Total coverage report of the unit tests are 77%, which includes all source code. We are very close to the optimal code coverage. But this does not mean that the codes are error free. The tests mostly take care of the fundamental set up before the training can be done. There could still be corners in the code that is not covered by the tests and will result in an error.
+
+We developed integration tests to make sure the codes in the backend is working well. But the code coverage of these tests is very low (even though they do not include tests for monitoring from evidently or prometheus)
+Name                            Stmts   Miss  Cover
+---------------------------------------------------
+ml\_init_.py                      0      0   100%
+ml\models.py                       38     11    71%
+ml\predict.py                      15      3    80%
+ml\train.py                        19      1    95%
+ml\utils.py                         5      1    80%
+tests\_init_.py                   4      0   100%
+tests\unittests\test_data.py       63     41    35%
+tests\unittests\test_model.py     103     11    89%
+tests\unittests\test_train.py      45      0   100%
+---------------------------------------------------
+TOTAL                             292     68    77%
 
 ### Question 9
 
@@ -499,9 +515,11 @@ We also did distributed data loading and implemented distributed data parallel i
 > *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
-> Answer:z
+> Answer:
 
 ![MLOps flow](images/Q29.jpeg)
+We started with running the model on Kaggle notebook (since it provides GPU) and obtaining best weights on our local machine. We push all of the code into Github for version control. On the local system, we configure experiments with Hydra, run hyperparameter sweeps and track metrics with Weights & Biases. Using these configurations, we train the model on our local systems.  After selecting our best model, we containerize it with Docker; GitHub Actions then builds and tests all the code and makes sure it is checks are consistent with new changes. We deploy the image to Artifact Regitry on GCP for real‑time inference and register our model in Vertex AI for batch predictions. We version our datasets, preprocessing code, and checkpoints in Cloud Storage using DVC to ensure rigorous reproducibility. We integrate Evidently AI to detect data drift and Prometheus to collect performance metrics, triggering alerts and surfacing new data for retraining when drift appears. We log all prediction metadata and user interactions to a Supabase bucket for audit trails and analytics. Finally, we build a React + TypeScript frontend that calls our public REST API, allowing users to upload medical images and receive model predictions instantly, while visualizing model performance dashboards powered by our logs. This pipeline ensures we iterate rapidly, deploy reliably, and maintain continuous monitoring of our Brain Tumor Detection system.
+
 
 ### Question 30
 
@@ -509,7 +527,8 @@ We also did distributed data loading and implemented distributed data parallel i
 > **challenges?**
 >
 - Euna: The biggest challenges in the project was all of works related to Google Cloud. Especially, I was struggled building a docker image and pushing it to the Artifact Registry of GCP. I couldn't understand the role of Dockerfile and cloudbuild.yaml at first, so it was hard to understand errors happening.
-- Theerdha: The biggest challenge for me was using Vertex AI to train on the docker images we created on the Artifact Registry of the cloud. It took me many rounds of debugging to get the Engine to train on Vertex AI.
+- Theerdha: The biggest challenge for me was making sure the tests run and the continuous integration works. It included unit tests and integration tests and making sure these tests run with coverage. Considerable amount of time went into making sure that the tests are correct for new changes in the code across the workflow.
+
 - Minh: The most challenging part was enabling the whole backend onto the cloud. This included deploying and integrating our APIs, setting up Evidently's monitoring for data drift, and configuring Prometheus for system monitoring. Coordinating all these components to work seamlessly in a cloud environment required significant effort in terms of configuration, debugging, and ensuring reliable communication between services.
 
 
