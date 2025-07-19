@@ -281,13 +281,13 @@ To ensure our experiments were reproducible and no information was lost, we used
 >
 Because of training environment, it was impossible to train with a large dataset and large epoch. You can see the result of training with simple subset of data and only 10 epochs. Therefore, the model was not trained well and the model couldn't predict detection.
 
-![Alt text](images/Q14_wandb_screenshot1.JPG)
+![Wandb metrics](images/Q14_wandb_screenshot1.JPG)
 In the first image you can see tracking of key metrics such as precision, recall, and mAP (mean Average Precision) over training epochs. Precision and recall provide insight into the model’s ability to correctly detect tumors without generating too many false positives or negatives, while mAP gives an overall measure of detection accuracy across various confidence thresholds.
 
-![Alt text](images/Q14_wandb_screenshot2.JPG)
+![Wandb data](images/Q14_wandb_screenshot2.JPG)
 In the second image, you can see that at each epoch, predictions was made and it was drawn with ground truth labels. This visual feedback helped us qualitatively assess how well the model was identifying tumors on unseen MRI scans. It allowed us to spot cases where the model either missed a tumor or incorrectly flagged a non-tumor region.
 
-![Alt text](images/Q14_wandb_screenshot4.JPG)
+![Wandb sweep](images/Q14_wandb_screenshot4.JPG)
 In third image, it shows the loss curves from multiple hyperparameter sweep runs, each representing a different configuration. We monitored distribution focal loss, classification loss and box regression loss to understand how different settings impacted convergence and model stability. In this case, it looks like that tough-sweep-7 setting is performing the best.
 
 
@@ -354,7 +354,7 @@ We started the VM using a custom Docker container, which included our trained YO
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.JPG).**
 >
-![Alt text](images/Q19_1.JPG)
+![GCP bucket](images/Q19_1.JPG)
 
 
 ### Question 20
@@ -362,8 +362,8 @@ We started the VM using a custom Docker container, which included our trained YO
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.JPG).**
 >
-![Alt text](images/Q20_2.JPG)
-![Alt text](images/Q20_3.png)
+![GCP train registry](images/Q20_2.JPG)
+![GCP app registry](images/Q20_3.png)
 ```
 |--train-registry/
 |  |--train: docker image to run train_cloud.py code
@@ -381,7 +381,7 @@ We started the VM using a custom Docker container, which included our trained YO
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.JPG).**
 >
-![Alt text](images/Q21_1.JPG)
+![GCP cloud build](images/Q21_1.JPG)
 
 
 ### Question 22
@@ -463,7 +463,7 @@ We also developed a UI for the monitoring system. When a user presses the 'Gener
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
 >
-![Alt text](images/Q27_1.JPG)
+![GCP credits](images/Q27_1.JPG)
 We used most of the our cost to use Virtual Maschine(Compute Engine). And second most used section is for container registry. It is for saving docker images inside the GCP.
 If we can use GPU through VM, it would be very beneficial for our project. However, we couldn't use GPU with free trial account, so it wasn't worth at all. But it was very comfortable to run train code on the VM or Vertex AI, because it was running on the background and I don't need to take care of it during training.
 
@@ -496,9 +496,9 @@ We also did distributed data loading and implemented distributed data parallel i
 > *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
-> Answer:
+> Answer:z
 
-[MLOps flow](images/Q29.jpeg)
+![MLOps flow](images/Q29.jpeg)
 
 ### Question 30
 
