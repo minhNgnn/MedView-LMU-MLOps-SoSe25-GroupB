@@ -20,50 +20,6 @@ This dataset is structured into:
 **YOLO Model**
 real-time object detection system based on CNN
 
-## Codebase Structure
-
-```
-.github/                  # GitHub Actions and Dependabot configurations
-│   ├── dependabot.yaml
-│   └── workflows/
-│       └── tests.yaml        # CI/CD workflows for testing
-backend/                  # Backend API (FastAPI)
-│   ├── src/
-│   │   └── api.py         # FastAPI application for model serving
-│   └── requirements.txt   # Backend dependencies
-frontend/                 # Frontend React application
-│   ├── src/               # React source code
-│   ├── package.json       # Frontend dependencies
-│   └── ...
-ml/                      # Machine Learning logic (Python)
-│   ├── data.py           # Data loading and initial processing scripts
-│   ├── evaluate.py       # Model evaluation scripts
-│   ├── features.py       # Feature engineering scripts
-│   ├── models.py         # Model definition, training, and prediction logic
-│   ├── train.py          # Main script for orchestrating model training
-│   ├── visualize.py      # Data and model visualization scripts
-│   ├── requirements.txt  # ML dependencies
-│   └── configs/          # ML configs (e.g., sweep.yaml, model configs)
-│   └── models/           # Saved model weights/artifacts
-│   └── notebooks/        # Jupyter notebooks for experimentation and analysis
-reports/                  # Generated reports and figures for the whole project
-│   └── figures/
-docker/                   # Dockerfiles, docker-compose setups
-│   └── ...
-tests/                    # Unit and integration tests
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_data.py
-│   └── test_model.py
-.gitignore                # Specifies intentionally untracked files to ignore
-.pre-commit-config.yaml   # Pre-commit hooks configuration
-LICENSE                   # Project licensing information
-pyproject.toml            # Python project metadata and build system
-README.md                 # Project overview and instructions
-requirements_dev.txt      # Development Python dependencies (root)
-tasks.py                  # Automation scripts (e.g., using Invoke)
-```
-
 ## How to run the web frontend locally
 
 1. **Install dependencies**
@@ -96,7 +52,7 @@ The frontend code is located in `frontend/src/`. The entry point is `frontend/sr
 
 The backend entry point is `backend/src/api.py`.
 
-## How to run ML scripts
+## How to run ML scripts locally
 
 1. **Install ML dependencies**
    ```sh
@@ -104,11 +60,9 @@ The backend entry point is `backend/src/api.py`.
    pip install -r requirements.txt
    ```
 
-2. **Run training, evaluation, or other scripts as needed**
+2. **Run training scripts**
    ```sh
    python train.py
-   python evaluate.py
-   # etc.
    ```
 
 ## How to run the app with Docker
@@ -143,3 +97,20 @@ docker-compose down
 - Make sure Docker is installed and running on your system.
 - You can modify the Dockerfiles in the `dockerfiles/` directory if you need to customize the build process for the API or frontend.
 - The `docker-compose.yml` file orchestrates the services and handles port mapping.
+
+
+## How to run the app with Docker in Google Cloud
+
+### 1. Build a Docker and push it to Artifact Registry
+
+From the project root, run:
+
+```sh
+gcloud builds submit . --config=cloudbuild.yaml
+```
+
+### 2. Training on GCP using Vertex AI
+
+```sh
+gcloud builds submit . --config=cloudbuild.yaml
+```
