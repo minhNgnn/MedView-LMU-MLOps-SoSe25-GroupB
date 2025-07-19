@@ -537,4 +537,5 @@ We also did distributed data loading and implemented distributed data parallel i
 - Worked on pre-commit hook integration
 - Optimized data loading performance using distributed data loading
 - Improved training pipeline performance using distributed training
+- Trained the DDP model using GCP on Vertex AI
 - Used ChatGPT
