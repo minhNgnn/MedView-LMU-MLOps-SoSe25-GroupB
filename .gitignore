@@ -1,6 +1,10 @@
+ml/data_changes/
+
 # Profilling files
 *.prof
 backend/migrations
+monitoring/reports/
+monitoring/prometheus.yaml
 
 #OS stuff
 .DS_Store
@@ -63,10 +67,12 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+!frontend/src/dist/
 downloads/
 eggs/
 .eggs/
 lib/
+!frontend/src/lib/
 lib64/
 parts/
 sdist/
@@ -172,3 +178,6 @@ cython_debug/
 
 # Ignore transient test data files
 tests/test_data.py
+
+# Multirun distrbuted data loading
+multirun/

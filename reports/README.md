@@ -121,8 +121,9 @@ Group 2
 >
 - Minh Nguyen: 13018310
 - Euna Goo: 12957195
-- Theerdha Sara: 12971850
+- Theerdha Sara Reji: 12971850
 
+--- question 2 fill here ---
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**

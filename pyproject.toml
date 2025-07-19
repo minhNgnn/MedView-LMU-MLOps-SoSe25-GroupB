@@ -42,3 +42,4 @@ omit = ["tests/*"]
 
 [project.scripts]
 train = "ml.train:run_training_hydra"
+distributed-train = "ml.distributed_train:main"

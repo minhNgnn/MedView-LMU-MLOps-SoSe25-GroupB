@@ -1,0 +1,31 @@
+# Dockerfile.distributed
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# 1) System deps (including OpenCV runtime libs)
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+      build-essential \
+      gcc \
+      libgomp1 \
+      libgl1-mesa-glx \
+      libglib2.0-0 \
+      libsm6 \
+      libxrender1 \
+      libxext6 && \
+    rm -rf /var/lib/apt/lists/*
+
+# 2) Python deps
+COPY ml/requirements.txt ./requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# 3) Copy code & configs
+COPY ml/ ./ml/
+COPY ml/configs/ ./configs/
+
+ENV PYTHONPATH=/app
+
+# 4) Run your DDP script as a module
+ENTRYPOINT ["python","-u","-m","ml.distributed_train"]
