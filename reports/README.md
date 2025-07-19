@@ -389,10 +389,7 @@ We started the VM using a custom Docker container, which included our trained YO
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
 >
-No, we didn't use cloud to train our model. Our model is composed with very large weights and parameters and used large image dataset, which requires GPU for training. However, it was impossible to use GPU server in GCP. Therefore, we used kaggle notebook instead, where we can use free GPU for limited amount. After training the model in the kaggle notebook, we downloaded the best weights file(.pt) and put it in our repository.<br>
-Link to kaggle notebook: https://www.kaggle.com/code/eunai9/brain-tumor-detection-with-yolov8-de6d81<br>
-![Alt text](images/Q22_1.JPG)
-But at least, we made a setting to train the model with docker image using Vertex AI. In order to confirm if it works well, we create a small subset of data named 'Simple'.
+Not entirely. We managed to train a version of our model on a 'Simple' dataset using Vertex AI, mainly to confirm that the cloud setup works. However, since we did not have access to a GPU on GCP, we could not train our main model there. Instead, our primary training was done using a Kaggle notebook, which provided free GPU resources. After training the model in Kaggle (see notebook: https://www.kaggle.com/code/eunai9/brain-tumor-detection-with-yolov8-de6d81), we downloaded the best weights file and included it in our repository for deployment and inference.
 
 
 ## Deployment
