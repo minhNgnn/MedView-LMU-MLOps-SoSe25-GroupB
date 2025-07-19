@@ -10,16 +10,11 @@ numpy>=1.24.0
 opencv-python>=4.8.0
 
 # Monitoring and drift detection
-<<<<<<< Updated upstream
 evidently>=0.4.18
-=======
-evidently>=0.3.0
->>>>>>> Stashed changes
 
 # Logging and utilities
 python-dotenv>=1.0.0
 pydantic>=2.0.0
-<<<<<<< Updated upstream
-google-cloud-storage
-=======
->>>>>>> Stashed changes
+google-cloud-storage>=2.0.0
+supabase>=1.0.0
+evidently>=0.4.17

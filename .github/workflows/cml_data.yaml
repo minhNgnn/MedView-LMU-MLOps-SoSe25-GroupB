@@ -1,0 +1,58 @@
+name: CML Data Statistics
+
+on:
+  push:
+    paths:
+      - 'data/**'
+      - 'data/**/*.dvc'
+      - '.dvc/**'
+      - 'dvc.yaml'
+      - 'dvc.lock'
+
+jobs:
+  run_data_checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install -r ml/requirements.txt
+          pip install dvc cml matplotlib pillow
+
+      - name: Auth with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Pull data
+        run: |
+          dvc pull --no-run-cache
+
+      - name: Check data statistics
+        run: |
+          python ml/dataset_statistics.py > ml/data_changes/data_stats.txt
+
+      - name: Upload label distribution plots
+        uses: actions/upload-artifact@v4
+        with:
+          name: label-distribution-plots
+          path: |
+            ml/data_changes/train_label_distribution.png
+            ml/data_changes/valid_label_distribution.png
+
+      - name: Create CML report
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo '## Data Statistics' > ml/data_changes/report.md
+          cat ml/data_changes/data_stats.txt >> ml/data_changes/report.md
+          echo '![](ml/data_changes/train_label_distribution.png)' >> ml/data_changes/report.md
+          echo '![](ml/data_changes/valid_label_distribution.png)' >> ml/data_changes/report.md
+          cml comment create ml/data_changes/report.md

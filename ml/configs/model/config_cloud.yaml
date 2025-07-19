@@ -1,0 +1,7 @@
+hyperparameters:
+  model_name: "simple"
+  batch_size: -1
+  epochs: 5
+  wandb_logging: False
+  connect_to_gcs: True
+  num_workers:    -1

@@ -13,7 +13,7 @@ def train_model(
     batch_size: int = -1,
     epochs: int = 10,
     wandb_logging: bool = False,
-<<<<<<< Updated upstream
+    connect_to_gcs: bool = True,
     num_workers: int = -1,
 ) -> Any:
     """
@@ -23,25 +23,20 @@ def train_model(
     # 1) Pick a sane default for num_workers
     if num_workers < 0:
         import multiprocessing
+
         num_workers = max(1, multiprocessing.cpu_count() - 1)
 
-    print(f"Training model with pretrained weights: ml/models/{model_name}.pt")
-    t_model = YOLO(f"ml/models/{model_name}.pt")
+    pretrained_weights_path = (
+        f"/gcs/brain-tumor-data/models/{model_name}.pt" if connect_to_gcs else f"ml/models/{model_name}.pt"
+    )
+
+    print("Training model with pretrained weights:", pretrained_weights_path)
+    t_model = YOLO(pretrained_weights_path)
 
     # 2) (Optional) W&B logging
     if wandb_logging:
         print("Initializing Weights & Biases for logging…")
-        
-=======
-) -> Any:
-    """Trains the machine learning model."""
 
-    print("Training model with pretrained weights:", f"ml/models/{model_name}.pt")
-    t_model = YOLO(f"ml/models/{model_name}.pt")
-
-    if wandb_logging:
-        print("Initializing Weights & Biases for logging...")
->>>>>>> Stashed changes
         wandb.login()
         os.system("yolo settings wandb=True")
         wandb.init(
@@ -54,28 +49,22 @@ def train_model(
                 "num_workers": num_workers,
             },
         )
-<<<<<<< Updated upstream
 
         add_wandb_callback(t_model)
 
-=======
-        add_wandb_callback(t_model)
-
->>>>>>> Stashed changes
     results = t_model.train(
-        data="ml/configs/data_config/data.yaml",
+        data="ml/configs/data_config/data_cloud.yaml" if connect_to_gcs else "ml/configs/data_config/data.yaml",
         epochs=epochs,
         patience=20,
         batch=batch_size,
         optimizer="auto",
-        project="ml/models/",
+        project="/gcs/brain-tumor-data/outputs/" if connect_to_gcs else "ml/models/",
         name=model_name,
         save=False,
         workers=num_workers,
     )
 
     return results
-<<<<<<< Updated upstream
 
 
 def normalize_image(image: np.ndarray) -> np.ndarray:
@@ -105,60 +94,3 @@ def get_prediction_from_array(image: np.ndarray):
     results = model.predict(source=image, imgsz=640, conf=0.5)
     annotated_image = results[0].plot()
     return results, annotated_image
-
-
-def export_model_to_onnx():
-    """
-    Export the trained YOLO model to ONNX format.
-    """
-    pt_path = "models/yolov8n/weights/epoch10_yolov8n.pt"
-    model = YOLO(pt_path)
-    model.export(format="onnx", dynamic=True, imgsz=640, opset=12)
-
-
-def get_prediction_from_onnx_array(image: np.ndarray):
-    """
-    Run inference on an image via the exported ONNX model.
-    Returns ((boxes, scores, class_ids), annotated_image).
-    """
-    onnx_path = "ml/models/yolov8n/weights/epoch10_yolov8n.onnx"
-    sess = ort.InferenceSession(onnx_path)
-    input_name = sess.get_inputs()[0].name
-
-    img = resize_image(image, size=(640, 640)).astype(np.float32) / 255.0
-    img = np.transpose(img, (2, 0, 1))[None]  # CHW and batch dim
-
-    outputs = sess.run(None, {input_name: img})
-    preds = outputs[0]  # shape (1, num_boxes, 85)
-
-    # Postprocess YOLO outputs
-    conf_thres = 0.5
-    boxes, scores, class_ids = [], [], []
-    for pred in preds[0]:
-        score = float(pred[4])
-        if score > conf_thres:
-            x1, y1, x2, y2 = map(int, pred[:4])
-            cls = int(np.argmax(pred[5:]))
-            boxes.append([x1, y1, x2, y2])
-            scores.append(score)
-            class_ids.append(cls)
-
-    # Draw annotations
-    annotated = resize_image(image, size=(640, 640)).copy()
-    for (x1, y1, x2, y2), s, cid in zip(boxes, scores, class_ids):
-        cv2.rectangle(annotated, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(
-            annotated,
-            f"{cid}: {s:.2f}",
-            (x1, y1 - 10),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.5,
-            (0, 255, 0),
-            2,
-        )
-
-    return (boxes, scores, class_ids), annotated
-
-
-=======
->>>>>>> Stashed changes

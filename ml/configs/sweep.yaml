@@ -1,4 +1,4 @@
-program: src/ml_backend/train.py
+program: ml/train_sweep.py
 name: BrainTumorDetectionSweep
 project: BrainTumorDetection  # change this
 entity: eunai9  # change this

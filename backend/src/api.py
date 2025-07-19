@@ -235,7 +235,10 @@ async def predict(
                     detail=f"File size exceeds maximum limit of {MAX_FILE_SIZE // (1024 * 1024)}MB",
                 )
             if len(contents) == 0:
-                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Empty file received")
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Empty file received",
+                )
             image = decode_image(contents)
             annotated_image, yolo_result = run_model_prediction(image)
             log_prediction_background(request, background_tasks, image, yolo_result)
