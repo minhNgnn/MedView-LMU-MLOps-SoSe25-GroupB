@@ -1,56 +1,24 @@
-This project is built with:
+# Brain Tumor Detection
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-- FastAPI (Python backend)
-- Ultralytics YOLO (ML)
+## Goal of Project
+Detection and Classfication of Brain Tumor from MRI dataset
 
-## Codebase Structure
+## Dataset
+**Medical Image DataSet: Brain Tumor Detection**<br>
+https://www.kaggle.com/datasets/pkdarabi/medical-image-dataset-brain-tumor-detection <br>
+The Brain Tumor MRI dataset, curated by Roboflow Universe, is a comprehensive dataset designed for the detection and classification of brain tumors using advanced computer vision techniques. It comprises 3,903 MRI images categorized into four distinct classes:<br>
+- Glioma: A tumor originating from glial cells in the brain.
+- Meningioma: Tumors arising from the meninges, the protective layers surrounding the brain and spinal cord.
+- Pituitary Tumor: Tumors located in the pituitary gland, affecting hormonal balance.
+- No Tumor: MRI scans that do not exhibit any tumor presence.
+This dataset is structured into:
+- Train set: 2144 images(70%)
+- Validation set: 612 images(20%)
+- Test set: 308 images(10%)
 
-```
-.github/                  # GitHub Actions and Dependabot configurations
-│   ├── dependabot.yaml
-│   └── workflows/
-│       └── tests.yaml        # CI/CD workflows for testing
-backend/                  # Backend API (FastAPI)
-│   ├── src/
-│   │   └── api.py         # FastAPI application for model serving
-│   └── requirements.txt   # Backend dependencies
-frontend/                 # Frontend React application
-│   ├── src/               # React source code
-│   ├── package.json       # Frontend dependencies
-│   └── ...
-ml/                      # Machine Learning logic (Python)
-│   ├── data.py           # Data loading and initial processing scripts
-│   ├── evaluate.py       # Model evaluation scripts
-│   ├── features.py       # Feature engineering scripts
-│   ├── models.py         # Model definition, training, and prediction logic
-│   ├── train.py          # Main script for orchestrating model training
-│   ├── visualize.py      # Data and model visualization scripts
-│   ├── requirements.txt  # ML dependencies
-│   └── configs/          # ML configs (e.g., sweep.yaml, model configs)
-│   └── models/           # Saved model weights/artifacts
-│   └── notebooks/        # Jupyter notebooks for experimentation and analysis
-reports/                  # Generated reports and figures for the whole project
-│   └── figures/
-docker/                   # Dockerfiles, docker-compose setups
-│   └── ...
-tests/                    # Unit and integration tests
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_data.py
-│   └── test_model.py
-.gitignore                # Specifies intentionally untracked files to ignore
-.pre-commit-config.yaml   # Pre-commit hooks configuration
-LICENSE                   # Project licensing information
-pyproject.toml            # Python project metadata and build system
-README.md                 # Project overview and instructions
-requirements_dev.txt      # Development Python dependencies (root)
-tasks.py                  # Automation scripts (e.g., using Invoke)
-```
+## Model
+**YOLO Model**
+real-time object detection system based on CNN
 
 ## How to run the web frontend locally
 
@@ -84,7 +52,7 @@ The frontend code is located in `frontend/src/`. The entry point is `frontend/sr
 
 The backend entry point is `backend/src/api.py`.
 
-## How to run ML scripts
+## How to run ML scripts locally
 
 1. **Install ML dependencies**
    ```sh
@@ -92,11 +60,26 @@ The backend entry point is `backend/src/api.py`.
    pip install -r requirements.txt
    ```
 
-2. **Run training, evaluation, or other scripts as needed**
+2. **Run training scripts**
    ```sh
    python train.py
-   python evaluate.py
-   # etc.
+   ```
+
+Or you can use command line interface
+
+3. **Install the project again in editable mode**
+   ```sh
+   pip install -e .
+   train
+   ```
+
+## How to run sweep for hyperparameter tuning
+
+You can run sweep agent of W&D for hyperparametertuning.
+
+   ```sh
+   wandb sweep ml/configs/sweep.yaml
+   wandb agent my-username/BrainTumorDetection/sweep id
    ```
 
 ## How to run the app with Docker
@@ -131,3 +114,25 @@ docker-compose down
 - Make sure Docker is installed and running on your system.
 - You can modify the Dockerfiles in the `dockerfiles/` directory if you need to customize the build process for the API or frontend.
 - The `docker-compose.yml` file orchestrates the services and handles port mapping.
+
+
+## How to run the app with Docker in Google Cloud
+
+### 1. Build a Docker and push it to Artifact Registry
+
+From the project root, run:
+
+```sh
+gcloud builds submit . --config=cloudbuild.yaml
+```
+
+### 2. Training on GCP using Vertex AI
+
+```sh
+gcloud ai custom-jobs create \
+    --region=europe-west1 \
+    --display-name=simple-train \
+    --config=cloud_run.yaml
+gcloud gcloud ai custom-jobs ...
+```
+Now you can check training status in Vertext AI/Training

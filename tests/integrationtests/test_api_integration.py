@@ -16,9 +16,9 @@ class TestPredictionIntegration:
         img_byte_arr = io.BytesIO()
         test_image.save(img_byte_arr, format="JPEG")
         img_byte_arr.seek(0)
-        with patch("backend.src.api.get_prediction_from_array") as mock_predict:
+        with patch("backend.src.predict_helpers.get_prediction_from_array") as mock_predict:
             annotated_image = np.full((100, 100, 3), 255, dtype=np.uint8)
-            mock_predict.return_value = annotated_image
+            mock_predict.return_value = (annotated_image, "dummy_result")
             response = client.post(
                 "/predict",
                 files={"file": ("test.jpg", img_byte_arr.getvalue(), "image/jpeg")},
