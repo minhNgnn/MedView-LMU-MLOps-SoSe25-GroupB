@@ -65,6 +65,23 @@ The backend entry point is `backend/src/api.py`.
    python train.py
    ```
 
+Or you can use command line interface
+
+3. **Install the project again in editable mode**
+   ```sh
+   pip install -e .
+   train
+   ```
+
+## How to run sweep for hyperparameter tuning
+
+You can run sweep agent of W&D for hyperparametertuning.
+
+   ```sh
+   wandb sweep ml/configs/sweep.yaml
+   wandb agent my-username/BrainTumorDetection/sweep id
+   ```
+
 ## How to run the app with Docker
 
 You can run the full stack application (frontend and backend) using Docker and Docker Compose. This will build and start both the FastAPI backend and the frontend (served with nginx) in separate containers.
@@ -112,5 +129,10 @@ gcloud builds submit . --config=cloudbuild.yaml
 ### 2. Training on GCP using Vertex AI
 
 ```sh
-gcloud builds submit . --config=cloudbuild.yaml
+gcloud ai custom-jobs create \
+    --region=europe-west1 \
+    --display-name=simple-train \
+    --config=cloud_run.yaml
+gcloud gcloud ai custom-jobs ...
 ```
+Now you can check training status in Vertext AI/Training
