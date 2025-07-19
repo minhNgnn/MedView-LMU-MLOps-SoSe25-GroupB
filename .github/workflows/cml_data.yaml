@@ -50,6 +50,9 @@ jobs:
             ml/data_changes/train_label_distribution.png
             ml/data_changes/valid_label_distribution.png
 
+      - name: Install CML CLI
+        run: npm install -g @dvcorg/cml
+
       - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
