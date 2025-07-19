@@ -19,7 +19,7 @@ Welcome to the comprehensive documentation for the Brain Tumor Monitoring System
    troubleshooting
    contributing
 
-.. image:: _static/images/system-overview.png
+.. image:: _static/images/system-overview.jpeg
    :alt: System Architecture Overview
    :align: center
    :width: 800px
