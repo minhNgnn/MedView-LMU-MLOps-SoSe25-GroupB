@@ -363,10 +363,16 @@ We started the VM using a custom Docker container, which included our trained YO
 > **stored. You can take inspiration from [this figure](figures/registry.JPG).**
 >
 ![Alt text](images/Q20_2.JPG)
+![Alt text](images/Q20_3.png)
 ```
 |--train-registry/
 |  |--train: docker image to run train_cloud.py code
 |  |--distributed
+|medview-app-registry/
+   |--gcp-test-app: image for running the backend apis
+|coudrun/
+   |--monitoring-sidecar: image for running prometheus server
+
 ```
 
 
