@@ -16,6 +16,9 @@ This dataset is structured into:
 - Validation set: 612 images(20%)
 - Test set: 308 images(10%)
 
+## MLOps pipeline
+![MLOps flow](reports/images/Q29.jpeg)
+
 ## Model
 **YOLO Model**
 real-time object detection system based on CNN
