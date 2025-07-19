@@ -521,7 +521,7 @@ For the frontend, we chose to use React with TypeScript. This combination allows
 
 For data storage, we use Supabase to handle tabular patient data. This choice was made to create a more comprehensive system where doctors and users can easily scroll through and access patient records via the UI. Additionally, we store the generated monitoring reports (HTML files from Evidently) in Supabase buckets. This makes it straightforward to retrieve and display these reports directly in the frontend, ensuring that monitoring insights are easily accessible to users.<br>
 
-For documentation, we used Sphinx, as it is the most robust and prevalent documentation generator in the Python ecosystem. We wanted to try a tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.
+For documentation, we used Sphinx, as it is the most robust and prevalent documentation generator in the Python ecosystem. We wanted to try a tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders. The report can be accessed here https://minhngnn.github.io/MedView-LMU-MLOps-SoSe25-GroupB/
 
 We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP. We did this to speed up training and efficiently utilize multiple compute resources available in the cloud.
 
