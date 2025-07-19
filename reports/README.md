@@ -408,7 +408,28 @@ We also included a router for the monitoring system, which is designed to suppor
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
 >
---- question 24 fill here ---
+For deployment, we built a Docker image for our API and deployed it on Google Cloud Run. This approach allows us to run our FastAPI backend in a fully managed, scalable environment without worrying about server management. The Docker image is built using our `dockerfiles/api.Dockerfile`, which includes all necessary dependencies, model weights, and code.
+
+To invoke the deployed API on Cloud Run, you simply send HTTP requests to the public URL provided by Cloud Run after deployment. For example, if your Cloud Run service URL is:
+
+```
+https://gcp-test-app-351704569398.europe-west1.run.app
+```
+
+you can check the health of the API with:
+
+```bash
+curl https://gcp-test-app-351704569398.europe-west1.run.app/health
+```
+
+To use the prediction endpoint, you can send a POST request with an image file:
+
+```bash
+curl -X POST -F "file=@path/to/image.jpg" \
+  https://gcp-test-app-351704569398.europe-west1.run.app/predict
+```
+
+This will return the prediction result or the annotated image, depending on your API implementation.
 
 ### Question 25
 
@@ -454,9 +475,6 @@ For the frontend, we chose to use React with TypeScript. This combination allows
 
 For data storage, we use Supabase to handle tabular patient data. This choice was made to create a more comprehensive system where doctors and users can easily scroll through and access patient records via the UI. Additionally, we store the generated monitoring reports (HTML files from Evidently) in Supabase buckets. This makes it straightforward to retrieve and display these reports directly in the frontend, ensuring that monitoring insights are easily accessible to users.<br>
 
-For documentation, we used Sphinx, as it is one of the most popular and feature-rich documentation generators in the Python ecosystem. We wanted to try a robust tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.<br>
-
-Change last paragraph to this:<br>
 For documentation, we used MkDocs, as it is a modern and user-friendly static site generator that is well-suited for project documentation. We wanted to try a robust tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with MkDocs, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.<br>
 
 We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP.
