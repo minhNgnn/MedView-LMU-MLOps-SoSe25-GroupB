@@ -186,7 +186,8 @@ Our integration tests comprehensively cover the main API endpoints and system be
 >
 Total coverage report of the unit tests are 77%, which includes all source code. We are very close to the optimal code coverage. But this does not mean that the codes are error free. The tests mostly take care of the fundamental set up before the training can be done. There could still be corners in the code that is not covered by the tests and will result in an error.
 
-We developed integration tests to make sure the codes in the backend is working well. But the code coverage of these tests is very low (even though they do not include tests for monitoring from evidently or prometheus)
+We developed the integration test although it was not in the scrope of the course. They ensure that the backend API endpoints function correctly, but their code coverage is limited. While these tests confirm that the main workflows operate as expected, they do not deeply exercise the internal logic of modules such as monitoring, drift detection, or feature extraction. As a result, the overall coverage percentage is moderate (62%), with most untested lines belonging to the monitoring components. To improve coverage, additional unit tests targeting the core logic and edge cases of these modules would be beneficial in next versions.
+
 Name                            Stmts   Miss  Cover
 ---------------------------------------------------
 ml\_init_.py                      0      0   100%
@@ -200,6 +201,29 @@ tests\unittests\test_model.py     103     11    89%
 tests\unittests\test_train.py      45      0   100%
 ---------------------------------------------------
 TOTAL                             292     68    77%
+
+Name                                             Stmts   Miss  Cover
+-----------------------------------------------------------------------
+backend/src/api.py                                 168     47    72%
+backend/src/predict_helpers.py                      51      8    84%
+ml/__init__.py                                       0      0   100%
+ml/predict.py                                       15     10    33%
+ml/utils.py                                          5      2    60%
+monitoring/__init__.py                               2      0   100%
+monitoring/core/__init__.py                          4      0   100%
+monitoring/core/drift_detector.py                   48     37    23%
+monitoring/core/feature_extractor.py                40     31    22%
+monitoring/core/monitor.py                         172    133    23%
+tests/__init__.py                                    4      0   100%
+tests/integrationtests/test_api_cors.py              7      0   100%
+tests/integrationtests/test_api_env.py               9      0   100%
+tests/integrationtests/test_api_exceptions.py       24      0   100%
+tests/integrationtests/test_api_health.py           11      0   100%
+tests/integrationtests/test_api_integration.py      25      0   100%
+tests/integrationtests/test_api_patients.py         67      0   100%
+tests/integrationtests/test_api_predict.py          54      0   100%
+-----------------------------------------------------------------------
+TOTAL                                              706    268    62%
 
 ### Question 9
 
