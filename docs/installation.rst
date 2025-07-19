@@ -381,4 +381,3 @@ After successful installation:
 1. **Quick Start**: Follow the :doc:`quickstart` guide
 2. **API Reference**: Explore the :doc:`api/index` documentation
 3. **Monitoring Setup**: Configure monitoring in :doc:`monitoring/index`
-4. **Deployment**: Set up production deployment in :doc:`deployment`

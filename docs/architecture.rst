@@ -6,11 +6,6 @@ This document provides a detailed overview of the Brain Tumor Monitoring System 
 High-Level Architecture
 ----------------------
 
-.. image:: _static/images/system-architecture.png
-   :alt: System Architecture Overview
-   :align: center
-   :width: 800px
-
 The system follows a microservices architecture with the following key components:
 
 **Frontend Layer**

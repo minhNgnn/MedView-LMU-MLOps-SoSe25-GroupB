@@ -260,13 +260,6 @@ Step 8: Test Drift Detection
 Step 9: Next Steps
 -------------------
 
-**Production Deployment:**
-
-* Follow the :doc:`deployment` guide
-* Set up proper authentication
-* Configure monitoring and alerting
-* Implement backup strategies
-
 **Customization:**
 
 * Adjust drift detection thresholds
@@ -404,5 +397,4 @@ For detailed information, see:
 
 * :doc:`api/index` - Complete API reference
 * :doc:`monitoring/index` - Monitoring system details
-* :doc:`deployment` - Production deployment guide
 * :doc:`troubleshooting` - Common issues and solutions

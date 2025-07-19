@@ -174,7 +174,6 @@ To get started with the Brain Tumor Monitoring System:
 1. **Installation**: Follow the :doc:`installation` guide
 2. **Quick Start**: Use the :doc:`quickstart` tutorial
 3. **API Reference**: Explore the :doc:`api/index` documentation
-4. **Deployment**: See :doc:`deployment` for production setup
 
 For detailed technical information, explore the specific component documentation:
 
