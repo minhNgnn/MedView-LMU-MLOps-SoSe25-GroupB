@@ -1,12 +1,24 @@
-This project is built with:
+# Brain Tumor Detection
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-- FastAPI (Python backend)
-- Ultralytics YOLO (ML)
+## Goal of Project
+Detection and Classfication of Brain Tumor from MRI dataset
+
+## Dataset
+**Medical Image DataSet: Brain Tumor Detection**<br>
+https://www.kaggle.com/datasets/pkdarabi/medical-image-dataset-brain-tumor-detection <br>
+The Brain Tumor MRI dataset, curated by Roboflow Universe, is a comprehensive dataset designed for the detection and classification of brain tumors using advanced computer vision techniques. It comprises 3,903 MRI images categorized into four distinct classes:<br>
+- Glioma: A tumor originating from glial cells in the brain.
+- Meningioma: Tumors arising from the meninges, the protective layers surrounding the brain and spinal cord.
+- Pituitary Tumor: Tumors located in the pituitary gland, affecting hormonal balance.
+- No Tumor: MRI scans that do not exhibit any tumor presence.
+This dataset is structured into:
+- Train set: 2144 images(70%)
+- Validation set: 612 images(20%)
+- Test set: 308 images(10%)
+
+## Model
+**YOLO Model**
+real-time object detection system based on CNN
 
 ## Codebase Structure
 

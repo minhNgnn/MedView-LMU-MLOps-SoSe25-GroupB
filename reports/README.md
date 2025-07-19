@@ -494,7 +494,7 @@ We also did distributed data loading and implemented distributed data parallel i
 > **make sure all members contributed actively to the project. Additionally, state if/how you have used generative AI**
 > **tools in your project.**
 >
-*Minh Nguyen
+**Minh Nguyen**
 - Set up version control for the dataset (e.g., DVC or Git-LFS)
 - Performed code profiling to optimize performance
 - Added pre-commit hooks
@@ -512,7 +512,7 @@ We also did distributed data loading and implemented distributed data parallel i
 - Adding a linting step to CI (with Theerdha)
 - Used ChatGPT and Cursor
 
-*Euna Goo
+**Euna Goo**
 - Implemented the model in model.py and the training procedure in train.py
 - Added command-line interfaces and relevant project commands
 - Wrote and managed experiment configuration files
@@ -526,7 +526,7 @@ We also did distributed data loading and implemented distributed data parallel i
 - Set up GCP alerts to detect abnormal application behavior
 - Used ChatGPT
 
-*Theerdha Sara
+**Theerdha Sara**
 - Wrote Dockerfiles for the project
 - Built and tested Dockerfiles locally to ensure functionality
 - Wrote unit tests for both the data pipeline and model training/construction
