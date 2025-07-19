@@ -1,0 +1,6 @@
+hyperparameters:
+  model_name: simple
+  batch_size: 16
+  epochs: 3
+  wandb_logging: false
+  num_workers: 4

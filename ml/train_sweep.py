@@ -45,4 +45,4 @@ def run_training_hydra(cfg) -> Any:
 
 if __name__ == "__main__":
     # Default to Hydra entrypoint if called as a script
-    run_training_hydra()
+    run_training_typer()
