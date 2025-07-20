@@ -1,3 +1,6 @@
+docs/.doctrees/
+docs/_static/
+
 # Profilling files
 *.prof
 backend/migrations

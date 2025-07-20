@@ -1,5 +1,7 @@
 # Brain Tumor Detection
 
+![MedView Demo](reports/images/MedView_Demo.gif)
+
 ## Introduction
 The Brain Tumor Monitoring System is a comprehensive MLOps solution designed to monitor and detect data drift in machine learning models that detect and classify brain tumor images. This system provides real-time monitoring, automated drift detection, and comprehensive reporting capabilities to ensure the reliability and accuracy of medical AI systems.
 
