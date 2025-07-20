@@ -227,29 +227,6 @@ tests/integrationtests/test_api_predict.py          54      0   100%
 TOTAL                                              706    268    62%
 ```
 
-Name                                             Stmts   Miss  Cover
------------------------------------------------------------------------
-backend/src/api.py                                 168     47    72%
-backend/src/predict_helpers.py                      51      8    84%
-ml/__init__.py                                       0      0   100%
-ml/predict.py                                       15     10    33%
-ml/utils.py                                          5      2    60%
-monitoring/__init__.py                               2      0   100%
-monitoring/core/__init__.py                          4      0   100%
-monitoring/core/drift_detector.py                   48     37    23%
-monitoring/core/feature_extractor.py                40     31    22%
-monitoring/core/monitor.py                         172    133    23%
-tests/__init__.py                                    4      0   100%
-tests/integrationtests/test_api_cors.py              7      0   100%
-tests/integrationtests/test_api_env.py               9      0   100%
-tests/integrationtests/test_api_exceptions.py       24      0   100%
-tests/integrationtests/test_api_health.py           11      0   100%
-tests/integrationtests/test_api_integration.py      25      0   100%
-tests/integrationtests/test_api_patients.py         67      0   100%
-tests/integrationtests/test_api_predict.py          54      0   100%
------------------------------------------------------------------------
-TOTAL                                              706    268    62%
-
 ### Question 9
 
 > **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
