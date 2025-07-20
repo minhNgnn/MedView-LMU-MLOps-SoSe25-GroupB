@@ -201,8 +201,6 @@ tests\unittests\test_model.py     103     11    89%
 tests\unittests\test_train.py      45      0   100%
 ---------------------------------------------------
 TOTAL                             292     68    77%
-<<<<<<< HEAD
-=======
 ```
 ```
 Name                                             Stmts   Miss  Cover
@@ -228,7 +226,6 @@ tests/integrationtests/test_api_predict.py          54      0   100%
 -----------------------------------------------------------------------
 TOTAL                                              706    268    62%
 ```
->>>>>>> 3935dd5 (small change in reports)
 
 ### Question 9
 
