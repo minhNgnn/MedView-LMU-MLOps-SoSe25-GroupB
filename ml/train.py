@@ -3,6 +3,7 @@ from typing import Annotated, Any
 
 import hydra
 import typer
+from models import train_model
 
 app = typer.Typer()
 
