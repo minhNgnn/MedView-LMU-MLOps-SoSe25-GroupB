@@ -186,7 +186,12 @@ Our integration tests comprehensively cover the main API endpoints and system be
 >
 Total coverage report of the unit tests are 77%, which includes all source code. We are very close to the optimal code coverage. But this does not mean that the codes are error free. The tests mostly take care of the fundamental set up before the training can be done. There could still be corners in the code that is not covered by the tests and will result in an error.
 
+<<<<<<< HEAD
 We developed integration tests to make sure the codes in the backend is working well. But the code coverage of these tests is very low (even though they do not include tests for monitoring from evidently or prometheus)
+=======
+We developed the integration test although it was not in the scrope of the course. They ensure that the backend API endpoints function correctly, but their code coverage is limited. While these tests confirm that the main workflows operate as expected, they do not deeply exercise the internal logic of modules such as monitoring, drift detection, or feature extraction. As a result, the overall coverage percentage is moderate (62%), with most untested lines belonging to the monitoring components. To improve coverage, additional unit tests targeting the core logic and edge cases of these modules would be beneficial in next versions.
+```
+>>>>>>> 3935dd5 (small change in reports)
 Name                            Stmts   Miss  Cover
 ---------------------------------------------------
 ml\_init_.py                      0      0   100%
@@ -200,6 +205,34 @@ tests\unittests\test_model.py     103     11    89%
 tests\unittests\test_train.py      45      0   100%
 ---------------------------------------------------
 TOTAL                             292     68    77%
+<<<<<<< HEAD
+=======
+```
+```
+Name                                             Stmts   Miss  Cover
+-----------------------------------------------------------------------
+backend/src/api.py                                 168     47    72%
+backend/src/predict_helpers.py                      51      8    84%
+ml/__init__.py                                       0      0   100%
+ml/predict.py                                       15     10    33%
+ml/utils.py                                          5      2    60%
+monitoring/__init__.py                               2      0   100%
+monitoring/core/__init__.py                          4      0   100%
+monitoring/core/drift_detector.py                   48     37    23%
+monitoring/core/feature_extractor.py                40     31    22%
+monitoring/core/monitor.py                         172    133    23%
+tests/__init__.py                                    4      0   100%
+tests/integrationtests/test_api_cors.py              7      0   100%
+tests/integrationtests/test_api_env.py               9      0   100%
+tests/integrationtests/test_api_exceptions.py       24      0   100%
+tests/integrationtests/test_api_health.py           11      0   100%
+tests/integrationtests/test_api_integration.py      25      0   100%
+tests/integrationtests/test_api_patients.py         67      0   100%
+tests/integrationtests/test_api_predict.py          54      0   100%
+-----------------------------------------------------------------------
+TOTAL                                              706    268    62%
+```
+>>>>>>> 3935dd5 (small change in reports)
 
 ### Question 9
 
@@ -323,13 +356,10 @@ For our project we developed 5 images:
 -Prometheus: creates an image of the processes that go behind finding metrics and how often it scrapes them etc.
 
 we used docker to build images based on the files copied in dockerfile formats. These images are containers for different parts of the project.
-Given the docker image for training was mlops_train, the run function would look like:
+Given the docker image for training was medview-train, the run function would look like:
 ```
-docker build -f docker/Dockerfile.train -t mlops_train .
-docker run --rm \
-  -v $(pwd)/data:/app/data \
-  -e EPOCHS=10 \
-  mlops_train
+docker build -f dockerfiles/train.Dockerfile -t medview-train .
+docker run --name train1 medview-train:latest
 ```
 
 ### Question 16
@@ -497,7 +527,7 @@ For the frontend, we chose to use React with TypeScript. This combination allows
 
 For data storage, we use Supabase to handle tabular patient data. This choice was made to create a more comprehensive system where doctors and users can easily scroll through and access patient records via the UI. Additionally, we store the generated monitoring reports (HTML files from Evidently) in Supabase buckets. This makes it straightforward to retrieve and display these reports directly in the frontend, ensuring that monitoring insights are easily accessible to users.<br>
 
-For documentation, we used Sphinx, as it is the most robust and prevalent documentation generator in the Python ecosystem. We wanted to try a tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders.
+For documentation, we used Sphinx, as it is the most robust and prevalent documentation generator in the Python ecosystem. We wanted to try a tool that could handle the extra requirements of the project and provide professional-quality documentation. After generating the documentation with Sphinx, we uploaded it to GitHub Pages to make it easily accessible and shareable with all stakeholders. The report can be accessed here https://minhngnn.github.io/MedView-LMU-MLOps-SoSe25-GroupB/
 
 We also did distributed data loading and implemented distributed data parallel in our training process and deployed the DDP training on GCP. We did this to speed up training and efficiently utilize multiple compute resources available in the cloud.
 
@@ -508,15 +538,6 @@ We also did distributed data loading and implemented distributed data parallel i
 > **You can take inspiration from [this figure](figures/overview.JPG). Additionally, in your own words, explain the**
 > **overall steps in figure.**
 >
-> Recommended answer length: 200-400 words
->
-> Example:
->
-> *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
-> *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
->
-> Answer:
-
 ![MLOps flow](images/Q29.jpeg)
 We started with running the model on Kaggle notebook (since it provides GPU) and obtaining best weights on our local machine. We push all of the code into Github for version control. On the local system, we configure experiments with Hydra, run hyperparameter sweeps and track metrics with Weights & Biases. Using these configurations, we train the model on our local systems.  After selecting our best model, we containerize it with Docker; GitHub Actions then builds and tests all the code and makes sure it is checks are consistent with new changes. We deploy the image to Artifact Regitry on GCP for real‑time inference and register our model in Vertex AI for batch predictions. We version our datasets, preprocessing code, and checkpoints in Cloud Storage using DVC to ensure rigorous reproducibility. We integrate Evidently AI to detect data drift and Prometheus to collect performance metrics, triggering alerts and surfacing new data for retraining when drift appears. We log all prediction metadata and user interactions to a Supabase bucket for audit trails and analytics. Finally, we build a React + TypeScript frontend that calls our public REST API, allowing users to upload medical images and receive model predictions instantly, while visualizing model performance dashboards powered by our logs. This pipeline ensures we iterate rapidly, deploy reliably, and maintain continuous monitoring of our Brain Tumor Detection system.
 
