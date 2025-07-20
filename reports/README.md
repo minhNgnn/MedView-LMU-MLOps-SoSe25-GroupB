@@ -187,7 +187,7 @@ Our integration tests comprehensively cover the main API endpoints and system be
 Total coverage report of the unit tests are 77%, which includes all source code. We are very close to the optimal code coverage. But this does not mean that the codes are error free. The tests mostly take care of the fundamental set up before the training can be done. There could still be corners in the code that is not covered by the tests and will result in an error.
 
 We developed the integration test although it was not in the scrope of the course. They ensure that the backend API endpoints function correctly, but their code coverage is limited. While these tests confirm that the main workflows operate as expected, they do not deeply exercise the internal logic of modules such as monitoring, drift detection, or feature extraction. As a result, the overall coverage percentage is moderate (62%), with most untested lines belonging to the monitoring components. To improve coverage, additional unit tests targeting the core logic and edge cases of these modules would be beneficial in next versions.
-
+```
 Name                            Stmts   Miss  Cover
 ---------------------------------------------------
 ml\_init_.py                      0      0   100%
@@ -201,7 +201,8 @@ tests\unittests\test_model.py     103     11    89%
 tests\unittests\test_train.py      45      0   100%
 ---------------------------------------------------
 TOTAL                             292     68    77%
-
+```
+```
 Name                                             Stmts   Miss  Cover
 -----------------------------------------------------------------------
 backend/src/api.py                                 168     47    72%
@@ -224,6 +225,7 @@ tests/integrationtests/test_api_patients.py         67      0   100%
 tests/integrationtests/test_api_predict.py          54      0   100%
 -----------------------------------------------------------------------
 TOTAL                                              706    268    62%
+```
 
 ### Question 9
 
