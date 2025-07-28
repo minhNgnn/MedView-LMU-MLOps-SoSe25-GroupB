@@ -10,7 +10,7 @@ httpx>=0.23.0        # required by fastapi.testclient and starlette.testclient
 numpy>=1.23.0        # used in tests for image arrays
 sqlalchemy>=1.4.0    # used for SQLAlchemyError in exception tests
 locust>=2.23.0
-ultralytics==8.3.156
+ultralytics==8.3.170
 google-cloud-storage
 typing_extensions>=4.7
 wandb==0.20.1
