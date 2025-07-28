@@ -13,4 +13,4 @@ locust>=2.23.0
 ultralytics==8.3.156
 google-cloud-storage
 typing_extensions>=4.7
-wandb==0.20.1
+wandb==0.21.0
