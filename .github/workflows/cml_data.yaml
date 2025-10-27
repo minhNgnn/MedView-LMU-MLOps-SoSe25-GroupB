@@ -47,7 +47,7 @@ jobs:
           python ml/dataset_statistics.py > ml/data_changes/data_stats.txt
 
       - name: Upload label distribution plots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: label-distribution-plots
           path: |
