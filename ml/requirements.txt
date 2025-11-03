@@ -1,4 +1,4 @@
-opencv-python-headless==4.8.0.76
+opencv-python-headless==4.12.0.88
 ultralytics==8.3.156
 
 # CLI tooling
